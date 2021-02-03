@@ -1,8 +1,5 @@
-# hooks-drum-machine
-
+# Project 4 - <cool name>
 Simple step sequencer built with React Hooks
 
-## How to skrrt
-
+# Forked from hooks-drum-machine
 - Run `npm start`
-- Be dope
