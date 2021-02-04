@@ -20,9 +20,10 @@ const BeatSeqOneCard = (props) => {
 
     return (
         <div id="beatseqonecard" class="row no-gutters">
-
+            beatseqonecard
             {/* <div class="col-3 py-1" id=""> */}
-            <div class="card-block px-2">
+            <div class="card-block px-2" id="onecardcard">
+                cardblock
                 <div class="col-3 py-1" id="">
                     <button id="" class="btn btn-light p-1"
                         onClick={(e) => handleSelectBeatSeqClick(e, bsId)}>

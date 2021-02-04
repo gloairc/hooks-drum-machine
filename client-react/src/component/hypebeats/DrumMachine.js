@@ -131,15 +131,22 @@ export default function DrumMachine() {
       beatGrid: stepState,
       //remove if using mongdo
       status: "active",
-      UpdatedAt: "2021-4-2"
+      UpdatedAt: "2021-04-02" //todays'date
     }
     console.log("beatSetUp", beatSetUp)
-    // axios
-    //   .post("/api/beatSequence/", beatSetUp)
-    //   .then((response) => {
-    //     console.log("posted to MongoDB", response)
-    //   })
+    axios
+      .post("/api/beatSequence/", beatSetUp)
+      .then((response) => {
+        console.log("posted to MongoDB", response)
+      })
+      .catch((error) => {
+        console.log("error", error);
+        console.log("error response", error.response.data.error);
+      });
+    console.log("after axios");
+    //also need newplaylist name to appear in the list
   }
+
   return (
     <StepContext.Provider value={{ state: stepState, setSteps }}>
       <Container>
