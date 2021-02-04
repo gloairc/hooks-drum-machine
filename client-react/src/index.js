@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import DrumMachine from "./DrumMachine";
+import App from "./App";
+
 // ReactDOM.createRoot(document.getElementById('root')).render(<DrumMachine />);
 ReactDOM.render(
   <React.StrictMode>
-    <DrumMachine />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

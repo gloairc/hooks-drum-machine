@@ -79,7 +79,7 @@ export default function DrumMachine() {
 
   useEffect(
     () => {
-      Tone.Transport.scheduleRepeat(function(time) {
+      Tone.Transport.scheduleRepeat(function (time) {
         Object.keys(buffersRef.current).forEach(b => {
           let targetStep = stepsRef.current[b][currentStepRef.current];
           let targetBuffer = buffersRef.current[b];
