@@ -5,8 +5,12 @@ const BeatSeq = () => {
     return (
         <div>
             <h1>Beat Sequencer</h1>
-
-            <DrumMachine />
+            <div>
+                BeatSeqList here
+            </div>
+            <div>
+                <DrumMachine />
+            </div>
         </div>
     )
 }

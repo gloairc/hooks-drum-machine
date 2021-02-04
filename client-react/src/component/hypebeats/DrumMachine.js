@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Tone from 'tone';
+import axios from 'axios'
 
 import useBPM from './useBPM';
 import useStart from './useStart';
@@ -66,6 +67,7 @@ export default function DrumMachine() {
   const [stepState, setSteps] = useState(initialStepState);
   const [buffers, setBuffers] = useState({});
   const [currentStep, setCurrentStepState] = useState(0);
+  const [beatSeqName, setbeatSeqName] = useState("Untitled")
 
   const [start, startButton] = useStart();
   const [bpm, bpmSelector] = useBPM(65);
@@ -120,11 +122,26 @@ export default function DrumMachine() {
     [start]
   );
 
+  const handleSaveClick = (e) => {
+    console.log("clicked save, to axios put")
+    const beatSetUp = {
+      userId: "New", //using session storage?
+      name: { beatSeqName },
+      tempo: bpm,
+      beatGrid: stepState
+    }
+    console.log("beatSetUp", beatSetUp)
+    // axios
+    //   .post("/api/beatSequence/", beatSetUp)
+    //   .then((response) => {
+    //     console.log("posted to MongoDB", response)
+    //   })
+  }
   return (
     <StepContext.Provider value={{ state: stepState, setSteps }}>
       <Container>
         <Transport>
-          <Logo>Trap Lord 9000</Logo>
+          <Logo>{beatSeqName}</Logo>
           {bpmSelector}
           {startButton}
         </Transport>
@@ -142,6 +159,12 @@ export default function DrumMachine() {
             <Fx sound="sounds/yeah.wav" title="Yeah" />
           </ButtonContainer>
         </React.Suspense>
+        <div>
+
+          <button
+            onClick={(e) => handleSaveClick(e)}>
+            Save</button>
+        </div>
       </Container>
     </StepContext.Provider>
   );
