@@ -24,8 +24,8 @@ mongoose.connect(process.env.MONGODB_URI, {
   useFindAndModify: false,
 });
 
-// const BeatSequenceController = require("./controllers/BeatSequenceController");
-// app.use("/beatsequence", BeatSequenceController);
+const BeatSequenceController = require("./controllers/BeatSequenceController");
+app.use("/beatsequence", BeatSequenceController);
 
 const InstrumentController = require("./controllers/InstrumentController");
 app.use("/instrument", InstrumentController);
