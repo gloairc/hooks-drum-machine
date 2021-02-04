@@ -125,17 +125,18 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   const handleSaveClick = (e) => {
     console.log("clicked save, to axios post")
     const beatSetUp = {
-      userId: "New", //using session storage?
-      name: { beatSeqName },
+      userId: "user10", //using session storage?
+      name: beatSeqName,
       tempo: bpm,
       beatGrid: stepState,
+      username: "to remove username field. use id"
       //remove if using mongdo
-      status: "active",
-      UpdatedAt: "2021-04-02" //todays'date
+      // status: "active",
+      // UpdatedAt: "2021-04-02" //todays'date
     }
     console.log("beatSetUp", beatSetUp)
     axios
-      .post("/api/beatSequence/", beatSetUp)
+      .post("/beatSequence/", beatSetUp)
       .then((response) => {
         console.log("posted to MongoDB", response)
       })
