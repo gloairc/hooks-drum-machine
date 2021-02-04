@@ -40,7 +40,7 @@ router.get("/", (req, res) => {
 router.get("/:username", (req, res) => {
   //show one instrument
   const usernameQuery = req.params.username;
-  BeatSequence.findOne({ username: usernameQuery }, (error, sequence) => {
+  BeatSequence.find({ username: usernameQuery }, (error, sequence) => {
     res.send(sequence);
     return sequence;
   });
