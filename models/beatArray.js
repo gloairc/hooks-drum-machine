@@ -12,3 +12,8 @@ const beatArraySchema = new mongoose.Schema({
 // const BeatGrid = mongoose.model("Batch", beatGridSchema);
 
 module.exports = beatArraySchema;
+
+// const seed = {
+//   instrument: "601b73cfcb84de34a9b825c5",
+//   beatRow:[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+// }

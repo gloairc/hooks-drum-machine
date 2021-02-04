@@ -3,11 +3,12 @@ const beatArraySchema = require("./beatArray");
 
 const beatSequenceSchema = new mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "User",
-    },
+    // userId: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    //   ref: "User",
+    // },
+    username: { type: String, required: true },
     name: { type: String, required: true },
     tempo: { type: Number, required: true },
     beatGrid: [beatArraySchema],
