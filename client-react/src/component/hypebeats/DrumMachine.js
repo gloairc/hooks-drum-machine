@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Tone from 'tone';
+import axios from 'axios'
 
 import useBPM from './useBPM';
 import useStart from './useStart';
@@ -62,10 +63,11 @@ const initialStepState = {
   OpenHiHat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 };
 
-export default function DrumMachine() {
+export default function DrumMachine(props) {//set in retreivedSeq object useEffect?
   const [stepState, setSteps] = useState(initialStepState);
   const [buffers, setBuffers] = useState({});
   const [currentStep, setCurrentStepState] = useState(0);
+  const [beatSeqName, setbeatSeqName] = useState("Untitled")
 
   const [start, startButton] = useStart();
   const [bpm, bpmSelector] = useBPM(65);
@@ -120,11 +122,37 @@ export default function DrumMachine() {
     [start]
   );
 
+  const handleSaveClick = (e) => {
+    console.log("clicked save, to axios post")
+    const beatSetUp = {
+      userId: "user10", //using session storage?
+      name: beatSeqName,
+      tempo: bpm,
+      beatGrid: stepState,
+      username: "to remove username field. use id"
+      //remove if using mongdo
+      // status: "active",
+      // UpdatedAt: "2021-04-02" //todays'date
+    }
+    console.log("beatSetUp", beatSetUp)
+    axios
+      .post("/beatSequence/", beatSetUp)
+      .then((response) => {
+        console.log("posted to MongoDB", response)
+      })
+      .catch((error) => {
+        console.log("error", error);
+        console.log("error response", error.response.data.error);
+      });
+    console.log("after axios");
+    //also need newplaylist name to appear in the list
+  }
+
   return (
     <StepContext.Provider value={{ state: stepState, setSteps }}>
       <Container>
         <Transport>
-          <Logo>Trap Lord 9000</Logo>
+          <Logo>{beatSeqName}</Logo>
           {bpmSelector}
           {startButton}
         </Transport>
@@ -142,6 +170,12 @@ export default function DrumMachine() {
             <Fx sound="sounds/yeah.wav" title="Yeah" />
           </ButtonContainer>
         </React.Suspense>
+        <div>
+
+          <button
+            onClick={(e) => handleSaveClick(e)}>
+            Save</button>
+        </div>
       </Container>
     </StepContext.Provider>
   );
