@@ -28,7 +28,8 @@ router.get("/", (req, res) => {
   console.log("get all sequences");
 });
 
-// router.get("/:userId", (req, res) => {   // when userController is ready, use this instead of username
+// router.get("/:userId", (req, res) => {
+//   // when userController is ready, use this instead of username
 //   //show one instrument
 //   BeatSequence.findById(req.params.userId, (error, sequence) => {
 //     res.send(sequence);
@@ -40,7 +41,7 @@ router.get("/", (req, res) => {
 router.get("/:username", (req, res) => {
   //show one instrument
   const usernameQuery = req.params.username;
-  BeatSequence.findOne({ username: usernameQuery }, (error, sequence) => {
+  BeatSequence.find({ username: usernameQuery }, (error, sequence) => {
     res.send(sequence);
     return sequence;
   });
