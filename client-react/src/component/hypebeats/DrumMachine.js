@@ -128,7 +128,10 @@ export default function DrumMachine() {
       userId: "New", //using session storage?
       name: { beatSeqName },
       tempo: bpm,
-      beatGrid: stepState
+      beatGrid: stepState,
+      //remove if using mongdo
+      status: "active",
+      UpdatedAt: "2021-4-2"
     }
     console.log("beatSetUp", beatSetUp)
     // axios

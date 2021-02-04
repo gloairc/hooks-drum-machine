@@ -20,6 +20,9 @@ function App() {
                     <Route exact path="/beatseq">
                         <BeatSeq />
                     </Route>
+                    <Route path="/beatseq/:id">
+                        <BeatSeq />
+                    </Route>
                 </Switch>
             </Router>
         </div>

@@ -1,26 +1,30 @@
 
 //show only the name
-const IndivCardBeatSeq = (props) => {
+const BeatSeqOneCard = (props) => {
     const bsName = props.name
-    const bsUpdatedAt = props.bsUpdatedAt
+    const bsUpdatedAt = props.updatedAt
     const bsId = props.id
 
 
     const handleSelectBeatSeqClick = (e, bsId) => {
         e.stopPropagation();
-        console.log("selected a beatSeq")
-        console.log("IndivCardBeatSeq e.target.id", e.target.id)
-        console.log("bsId is", bsId)
+        console.log("selected a beatSeq", bsId)
         //need to feed the toggle upwards
         // props.onSelectLyricToggle(bsId)
     }
 
-    return (
-        <div id="" class="row no-gutters">
+    const handleDeleteBeatSeqClick = (e) => {
+        e.stopPropagation();
+        console.log("deleted beatSeq", bsId)
+    }
 
-            <div class="col-10 py-1" id="">
-                <div class="card-block px-2">
-                    <button id=""
+    return (
+        <div id="beatseqonecard" class="row no-gutters">
+
+            {/* <div class="col-3 py-1" id=""> */}
+            <div class="card-block px-2">
+                <div class="col-3 py-1" id="">
+                    <button id="" class="btn btn-light p-1"
                         onClick={(e) => handleSelectBeatSeqClick(e, bsId)}>
                         <h6 class="card-title">{bsName}</h6>
                         <p class="card-text">
@@ -31,10 +35,10 @@ const IndivCardBeatSeq = (props) => {
             </div>
 
 
-            <div class="col-2 d-flex" id="">
+            <div class="col-1 d-flex" id="">
                 <button class="btn btn-info p-1 font-weight-bold w-100"
                     id=""
-                // onClick={(e) => handleDeleteBeatSeqClick(e, lKey, lTitle, lArtist)}
+                    onClick={(e) => handleDeleteBeatSeqClick(e, bsId)}
                 >
                     delete btn
             </button>
@@ -45,4 +49,4 @@ const IndivCardBeatSeq = (props) => {
     )
 }
 
-export default IndivCardBeatSeq
+export default BeatSeqOneCard

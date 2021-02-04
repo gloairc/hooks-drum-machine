@@ -1,0 +1,13 @@
+#beatseqlist {
+    border: 1px solid white;
+    background: darkgrey
+}
+
+#beatSeqCol{
+    border: 1px solid rgb(241, 238, 27) ;
+    background: darkgoldenrod
+}
+
+#beatseqonecard{
+    border: 1px solid green
+}

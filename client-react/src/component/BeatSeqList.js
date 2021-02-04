@@ -1,32 +1,57 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import IndivCardBeatSeq from "./IndivCardBeatSeq"
+import BeatSeqOneCard from "./BeatSeqOneCard"
 
 const BeatSeqList = () => {
-    const [activeList, setActiveList] = useState([]);
+    // const [activeList, setActiveList] = useState([]);
     const [dataReceived, setdataReceived] = useState(false);
     //how to send the userId
 
-    useEffect(() => { //get the full list and filter the active ones
-        axios
-            .get(`/api/beatSequence/:userId`)
-            .then((response) => {
-                console.log("axios ran and response is", response)
-                const onlyActiveBeatSeq = response.data.filter(function (beatSeq) {
-                    return beatSeq.status === "active";
-                });
-                setActiveList(onlyActiveBeatSeq);
-                setdataReceived(true);
-            });
-    }, [dataReceived]);
+    // useEffect(() => { //get the full list and filter the active ones
+    //     axios
+    //         .get(`/api/beatSequence/:userId`)
+    //         .then((response) => {
+    //             console.log("axios ran and response is", response)
+    //             const onlyActiveBeatSeq = response.data.filter(function (beatSeq) {
+    //                 return beatSeq.status === "active";
+    //             });
+    //             setActiveList(onlyActiveBeatSeq);
+    //             setdataReceived(true);
+    //         });
+    // }, [dataReceived]);
+
+    const activeList = [//dummy playlist
+        {
+            _id: "A",
+            name: "Alpha",
+            createdAt: "test created at",
+            updatedAt: "11-11-11"
+        },
+        {
+            _id: "B",
+            name: "Bravo",
+            createdAt: "random",
+            updatedAt: "22-22-22"
+        },
+        {
+            _id: "C",
+            name: "Charlie",
+            createdAt: "22",
+            updatedAt: "33-33-33"
+        }]
+
+    const noList = (//inform no list, start by clicking add button
+        <div>
+            <p class="pt-2">You don't have a playlist, start one by clicking the add button below</p>
+        </div>
+    )
 
     const renderListCards = () => {
         console.log("rendering listcards");
-        //handle if nothing in database
         return (
             activeList.map((oneBeatSeq, index) => (
                 <div key={index}>
-                    <IndivCardBeatSeq
+                    <BeatSeqOneCard
                         id={oneBeatSeq._id}
                         name={oneBeatSeq.name}
                         createdAt={oneBeatSeq.createdAt}
@@ -37,9 +62,11 @@ const BeatSeqList = () => {
         )
     }
 
+    const renderBeatSeqList = (activeList.length === 0) ? noList : renderListCards()
     return (
-        <div>Hellow
-            {renderListCards}
+        <div id="beatseqlist">
+            beatseqlist
+            {renderBeatSeqList}
         </div>
     )
 }
