@@ -3,44 +3,44 @@ import axios from "axios";
 import BeatSeqOneCard from "./BeatSeqOneCard"
 
 const BeatSeqList = () => {
-    const [activeList, setActiveList] = useState([]);
+    // const [activeList, setActiveList] = useState([]);
     const [dataReceived, setdataReceived] = useState(false);
     const userId = "ddd" //hardcode first
     //const userId = sessionStorage.getItem("userId");
 
-    useEffect(() => { //get the full list and filter the active ones
-        //setdataReceived(false) //is this needed?
-        axios
-            .get(`/api/beatSequence/${userId}`)
-            .then((response) => {
-                console.log("axios ran and response is", response)
-                const onlyActiveBeatSeq = response.data.filter(function (beatSeq) {
-                    return beatSeq.status === "active";
-                });
-                setActiveList(onlyActiveBeatSeq);
-                setdataReceived(true);
-            });
-    }, [dataReceived]);//this works when refrest the page, maybe should change to running everytime someone click save button?
+    // useEffect(() => { //get the full list and filter the active ones
+    //     //setdataReceived(false) //is this needed?
+    //     axios
+    //         .get(`/api/beatSequence/${userId}`)
+    //         .then((response) => {
+    //             console.log("axios ran and response is", response)
+    //             const onlyActiveBeatSeq = response.data.filter(function (beatSeq) {
+    //                 return beatSeq.status === "active";
+    //             });
+    //             setActiveList(onlyActiveBeatSeq);
+    //             setdataReceived(true);
+    //         });
+    // }, [dataReceived]);//this works when refrest the page, maybe should change to running everytime someone click save button? so set state for save button?
 
-    // // const activeList = [//dummy playlist
-    //     {
-    //         _id: "A",
-    //         name: "Alpha",
-    //         createdAt: "test created at",
-    //         updatedAt: "11-11-11"
-    //     },
-    //     {
-    //         _id: "B",
-    //         name: "Bravo",
-    //         createdAt: "random",
-    //         updatedAt: "22-22-22"
-    //     },
-    //     {
-    //         _id: "C",
-    //         name: "Charlie",
-    //         createdAt: "22",
-    //         updatedAt: "33-33-33"
-    //     }]
+    const activeList = [//dummy playlist
+        {
+            _id: "A",
+            name: "Alpha",
+            createdAt: "test created at",
+            updatedAt: "11-11-11"
+        },
+        {
+            _id: "B",
+            name: "Bravo",
+            createdAt: "random",
+            updatedAt: "22-22-22"
+        },
+        {
+            _id: "C",
+            name: "Charlie",
+            createdAt: "22",
+            updatedAt: "33-33-33"
+        }]
 
     const noList = (//inform no list, start by clicking add button
         <div>

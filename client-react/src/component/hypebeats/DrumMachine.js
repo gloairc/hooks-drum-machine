@@ -63,7 +63,7 @@ const initialStepState = {
   OpenHiHat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 };
 
-export default function DrumMachine() {
+export default function DrumMachine(props) {//set in retreivedSeq object useEffect?
   const [stepState, setSteps] = useState(initialStepState);
   const [buffers, setBuffers] = useState({});
   const [currentStep, setCurrentStepState] = useState(0);
@@ -123,7 +123,7 @@ export default function DrumMachine() {
   );
 
   const handleSaveClick = (e) => {
-    console.log("clicked save, to axios put")
+    console.log("clicked save, to axios post")
     const beatSetUp = {
       userId: "New", //using session storage?
       name: { beatSeqName },

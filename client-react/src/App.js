@@ -8,6 +8,7 @@ import {
 // import { useState, useEffect } from "react";
 import Home from './pages/Home'
 import BeatSeq from './pages/BeatSeq'
+import BeatSeqTeaser from './pages/BeatSeqTeaser'
 
 function App() {
     return (
@@ -22,6 +23,9 @@ function App() {
                     </Route>
                     <Route path="/beatseq/:id">
                         <BeatSeq />
+                    </Route>
+                    <Route exact path="/teaser">
+                        <BeatSeqTeaser />
                     </Route>
                 </Switch>
             </Router>
