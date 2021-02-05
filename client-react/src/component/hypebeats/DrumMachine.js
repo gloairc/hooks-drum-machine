@@ -43,13 +43,13 @@ const Logo = styled.h1`
 const config = {
   tracks: ['Kick', 'Sub1', 'Sub2', 'Snare', 'Clap', 'HiHat', 'OpenHiHat'],
   samples: {
-    Kick: 'sounds/kick.wav',
-    Sub1: 'sounds/bass.wav',
-    Sub2: 'sounds/sub.wav',
-    Snare: 'sounds/snare.wav',
-    Clap: 'sounds/clap.wav',
-    HiHat: 'sounds/hat2.wav',
-    OpenHiHat: 'sounds/openhihat.wav',
+    Kick: process.env.PUBLIC_URL + '/sounds/kick.wav',
+    Sub1: process.env.PUBLIC_URL + '/sounds/bass.wav',
+    Sub2: process.env.PUBLIC_URL + '/sounds/sub.wav',
+    Snare: process.env.PUBLIC_URL + '/sounds/snare.wav',
+    Clap: process.env.PUBLIC_URL + '/sounds/clap.wav',
+    HiHat: process.env.PUBLIC_URL + '/sounds/hat2.wav',
+    OpenHiHat: process.env.PUBLIC_URL + '/sounds/openhihat.wav',
   },
 };
 
@@ -72,6 +72,8 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   const [start, startButton] = useStart();
   const [bpm, bpmSelector] = useBPM(65);
 
+  // const userId = sessionStorage.getItem('userId')
+
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
   const stepsRef = useRef(stepState);
@@ -79,7 +81,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   const currentStepRef = useRef(currentStep);
   currentStepRef.current = currentStep;
 
-  useEffect(
+  useEffect(//steps
     () => {
       Tone.Transport.scheduleRepeat(function (time) {
         Object.keys(buffersRef.current).forEach(b => {
@@ -103,14 +105,14 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     [config]
   );
 
-  useEffect(
+  useEffect(//bpm
     () => {
       Tone.Transport.bpm.value = bpm;
     },
     [bpm]
   );
 
-  useEffect(
+  useEffect(//start steps
     () => {
       if (start) {
         Tone.Transport.start();
@@ -122,21 +124,21 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     [start]
   );
 
-  const handleSaveClick = (e) => {
-    console.log("clicked save, to axios post")
+  const handleSaveClick = (e) => {//AXIOS PUT TO EDIT
+    console.log("clicked save, to axios put")
     const beatSetUp = {
-      userId: "user10", //using session storage?
+      userId: "user10", //{userId} from session storage
       name: beatSeqName,
       tempo: bpm,
       beatGrid: stepState,
-      username: "to remove username field. use id"
+      username: "to remove this username field. use id"
       //remove if using mongdo
       // status: "active",
       // UpdatedAt: "2021-04-02" //todays'date
     }
     console.log("beatSetUp", beatSetUp)
     axios
-      .post("/beatSequence/", beatSetUp)
+      .put("/beatSequence/", beatSetUp) //previously was post
       .then((response) => {
         console.log("posted to MongoDB", response)
       })
@@ -164,10 +166,14 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
             setBuffers={setBuffers}
           />
           <ButtonContainer>
-            <Fx sound="sounds/loop.wav" title="Turn Up (F)" />
+            {/* <Fx sound="sounds/loop.wav" title="Turn Up (F)" />
             <Fx sound="sounds/loop130.wav" title="SQUAD (Am)" />
             <Fx sound="sounds/hey.wav" title="Hey" />
-            <Fx sound="sounds/yeah.wav" title="Yeah" />
+            <Fx sound="sounds/yeah.wav" title="Yeah" /> */}
+            <Fx sound={process.env.PUBLIC_URL + "/sounds/loop.wav"} title="Turn Up (F)" />
+            <Fx sound={process.env.PUBLIC_URL + "/sounds/loop130.wav"} title="SQUAD (Am)" />
+            <Fx sound={process.env.PUBLIC_URL + "/sounds/hey.wav"} title="Hey" />
+            <Fx sound={process.env.PUBLIC_URL + "/sounds/yeah.wav"} title="Yeah" />
           </ButtonContainer>
         </React.Suspense>
         <div>
@@ -175,6 +181,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
           <button
             onClick={(e) => handleSaveClick(e)}>
             Save</button>
+
         </div>
       </Container>
     </StepContext.Provider>
