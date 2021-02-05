@@ -4,42 +4,50 @@ const Instrument = require("../models/instrument");
 const methodOverride = require("method-override");
 router.use(methodOverride("_method"));
 
+// Kick: process.env.PUBLIC_URL + '/sounds/kick.wav',
+// Sub1: process.env.PUBLIC_URL + '/sounds/bass.wav',
+// Sub2: process.env.PUBLIC_URL + '/sounds/sub.wav',
+// Snare: process.env.PUBLIC_URL + '/sounds/sub.wav',
+// Clap: process.env.PUBLIC_URL + '/sounds/clap.wav',
+// HiHat: process.env.PUBLIC_URL + '/sounds/hat2.wav',
+// OpenHiHat: process.env.PUBLIC_URL + '/sounds/openhihat.wav',
+
 router.get("/seed", (req, res) => {
   Instrument.create(
     [
       {
-        name: "kick",
-        soundFile: "http://kick-sound.url",
+        name: "Kick",
+        soundFile: process.env.PUBLIC_URL + "/sounds/kick.wav",
         picture: "http://somepic.url/kick.jpg",
       },
       {
-        name: "sub1",
-        soundFile: "http://sub1-sound.url",
+        name: "Sub1",
+        soundFile: process.env.PUBLIC_URL + "/sounds/bass.wav",
         picture: "http://somepic.url/sub1.jpg",
       },
       {
-        name: "sub2",
-        soundFile: "http://sub2-sound.url",
+        name: "Sub2",
+        soundFile: process.env.PUBLIC_URL + "/sounds/sub.wav",
         picture: "http://somepic.url/sub2.jpg",
       },
       {
-        name: "snare",
-        soundFile: "http://snare-sound.url",
+        name: "Snare",
+        soundFile: process.env.PUBLIC_URL + "/sounds/snare.wav",
         picture: "http://somepic.url/snare.jpg",
       },
       {
-        name: "clap",
-        soundFile: "http://clap-sound.url",
+        name: "Clap",
+        soundFile: process.env.PUBLIC_URL + "/sounds/clap.wav",
         picture: "http://somepic.url/clap.jpg",
       },
       {
-        name: "hiHat",
-        soundFile: "http://hiHat-sound.url",
+        name: "HiHat",
+        soundFile: process.env.PUBLIC_URL + "/sounds/hat2.wav",
         picture: "http://somepic.url/hiHat.jpg",
       },
       {
-        name: "openHiHat",
-        soundFile: "http://openHiHat-sound.url",
+        name: "OpenHiHat",
+        soundFile: process.env.PUBLIC_URL + "/sounds/openhihat.wav",
         picture: "http://somepic.url/openHiHat.jpg",
       },
     ],
