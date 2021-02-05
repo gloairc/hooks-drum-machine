@@ -56,20 +56,8 @@ const config = {//default load
 // const beatGrid1 = props.oneBeatSeq.beatGrid;
 // const instruNameforTracks = beatGrid1.map((item) => { return item.name });
 
-// //to get samples:
-// axios
-//   .get("/api/instrument/") //axios get all then filter the name i want
-//   .then((response) => {
-//     console.log("axios get instruments response.data", response.data)
-//     const selectedInstrument = (response.data).filter(function (instru) {
-//       //for loop, go through each intruName in the array and check whetehr instru.name===
-
-//       return instru.name === "" //one of the name in the track array
-//     })
-//   })
-
-// const customizedConfig = {//default load
-//   tracks: audioTrack,  // ['Kick', 'Sub1', 'Sub2', 'Snare', 'Clap', 'HiHat', 'OpenHiHat'],
+// const customizedConfig = {//load from beatGrid
+//   tracks: audioTrack,  // ['Kick', 'Sub1', 'Sub2'...],
 //   samples: {
 //     // Kick: process.env.PUBLIC_URL + '/sounds/kick.wav',
 //   },
@@ -108,23 +96,16 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   // console.log("props", props)
   useEffect(() => { //set beatGrid,name, tempo from saved seq
     console.log("useEffect to set initial state, beatseq name")
-    if (Object.keys(props.oneBeatSeq).length !== 0) {
-      if (props.oneBeatSeq.beatGrid.length === 0) {
-        setSteps(initialStepState) //default
+    if (Object.keys(props.oneBeatSeq).length !== 0) {//if props.oneBeatSeq is not empty
+      if (props.oneBeatSeq.beatGrid.length === 0) {//if beatGrid is empty
+        setSteps(initialStepState) //default {Kick:[], Snare:[]}, shouldn't be the case
       } else {
-        //prepare the StepState to setStep - an object of  { instrument name: []}
-        let endStep = {};
-        const beatGrid = props.oneBeatSeq.beatGrid;// is an array [{name: x, beatGrid: []}]
-        beatGrid.forEach((item) => {
-          endStep[item.name] = item.beatRow //is an object {name1:instrument1,name2:instrument2}
-        })
-        console.log("endStep", endStep)
-        setSteps(endStep) // name:beatRow
+        setSteps(props.oneBeatSeq.beatGrid)
       }
       setbeatSeqName(props.oneBeatSeq.name)
       // useBPM(props.tempo)
     }
-  }, [props.oneBeatSeq._id])
+  }, [props.oneBeatSeq._id]) //re-render everytime params id changes
 
 
   useEffect(//playsound
@@ -182,7 +163,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     console.log("beatSetUp", beatSetUp)
     console.log(stepState)
     axios
-      .put(`/api/beatSequence/${props.oneBeatSeq._id}/edit`, beatSetUp) //previously was post
+      .put(`/api/beatSequence/${props.oneBeatSeq._id}/edit`, beatSetUp)
       .then((response) => {
         console.log("put to MongoDB", response)
       })

@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import BeatSeqList from './BeatSeqList'
 const BeatSeqColumn = () => {
     const [machineCreated, setMachineCreated] = useState(false)
     const [newMachineId, setNewMachineId] = useState("")
     // const userId = sessionStorage.getItem("userId");
-    const userId = "user10";
+    const userId = "user1";
+    const history = useHistory()
 
     const handleAddMachineClick = () => {
         setMachineCreated(false);
@@ -29,7 +30,8 @@ const BeatSeqColumn = () => {
     }
 
     if (machineCreated === true) {
-        return <Redirect to={`/beatseq/${newMachineId}`} />;
+        return history.push(`/beatseq/${newMachineId}`);
+        // return <Redirect to={`/beatseq/${newMachineId}`} />;
     }
 
     return (

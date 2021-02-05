@@ -126,7 +126,7 @@ router.put("/:id/sdelete", (req, res) => {
 });
 
 router.put("/:id/edit", (req, res) => {
-  const newSeq = req.body.newSeq;
+  const newSeq = req.body.beatGrid;
   // dummy data below for testing
   // const newDummySeq = [
   //   {
