@@ -28,6 +28,18 @@ router.get("/", (req, res) => {
   console.log("get all sequences");
 });
 
+router.get("/:id", (req, res) => {
+  //show one instrument
+  BeatSequence.find(
+    { _id: req.params.id, status: "Active" },
+    (error, sequence) => {
+      res.send(sequence);
+      return sequence;
+    }
+  );
+  console.log("get one sequences");
+});
+
 // router.get("/:userId", (req, res) => {
 //   // when userController is ready, use this instead of username
 //   //show one instrument
@@ -40,11 +52,13 @@ router.get("/", (req, res) => {
 
 router.get("/:username", (req, res) => {
   //show one instrument
-  const usernameQuery = req.params.username;
-  BeatSequence.find({ username: usernameQuery }, (error, sequence) => {
-    res.send(sequence);
-    return sequence;
-  });
+  BeatSequence.find(
+    { username: req.params.username, status: "Active" },
+    (error, sequence) => {
+      res.send(sequence);
+      return sequence;
+    }
+  );
   console.log("get user's sequences");
 });
 
@@ -60,5 +74,47 @@ router.post("/", (req, res) => {
     }
   });
 });
+
+router.put("/sdelete", (req, res) => {
+  const seqId = req.body.seqId;
+  BeatSequence.findById(
+    seqId,
+    // { status: "Inactive" },
+    (err, sequence) => {
+      if (err) {
+        res.send(err);
+        console.log("error occurred " + err);
+      } else {
+        sequence.status = "Inactive";
+        sequence.save((er) => {
+          if (er) {
+            res.send(er);
+          } else {
+            res.send(sequence);
+          }
+        });
+        // res.send("soft delete");
+        console.log("soft delete");
+      }
+    }
+  );
+});
+
+// router.put("/:id/sdelete", (res, req) => {
+//   BeatSequence.findByIdAndUpdate(
+//     req.params.id,
+//     { status: "Inactive" }
+//     // (err, sequence) => {
+//     //   if (err) {
+//     //     res.send(err);
+//     //     console.log("error occurred " + err);
+//     //   } else {
+//     //     //   sequence.status = "Inactive";
+//     //     res.send("soft delete");
+//     //     console.log("soft delete");
+//     //   }
+//     // }
+//   );
+// });
 
 module.exports = router;
