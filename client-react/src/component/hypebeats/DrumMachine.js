@@ -77,7 +77,6 @@ const config = {//default load
 
 
 const initialStepState = {
-  //props.beatGrid.map
   //props.beatGrid.name : props.beatGrid.beatRow
   Kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   Sub1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -115,9 +114,9 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
       } else {
         //prepare the StepState to setStep - an object of  { instrument name: []}
         let endStep = {};
-        const beatGrid = props.oneBeatSeq.beatGrid;// is an array
+        const beatGrid = props.oneBeatSeq.beatGrid;// is an array [{name: x, beatGrid: []}]
         beatGrid.forEach((item) => {
-          endStep[item.name] = item.beatRow //is an object {name:beatRow, name:beatRow}
+          endStep[item.name] = item.beatRow //is an object {name1:instrument1,name2:instrument2}
         })
         console.log("endStep", endStep)
         setSteps(endStep) // name:beatRow
