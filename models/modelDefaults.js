@@ -27,33 +27,33 @@ const defaultBeat = [
   {
     // instrument: instrumentArray[0]._id, //how does it know the ids?
     // instrument: "601b73cfcb84de34a9b825c5",
-    name: "kick",
+    name: "Kick",
     beatRow: defaultGrid,
   },
   {
     // instrument: instrumentArray[1].name,
     // instrument: "601b73cfcb84de34a9b825c7",
-    name: "sub1",
+    name: "Sub1",
     beatRow: defaultGrid,
   },
   {
-    name: "sub2",
+    name: "Sub2",
     beatRow: defaultGrid,
   },
   {
-    name: "snare",
+    name: "Snare",
     beatRow: defaultGrid,
   },
   {
-    name: "clap",
+    name: "Clap",
     beatRow: defaultGrid,
   },
   {
-    name: "hiHat",
+    name: "HiHat",
     beatRow: defaultGrid,
   },
   {
-    name: "openHiHat",
+    name: "OpenHiHat",
     beatRow: defaultGrid,
   },
 ];

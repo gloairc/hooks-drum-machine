@@ -30,8 +30,8 @@ app.use("/api/beatsequence", BeatSequenceController);
 const InstrumentController = require("./controllers/InstrumentController");
 app.use("/api/instrument", InstrumentController);
 
-// const UserController = require("./controllers/UserController");
-// app.use("/user", UserController);
+const UserController = require("./controllers/UserController");
+app.use("/api/user", UserController);
 
 // const sessionController = require("./controllers/SessionsController");
 // app.use("/session", sessionController);
