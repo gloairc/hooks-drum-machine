@@ -13,23 +13,38 @@ router.get("/seed", (req, res) => {
         picture: "http://somepic.url/kick.jpg",
       },
       {
+        name: "sub1",
+        soundFile: "http://sub1-sound.url",
+        picture: "http://somepic.url/sub1.jpg",
+      },
+      {
+        name: "sub2",
+        soundFile: "http://sub2-sound.url",
+        picture: "http://somepic.url/sub2.jpg",
+      },
+      {
         name: "snare",
         soundFile: "http://snare-sound.url",
         picture: "http://somepic.url/snare.jpg",
-      },
-      {
-        name: "crash",
-        soundFile: "http://crash-sound.url",
-        picture: "http://somepic.url/crash.jpg",
       },
       {
         name: "clap",
         soundFile: "http://clap-sound.url",
         picture: "http://somepic.url/clap.jpg",
       },
+      {
+        name: "hiHat",
+        soundFile: "http://hiHat-sound.url",
+        picture: "http://somepic.url/hiHat.jpg",
+      },
+      {
+        name: "openHiHat",
+        soundFile: "http://openHiHat-sound.url",
+        picture: "http://somepic.url/openHiHat.jpg",
+      },
     ],
     (error, instrument) => {
-      res.redirect("/instrument");
+      res.redirect("/api/instrument");
     }
   );
 });
@@ -43,12 +58,21 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  //show one instrument
+  //show one instrument from id
   Instrument.findById(req.params.id, (error, instrument) => {
     res.send(instrument);
     return instrument;
   });
-  console.log("get all instruments");
+  console.log("get one instrument");
+});
+
+router.get("/name/:name", (req, res) => {
+  //show one instrument from name
+  Instrument.find({ name: req.params.name }, (error, instrument) => {
+    res.send(instrument);
+    return instrument;
+  });
+  console.log("get one instrument by name");
 });
 
 module.exports = router;

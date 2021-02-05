@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const beatArraySchema = require("./beatArray");
+const modelDefaults = require("./modelDefaults");
 
 const beatSequenceSchema = new mongoose.Schema(
   {
@@ -8,16 +9,10 @@ const beatSequenceSchema = new mongoose.Schema(
     //   required: true,
     //   ref: "User",
     // },
-    ////original
-    // username: { type: String, required: true },
-    // name: { type: String, required: true },
-    // tempo: { type: Number, required: true },
-    // beatGrid: [beatArraySchema],
-    // status: { type: String, default: "Active", enum: ["Active", "Inactive"] },
-    userId: { type: String, required: true },
-    name: { type: String, required: true, default: "Untitled" },
+    username: { type: String, required: true },
+    name: { type: String, required: true, default: "untitled" },
     tempo: { type: Number, required: true, default: 65 },
-    beatGrid: [beatArraySchema],
+    beatGrid: { type: Array, default: modelDefaults.sequence },
     status: { type: String, default: "Active", enum: ["Active", "Inactive"] },
   },
   { timestamps: true }
