@@ -40,7 +40,7 @@ const Logo = styled.h1`
   display: inline-block;
 `;
 
-const config = {
+const config = {//default load
   tracks: ['Kick', 'Sub1', 'Sub2', 'Snare', 'Clap', 'HiHat', 'OpenHiHat'],
   samples: {
     Kick: process.env.PUBLIC_URL + '/sounds/kick.wav',
@@ -53,7 +53,32 @@ const config = {
   },
 };
 
+// const beatGrid1 = props.oneBeatSeq.beatGrid;
+// const instruNameforTracks = beatGrid1.map((item) => { return item.name });
+
+// //to get samples:
+// axios
+//   .get("/api/instrument/") //axios get all then filter the name i want
+//   .then((response) => {
+//     console.log("axios get instruments response.data", response.data)
+//     const selectedInstrument = (response.data).filter(function (instru) {
+//       //for loop, go through each intruName in the array and check whetehr instru.name===
+
+//       return instru.name === "" //one of the name in the track array
+//     })
+//   })
+
+// const customizedConfig = {//default load
+//   tracks: audioTrack,  // ['Kick', 'Sub1', 'Sub2', 'Snare', 'Clap', 'HiHat', 'OpenHiHat'],
+//   samples: {
+//     // Kick: process.env.PUBLIC_URL + '/sounds/kick.wav',
+//   },
+// };
+
+
 const initialStepState = {
+  //props.beatGrid.map
+  //props.beatGrid.name : props.beatGrid.beatRow
   Kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   Sub1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   Sub2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -86,9 +111,16 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     console.log("useEffect to set initial state, beatseq name")
     if (Object.keys(props.oneBeatSeq).length !== 0) {
       if (props.oneBeatSeq.beatGrid.length === 0) {
-        setSteps(initialStepState)
+        setSteps(initialStepState) //default
       } else {
-        setSteps(props.oneBeatSeq.beatGrid)
+        //prepare the StepState to setStep - an object of  { instrument name: []}
+        let endStep = {};
+        const beatGrid = props.oneBeatSeq.beatGrid;// is an array
+        beatGrid.forEach((item) => {
+          endStep[item.name] = item.beatRow //is an object {name:beatRow, name:beatRow}
+        })
+        console.log("endStep", endStep)
+        setSteps(endStep) // name:beatRow
       }
       setbeatSeqName(props.oneBeatSeq.name)
       // useBPM(props.tempo)
@@ -142,14 +174,11 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   const handleSaveClick = (e) => {//AXIOS PUT TO EDIT
     console.log("clicked save, to axios put")
     const beatSetUp = {
-      userId: "user10", //{userId} from session storage
+      // userId: "user10", //{userId} from session storage
+      username: "user10",
       name: beatSeqName,
       tempo: bpm,
       beatGrid: stepState,
-      // username: "to remove this username field. use id"
-      //remove if using mongdo
-      // status: "active",
-      // UpdatedAt: "2021-04-02" //todays'date
     }
     console.log("beatSetUp", beatSetUp)
     console.log(stepState)
@@ -182,10 +211,6 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
             setBuffers={setBuffers}
           />
           <ButtonContainer>
-            {/* <Fx sound="sounds/loop.wav" title="Turn Up (F)" />
-            <Fx sound="sounds/loop130.wav" title="SQUAD (Am)" />
-            <Fx sound="sounds/hey.wav" title="Hey" />
-            <Fx sound="sounds/yeah.wav" title="Yeah" /> */}
             <Fx sound={process.env.PUBLIC_URL + "/sounds/loop.wav"} title="Turn Up (F)" />
             <Fx sound={process.env.PUBLIC_URL + "/sounds/loop130.wav"} title="SQUAD (Am)" />
             <Fx sound={process.env.PUBLIC_URL + "/sounds/hey.wav"} title="Hey" />

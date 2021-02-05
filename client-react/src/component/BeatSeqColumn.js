@@ -12,7 +12,7 @@ const BeatSeqColumn = () => {
         setMachineCreated(false);
         console.log("add new machine");
         const newMachineUser = {
-            userId: userId
+            username: userId
         };
         axios
             .post("/api/beatSequence", newMachineUser)

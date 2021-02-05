@@ -3,15 +3,15 @@ const router = express.Router();
 const BeatSequence = require("../models/beatSequence");
 const Instrument = require("../models/instrument");
 const methodOverride = require("method-override");
-const beatSequenceDummy = require("../dummyData.js");
+const beatSequenceDummy2 = require("../dummyData2.js");
 router.use(methodOverride("_method"));
 
 router.get("/seed", (req, res) => {
-  BeatSequence.create(beatSequenceDummy, (error, instrument) => {
+  BeatSequence.create(beatSequenceDummy2, (error, instrument) => {
     if (error) {
       res.send(error);
     } else {
-      console.log(beatSequenceDummy);
+      console.log(beatSequenceDummy2);
       console.log(instrument);
       res.send(instrument);
     }

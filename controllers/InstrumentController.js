@@ -8,37 +8,37 @@ router.get("/seed", (req, res) => {
   Instrument.create(
     [
       {
-        name: "kick",
+        name: "Kick",
         soundFile: "http://kick-sound.url",
         picture: "http://somepic.url/kick.jpg",
       },
       {
-        name: "sub1",
+        name: "Sub1",
         soundFile: "http://sub1-sound.url",
         picture: "http://somepic.url/sub1.jpg",
       },
       {
-        name: "sub2",
+        name: "Sub2",
         soundFile: "http://sub2-sound.url",
         picture: "http://somepic.url/sub2.jpg",
       },
       {
-        name: "snare",
+        name: "Snare",
         soundFile: "http://snare-sound.url",
         picture: "http://somepic.url/snare.jpg",
       },
       {
-        name: "clap",
+        name: "Clap",
         soundFile: "http://clap-sound.url",
         picture: "http://somepic.url/clap.jpg",
       },
       {
-        name: "hiHat",
+        name: "HiHat",
         soundFile: "http://hiHat-sound.url",
         picture: "http://somepic.url/hiHat.jpg",
       },
       {
-        name: "openHiHat",
+        name: "OpenHiHat",
         soundFile: "http://openHiHat-sound.url",
         picture: "http://somepic.url/openHiHat.jpg",
       },
