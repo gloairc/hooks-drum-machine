@@ -28,7 +28,20 @@ router.get("/", (req, res) => {
   console.log("get all sequences");
 });
 
-// router.get("/:userId", (req, res) => {   // when userController is ready, use this instead of username
+router.get("/:id", (req, res) => {
+  //show one instrument
+  BeatSequence.find(
+    { _id: req.params.id, status: "Active" },
+    (error, sequence) => {
+      res.send(sequence);
+      return sequence;
+    }
+  );
+  console.log("get one sequences");
+});
+
+// router.get("/:userId", (req, res) => {
+//   // when userController is ready, use this instead of username
 //   //show one instrument
 //   BeatSequence.findById(req.params.userId, (error, sequence) => {
 //     res.send(sequence);
@@ -39,11 +52,13 @@ router.get("/", (req, res) => {
 
 router.get("/:username", (req, res) => {
   //show one instrument
-  const usernameQuery = req.params.username;
-  BeatSequence.find({ username: usernameQuery }, (error, sequence) => {
-    res.send(sequence);
-    return sequence;
-  });
+  BeatSequence.find(
+    { username: req.params.username, status: "Active" },
+    (error, sequence) => {
+      res.send(sequence);
+      return sequence;
+    }
+  );
   console.log("get user's sequences");
 });
 
@@ -56,6 +71,60 @@ router.post("/", (req, res) => {
       res.send("submitted!");
       console.log("submitted");
       return sequence;
+    }
+  });
+});
+
+router.put("/:id/sdelete", (req, res) => {
+  BeatSequence.findById(req.params.id, (err, sequence) => {
+    if (err) {
+      res.send(err);
+      console.log("error occurred " + err);
+    } else {
+      sequence.status = "Inactive";
+      sequence.save((er) => {
+        if (er) {
+          res.send(er);
+        } else {
+          res.send(sequence);
+        }
+      });
+      console.log("soft delete");
+    }
+  });
+});
+
+router.put("/:id/edit", (req, res) => {
+  const newSeq = req.body.newSeq;
+  // dummy data below for testing
+  // const newDummySeq = [
+  //   {
+  //     instrument: "601b73cfcb84de34a9b825c5",
+  //     beatRow: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+  //   },
+  //   {
+  //     instrument: "601b73cfcb84de34a9b825c7",
+  //     beatRow: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0],
+  //   },
+  //   {
+  //     instrument: "601b73cfcb84de34a9b825c8",
+  //     beatRow: [1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0],
+  //   },
+  // ];
+  BeatSequence.findById(req.params.id, (err, sequence) => {
+    if (err) {
+      res.send(err);
+      console.log("error occurred " + err);
+    } else {
+      sequence.beatGrid = newSeq;
+      sequence.save((er) => {
+        if (er) {
+          res.send(er);
+        } else {
+          res.send(sequence);
+        }
+      });
+      console.log("edit sequence");
     }
   });
 });

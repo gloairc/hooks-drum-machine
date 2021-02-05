@@ -9,7 +9,7 @@ const beatArraySchema = new mongoose.Schema({
 
   instrument: {
     type: mongoose.Types.ObjectId,
-    required: false,
+    required: false, // change back to true if needed
     ref: "Instrument",
   },
   // beatRow: [{ type: Boolean, required: false, default: false }],
