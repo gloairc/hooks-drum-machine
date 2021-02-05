@@ -15,7 +15,7 @@ const BeatSeq = () => {
     useEffect(() => {//trigger whether there is id or not
         console.log("do Axios")
         axios
-            .get(`/api/beatSequence/${beatseqId}`)
+            .get(`/beatSequence/${beatseqId}`)
             .then((response) => {//setRetrievedSeq
                 setRetrievedSeq(response.data)
                 setIsLoading(false)

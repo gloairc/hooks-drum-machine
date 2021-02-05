@@ -12,37 +12,45 @@ const BeatSeqList = () => {
         //setdataReceived(false) //is this needed?
         axios
             .get(`/beatSequence/${userId}`)
-            // .get(`/beatSequence/user1`)
             .then((response) => {
                 console.log("axios ran and response is", response.data)
                 //handle when only one result is returned and is an object -> fit it into an array
-                const onlyActiveBeatSeq = response.data.filter(function (beatSeq) {
-                    return beatSeq.status === "Active";
-                });
-                setActiveList(onlyActiveBeatSeq);
-                setdataReceived(true);
-            });
+                if (Array.isArray(response.data) === false) {// object cause only one result
+                    const onlyActiveBeatSeq = [response.data].filter(function (beatSeq) {
+                        return beatSeq.status === "Active";
+                    });
+                    setActiveList(onlyActiveBeatSeq);
+                    setdataReceived(true);
+                } else {// multiple result in an array
+                    const onlyActiveBeatSeq = response.data.filter(function (beatSeq) {
+                        return beatSeq.status === "Active";
+                    });
+                    setActiveList(onlyActiveBeatSeq);
+                    setdataReceived(true);
+                }
+            }
+            );
     }, [dataReceived]);//this works when refrest the page, maybe should change to running everytime someone click save button? so set state for save button?
 
-    const dummyList = [//dummy playlist
-        {
-            _id: "A",
-            name: "Alpha",
-            createdAt: "test created at",
-            updatedAt: "11-11-11"
-        },
-        {
-            _id: "B",
-            name: "Bravo",
-            createdAt: "random",
-            updatedAt: "22-22-22"
-        },
-        {
-            _id: "C",
-            name: "Charlie",
-            createdAt: "22",
-            updatedAt: "33-33-33"
-        }]
+    // const dummyList = [//dummy playlist
+    //     {
+    //         _id: "A",
+    //         name: "Alpha",
+    //         createdAt: "test created at",
+    //         updatedAt: "11-11-11"
+    //     },
+    //     {
+    //         _id: "B",
+    //         name: "Bravo",
+    //         createdAt: "random",
+    //         updatedAt: "22-22-22"
+    //     },
+    //     {
+    //         _id: "C",
+    //         name: "Charlie",
+    //         createdAt: "22",
+    //         updatedAt: "33-33-33"
+    //     }]
 
     const noList = (//inform no list, start by clicking add button
         <div>
