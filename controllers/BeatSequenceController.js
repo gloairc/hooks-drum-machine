@@ -75,46 +75,57 @@ router.post("/", (req, res) => {
   });
 });
 
-router.put("/sdelete", (req, res) => {
-  const seqId = req.body.seqId;
-  BeatSequence.findById(
-    seqId,
-    // { status: "Inactive" },
-    (err, sequence) => {
-      if (err) {
-        res.send(err);
-        console.log("error occurred " + err);
-      } else {
-        sequence.status = "Inactive";
-        sequence.save((er) => {
-          if (er) {
-            res.send(er);
-          } else {
-            res.send(sequence);
-          }
-        });
-        // res.send("soft delete");
-        console.log("soft delete");
-      }
+router.put("/:id/sdelete", (req, res) => {
+  BeatSequence.findById(req.params.id, (err, sequence) => {
+    if (err) {
+      res.send(err);
+      console.log("error occurred " + err);
+    } else {
+      sequence.status = "Inactive";
+      sequence.save((er) => {
+        if (er) {
+          res.send(er);
+        } else {
+          res.send(sequence);
+        }
+      });
+      console.log("soft delete");
     }
-  );
+  });
 });
 
-// router.put("/:id/sdelete", (res, req) => {
-//   BeatSequence.findByIdAndUpdate(
-//     req.params.id,
-//     { status: "Inactive" }
-//     // (err, sequence) => {
-//     //   if (err) {
-//     //     res.send(err);
-//     //     console.log("error occurred " + err);
-//     //   } else {
-//     //     //   sequence.status = "Inactive";
-//     //     res.send("soft delete");
-//     //     console.log("soft delete");
-//     //   }
-//     // }
-//   );
-// });
+router.put("/:id/edit", (req, res) => {
+  // const newSeq = req.body.newSeq;
+  const newDummySeq = [
+    {
+      instrument: "601b73cfcb84de34a9b825c5",
+      beatRow: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+    },
+    {
+      instrument: "601b73cfcb84de34a9b825c7",
+      beatRow: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0],
+    },
+    {
+      instrument: "601b73cfcb84de34a9b825c8",
+      beatRow: [1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0],
+    },
+  ];
+  BeatSequence.findById(req.params.id, (err, sequence) => {
+    if (err) {
+      res.send(err);
+      console.log("error occurred " + err);
+    } else {
+      sequence.beatGrid = newDummySeq;
+      sequence.save((er) => {
+        if (er) {
+          res.send(er);
+        } else {
+          res.send(sequence);
+        }
+      });
+      console.log("edit sequence");
+    }
+  });
+});
 
 module.exports = router;
