@@ -95,27 +95,28 @@ router.put("/:id/sdelete", (req, res) => {
 });
 
 router.put("/:id/edit", (req, res) => {
-  // const newSeq = req.body.newSeq;
-  const newDummySeq = [
-    {
-      instrument: "601b73cfcb84de34a9b825c5",
-      beatRow: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-    },
-    {
-      instrument: "601b73cfcb84de34a9b825c7",
-      beatRow: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0],
-    },
-    {
-      instrument: "601b73cfcb84de34a9b825c8",
-      beatRow: [1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0],
-    },
-  ];
+  const newSeq = req.body.newSeq;
+  // dummy data below for testing
+  // const newDummySeq = [
+  //   {
+  //     instrument: "601b73cfcb84de34a9b825c5",
+  //     beatRow: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+  //   },
+  //   {
+  //     instrument: "601b73cfcb84de34a9b825c7",
+  //     beatRow: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0],
+  //   },
+  //   {
+  //     instrument: "601b73cfcb84de34a9b825c8",
+  //     beatRow: [1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0],
+  //   },
+  // ];
   BeatSequence.findById(req.params.id, (err, sequence) => {
     if (err) {
       res.send(err);
       console.log("error occurred " + err);
     } else {
-      sequence.beatGrid = newDummySeq;
+      sequence.beatGrid = newSeq;
       sequence.save((er) => {
         if (er) {
           res.send(er);
