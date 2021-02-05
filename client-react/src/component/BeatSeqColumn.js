@@ -6,7 +6,7 @@ const BeatSeqColumn = () => {
     const [machineCreated, setMachineCreated] = useState(false)
     const [newMachineId, setNewMachineId] = useState("")
     // const userId = sessionStorage.getItem("userId");
-    const userId = "user11";
+    const userId = "user10";
 
     const handleAddMachineClick = () => {
         setMachineCreated(false);
@@ -15,7 +15,7 @@ const BeatSeqColumn = () => {
             userId: userId
         };
         axios
-            .post("/beatSequence", newMachineUser)
+            .post("/api/beatSequence", newMachineUser)
             .then((response) => {
                 console.log("posted a new machine to MongoDB", response)
                 //get the new object_id

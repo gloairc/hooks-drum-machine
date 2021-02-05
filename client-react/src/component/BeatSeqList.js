@@ -11,7 +11,7 @@ const BeatSeqList = () => {
     useEffect(() => { //get the full list and filter the active ones
         //setdataReceived(false) //is this needed?
         axios
-            .get(`/beatSequence/${userId}`)
+            .get(`/api/beatSequence/user/${userId}`) //should use user controller instead
             .then((response) => {
                 console.log("axios ran and response is", response.data)
                 //handle when only one result is returned and is an object -> fit it into an array

@@ -71,7 +71,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
 
   const [start, startButton] = useStart();
   // const [bpm, bpmSelector] = useBPM(65);
-  const [bpm, bpmSelector] = useBPM(props.tempo); //default should be 65
+  const [bpm, bpmSelector] = useBPM(65); //default should be 65, props.oneBeatSeq.tempo
   // const userId = sessionStorage.getItem('userId')
 
   const buffersRef = useRef(buffers);
@@ -81,11 +81,19 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   const currentStepRef = useRef(currentStep);
   currentStepRef.current = currentStep;
 
-  useEffect((props) => { //set beatGrid,name, tempo from saved seq
-    setSteps(props.beatGrid)
-    setbeatSeqName(props.name)
-    // useBPM(props.tempo)
-  }, [props._id])
+  // console.log("props", props)
+  useEffect(() => { //set beatGrid,name, tempo from saved seq
+    console.log("useEffect to set initial state, beatseq name")
+    if (Object.keys(props.oneBeatSeq).length !== 0) {
+      if (props.oneBeatSeq.beatGrid.length === 0) {
+        setSteps(initialStepState)
+      } else {
+        setSteps(props.oneBeatSeq.beatGrid)
+      }
+      setbeatSeqName(props.oneBeatSeq.name)
+      // useBPM(props.tempo)
+    }
+  }, [props.oneBeatSeq._id])
 
 
   useEffect(//playsound
@@ -138,14 +146,15 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
       name: beatSeqName,
       tempo: bpm,
       beatGrid: stepState,
-      username: "to remove this username field. use id"
+      // username: "to remove this username field. use id"
       //remove if using mongdo
       // status: "active",
       // UpdatedAt: "2021-04-02" //todays'date
     }
     console.log("beatSetUp", beatSetUp)
+    console.log(stepState)
     axios
-      .put("/beatSequence/", beatSetUp) //previously was post
+      .put(`/api/beatSequence/${props.oneBeatSeq._id}/edit`, beatSetUp) //previously was post
       .then((response) => {
         console.log("put to MongoDB", response)
       })

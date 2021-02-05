@@ -15,12 +15,17 @@ const BeatSeq = () => {
     useEffect(() => {//trigger whether there is id or not
         console.log("do Axios GET beatseqid")
         axios
-            .get(`/beatSequence/${beatseqId}`)
+            .get(`/api/beatSequence/${beatseqId}`)
             .then((response) => {//setRetrievedSeq
-                setRetrievedSeq(response.data)
-                setIsLoading(false)
-                console.log("axios reponse", response)
+                console.log("set retrieved seq axios reponse", response)
                 console.log("axios reponse.data & retrievedseq is", response.data)
+                if (response.data.length === 1) {
+                    setRetrievedSeq((response.data)[0])
+                    setIsLoading(false)
+                }
+                else {
+                    console.log("length of response.data is not 1")
+                }
             })
             .catch((error) => {
                 console.log("BeatSeq axios error", error)
@@ -42,6 +47,7 @@ const BeatSeq = () => {
     }
 
     else {// have id, axios get and drum machine
+        console.log("retrievedSeq", retrievedSeq)
         return (
             <div>
                 <h1>Beat Sequencer</h1>

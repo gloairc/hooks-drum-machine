@@ -28,7 +28,7 @@ router.get("/", (req, res) => {
   console.log("get all sequences");
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", (req, res) => {//getting one sequence
   //show one instrument
   BeatSequence.find(
     { _id: req.params.id, status: "Active" },
@@ -50,10 +50,9 @@ router.get("/:id", (req, res) => {
 //   console.log("get user's sequences");
 // });
 
-router.get("/:username", (req, res) => {
-  //show one instrument
+router.get("/user/:username", (req, res) => {//to search using UserController instead
   BeatSequence.find(
-    { username: req.params.username, status: "Active" },
+    { username: req.params.username, status: "Active" }, //check if user is active? but not needed because non-active user wont be able to log in
     (error, sequence) => {
       res.send(sequence);
       return sequence;
@@ -68,7 +67,7 @@ router.post("/", (req, res) => {
     if (error) {
       res.send(error);
     } else {
-      res.send("submitted!");
+      res.send(sequence); //previously "submitted"
       console.log("submitted");
       return sequence;
     }
