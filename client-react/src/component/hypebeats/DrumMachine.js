@@ -70,8 +70,8 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   const [beatSeqName, setbeatSeqName] = useState("Untitled")
 
   const [start, startButton] = useStart();
-  const [bpm, bpmSelector] = useBPM(65);
-
+  // const [bpm, bpmSelector] = useBPM(65);
+  const [bpm, bpmSelector] = useBPM(props.tempo); //default should be 65
   // const userId = sessionStorage.getItem('userId')
 
   const buffersRef = useRef(buffers);
@@ -81,7 +81,14 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   const currentStepRef = useRef(currentStep);
   currentStepRef.current = currentStep;
 
-  useEffect(//steps
+  useEffect((props) => { //set beatGrid,name, tempo from saved seq
+    setSteps(props.beatGrid)
+    setbeatSeqName(props.name)
+    // useBPM(props.tempo)
+  }, [props._id])
+
+
+  useEffect(//playsound
     () => {
       Tone.Transport.scheduleRepeat(function (time) {
         Object.keys(buffersRef.current).forEach(b => {
@@ -140,7 +147,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     axios
       .put("/beatSequence/", beatSetUp) //previously was post
       .then((response) => {
-        console.log("posted to MongoDB", response)
+        console.log("put to MongoDB", response)
       })
       .catch((error) => {
         console.log("error", error);

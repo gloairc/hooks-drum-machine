@@ -1,8 +1,35 @@
+import axios from 'axios'
+import { useState } from 'react'
+import { Redirect } from "react-router-dom";
 import BeatSeqList from './BeatSeqList'
 const BeatSeqColumn = () => {
+    const [machineCreated, setMachineCreated] = useState(false)
+    const [newMachineId, setNewMachineId] = useState("")
+    // const userId = sessionStorage.getItem("userId");
+    const userId = "user11";
 
     const handleAddMachineClick = () => {
-        console.log("add new machine")
+        setMachineCreated(false);
+        console.log("add new machine");
+        const newMachineUser = {
+            userId: userId
+        };
+        axios
+            .post("/beatSequence", newMachineUser)
+            .then((response) => {
+                console.log("posted a new machine to MongoDB", response)
+                //get the new object_id
+                setNewMachineId(response.data._id)
+                setMachineCreated(true)
+            })
+            .catch((error) => {
+                console.log("add new machine error/error", error);
+                console.log("add new machine error/response", error.response.data.error);
+            });
+    }
+
+    if (machineCreated === true) {
+        return <Redirect to={`/beatseq/${newMachineId}`} />;
     }
 
     return (

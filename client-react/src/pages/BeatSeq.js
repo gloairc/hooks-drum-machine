@@ -7,13 +7,13 @@ import axios from "axios";
 
 const BeatSeq = () => {
     const beatseqId = useParams().id
-    console.log("beatseqId", beatseqId)
+    console.log("beatseqId from params is", beatseqId)
 
     const [retrievedSeq, setRetrievedSeq] = useState({})
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {//trigger whether there is id or not
-        console.log("do Axios")
+        console.log("do Axios GET beatseqid")
         axios
             .get(`/beatSequence/${beatseqId}`)
             .then((response) => {//setRetrievedSeq
