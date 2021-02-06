@@ -20,12 +20,12 @@ const BeatSeqColumn = () => {
             .then((response) => {
                 console.log("posted a new machine to MongoDB", response)
                 //get the new object_id
-                setNewMachineId(response.data._id)
-                setMachineCreated(true)
+                setNewMachineId(response.data._id);
+                setMachineCreated(true);
             })
             .catch((error) => {
                 console.log("add new machine error/error", error);
-                console.log("add new machine error/response", error.response.data.error);
+                // console.log("add new machine error/response", error.response.data.error);
             });
     }
 
@@ -37,7 +37,8 @@ const BeatSeqColumn = () => {
     return (
         <div id="beatSeqCol">
             beatSeqColumn
-            <BeatSeqList />
+            <BeatSeqList newMachineCreated={machineCreated} />
+            {/* above doesnt seem to work, probably need useEffect */}
 
             <button
                 onClick={() => handleAddMachineClick()}

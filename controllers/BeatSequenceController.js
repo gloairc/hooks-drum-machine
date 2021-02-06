@@ -99,7 +99,7 @@ router.post("/", (req, res) => {
     if (error) {
       res.send(error);
     } else {
-      res.send(sequence); //previously "submitted"
+      res.send(sequence);
       console.log("submitted");
       return sequence;
     }
@@ -126,7 +126,7 @@ router.put("/:id/sdelete", (req, res) => {
 });
 
 router.put("/:id/edit", (req, res) => {
-  const newSeq = req.body.beatGrid;
+  const newSeq = req.body;
   // dummy data below for testing
   // const newDummySeq = [
   //   {
@@ -147,7 +147,9 @@ router.put("/:id/edit", (req, res) => {
       res.send(err);
       console.log("error occurred " + err);
     } else {
-      sequence.beatGrid = newSeq;
+      sequence.beatGrid = newSeq.beatGrid;
+      sequence.name = newSeq.name;
+      sequence.tempo = newSeq.tempo
       sequence.save((er) => {
         if (er) {
           res.send(er);

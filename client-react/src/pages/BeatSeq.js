@@ -12,7 +12,7 @@ const BeatSeq = () => {
     const [retrievedSeq, setRetrievedSeq] = useState({})
     const [isLoading, setIsLoading] = useState(false)
 
-    useEffect(() => {//trigger whether there is id or not
+    useEffect(() => {//for drum machine,trigger whether there is id or not
         console.log("do Axios GET beatseqid")
         axios
             .get(`/api/beatSequence/${beatseqId}`)
@@ -31,6 +31,10 @@ const BeatSeq = () => {
                 console.log("BeatSeq axios error", error)
             })
     }, [beatseqId])
+
+    // useEffect(() => {//for beatseqcol
+
+    // })
 
     if (beatseqId === undefined || beatseqId === "") {//only beatseqcol & empty box
         return (

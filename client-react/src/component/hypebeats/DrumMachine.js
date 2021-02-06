@@ -83,8 +83,20 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
 
   const [start, startButton] = useStart();
   // const [bpm, bpmSelector] = useBPM(65);
-  const [bpm, bpmSelector] = useBPM(65); //default should be 65, props.oneBeatSeq.tempo
+  const [initialBpm, setInitialBpm] = useState(65) //run first round
+
+  console.log("props.oneBeatSeq.tempo", props.oneBeatSeq.tempo)
+  useEffect(() => {
+    if (props.oneBeatSeq.tempo !== undefined) {
+      setInitialBpm(props.oneBeatSeq.tempo)
+    }
+  }, [props.oneBeatSeq.tempo])
+
+
+  const [bpm, bpmSelector] = useBPM(initialBpm); //default should be 65, props.oneBeatSeq.tempo
+  //useBPM is function that set bpm according to frontend toggle, returns bpm
   // const userId = sessionStorage.getItem('userId')
+
 
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
@@ -103,9 +115,12 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
         setSteps(props.oneBeatSeq.beatGrid)
       }
       setbeatSeqName(props.oneBeatSeq.name)
-      // useBPM(props.tempo)
+      // load the tempo
+      setInitialBpm(props.oneBeatSeq.tempo)
+
     }
   }, [props.oneBeatSeq._id]) //re-render everytime params id changes
+
 
 
   useEffect(//playsound
@@ -165,7 +180,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     axios
       .put(`/api/beatSequence/${props.oneBeatSeq._id}/edit`, beatSetUp)
       .then((response) => {
-        console.log("put to MongoDB", response)
+        console.log("put to MongoDB", response.data)
       })
       .catch((error) => {
         console.log("error", error);

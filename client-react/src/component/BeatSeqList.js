@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BeatSeqOneCard from "./BeatSeqOneCard"
 
-const BeatSeqList = () => {
+const BeatSeqList = (props) => {
     const [activeList, setActiveList] = useState([]);
     const [dataReceived, setdataReceived] = useState(false);
     const userId = "user1" //hardcode first
     //const userId = sessionStorage.getItem("userId");
+    console.log("newmachineprops", props.newMachineCreated)
 
     useEffect(() => { //get the full list and filter the active ones
         //setdataReceived(false) //is this needed?
@@ -30,7 +31,7 @@ const BeatSeqList = () => {
                 }
             }
             );
-    }, [dataReceived]);//this works when refrest the page, maybe should change to running everytime someone click save button? so set state for save button?
+    }, [props.newMachineCreated]);//this works when refrest the page, maybe should change to running everytime someone click save button? so set state for save button?
 
     // const dummyList = [//dummy playlist
     //     {
