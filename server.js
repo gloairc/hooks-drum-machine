@@ -33,8 +33,11 @@ app.use("/api/instrument", InstrumentController);
 const UserController = require("./controllers/UserController");
 app.use("/api/user", UserController);
 
-// const sessionController = require("./controllers/SessionsController");
-// app.use("/session", sessionController);
+// const sessionController = require("./controllers/SessionController");
+// app.use("/api/session", sessionController);
+
+const jwtController = require("./controllers/JwtController");
+app.use("/api/session", jwtController);
 
 app.get("/", (req, res) => {
   res.send("test");
