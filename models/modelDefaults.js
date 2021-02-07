@@ -58,6 +58,41 @@ const defaultGrid = Array(16).fill(0);
 //   },
 // ];
 
+const userSeed = [
+  {
+    name: "Allo",
+    email: "some@email.com",
+    username: "user0",
+    password: "aaaa1111",
+    savedBeats: [],
+    status: "Active",
+  },
+  {
+    name: "BAllo",
+    email: "do@email.com",
+    username: "user1",
+    password: "aaaa1111",
+    savedBeats: [],
+    status: "Active",
+  },
+  {
+    name: "CAllo",
+    email: "qwe@email.com",
+    username: "user2",
+    password: "aaaa1111",
+    savedBeats: [],
+    status: "Active",
+  },
+  {
+    name: "DAllo",
+    email: "tyu@email.com",
+    username: "user3",
+    password: "aaaa1111",
+    savedBeats: [],
+    status: "Active",
+  },
+];
+
 const defaultBeat = {
   Kick: defaultGrid,
   Sub1: defaultGrid,
@@ -74,6 +109,7 @@ const defaultBeat = {
 
 const modelDefaults = {
   sequence: defaultBeat,
+  userSeed: userSeed,
 };
 
 module.exports = modelDefaults;
