@@ -113,21 +113,59 @@ router.post(
   }
 );
 
-router.put("/:id", (req, res) => {
-  //edit account
-  User.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true },
-    (error, updatedUser) => {
-      if (error) {
-        res.send(error);
-      } else {
-        res.send(updatedUser);
+//edit account
+router.put(
+  "/:id",
+  body("name", "Please enter your name").optional().trim().notEmpty(),
+  body("email", "Please enter a valid email address").optional().isEmail(),
+  body(
+    "username",
+    "Username has to be at least 8 alphanumeric characters long."
+  )
+    .optional()
+    .trim()
+    .isLength({ min: 8 }),
+  body(
+    "password",
+    "Password has to be at least 8 alphanumeric characters long."
+  )
+    .optional()
+    .trim()
+    .isLength({ min: 8 })
+    .isAlphanumeric(),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // Errors returned in an array `errors.array()`.
+      const locals = { UserInput: req.body, errors: errors.array() };
+      res.status(StatusCodes.BAD_REQUEST).send(locals);
+    } else {
+      // when user update account page
+      if (req.body.password && req.body.password !== "") {
+        //user changes password
+        req.body.password = bcrypt.hashSync(
+          req.body.password,
+          bcrypt.genSaltSync()
+        );
+      } else if (req.body.password === "") {
+        // users didnt change password, remove the field "password"
+        delete req.body.password;
       }
+      User.findByIdAndUpdate(
+        req.params.id, // id
+        req.body, // what to update
+        { new: true },
+        (error, updatedUser) => {
+          if (error) {
+            res.status(StatusCodes.BAD_REQUEST).send(error);
+          } else {
+            res.status(StatusCodes.OK).send(updatedUser);
+          }
+        }
+      );
     }
-  );
-});
+  }
+);
 
 router.put("/:id/sdelete", (req, res) => {
   //softdelete
