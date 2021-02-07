@@ -110,7 +110,7 @@ const PasswordEdit = (props) => {
                             <Button
                                 variant="warning"
                                 style={{
-                                    borderRadius: "20px",
+                                    borderRadius: "10px",
                                     border: "3px solid",
                                     fontWeight: "bold",
                                     // width: "150px",
@@ -126,7 +126,7 @@ const PasswordEdit = (props) => {
                                     <Button
                                         variant="outline-warning"
                                         style={{
-                                            borderRadius: "20px",
+                                            borderRadius: "10px",
                                             border: "3px solid",
                                             fontWeight: "bold",
                                             // width: "150px",

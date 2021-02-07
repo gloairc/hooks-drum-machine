@@ -53,7 +53,8 @@ router.get("/:id", (req, res) => {//getting one sequence
 
 router.get("/user/:username", (req, res) => {//to search using UserController instead
   BeatSequence.find(
-    { username: req.params.username, status: "Active" }, //check if user is active? but not needed because non-active user wont be able to log in
+    { username: req.params.username, status: "Active" },
+    // { username: req.params.username, status: "Active" }, //check if user is active? but not needed because non-active user wont be able to log in
     (error, sequence) => {
       res.send(sequence);
       return sequence;

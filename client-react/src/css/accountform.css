@@ -1,6 +1,6 @@
 .accForm {
     border: 1px solid rgb(204, 203, 203);
-    width: 70%;
+    width: 80%;
     height: auto;
     margin: 20px auto;
     display: flex;
@@ -17,11 +17,11 @@
   } */
   
   #accountDetail-buttonRow {
-    background-color: darkgreen;
+    /* background-color: darkgreen; */
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    margin: 20px 10px 0 0;
+    justify-content: flex-start;
+    margin: 10px 10px 0 0;
   }
   
   .rightLink {
@@ -41,6 +41,6 @@
   .edit {
     width: 80%;
     margin: 10px auto;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(110, 102, 102, 0.8);
   }
   

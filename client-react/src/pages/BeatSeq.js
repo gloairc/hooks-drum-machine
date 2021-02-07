@@ -12,8 +12,8 @@ const BeatSeq = () => {
     const [retrievedSeq, setRetrievedSeq] = useState({})
     const [isLoading, setIsLoading] = useState(false)
 
-    useEffect(() => {//for drum machine,trigger whether there is id or not
-        console.log("do Axios GET beatseqid")
+    useEffect(() => {//for drum machine, get seq, trigger whether there is id or not
+        console.log("do Axios GET beatseqid for Drum Machine")
         axios
             .get(`/api/beatSequence/${beatseqId}`)
             .then((response) => {//setRetrievedSeq
@@ -32,9 +32,18 @@ const BeatSeq = () => {
             })
     }, [beatseqId])
 
-    // useEffect(() => {//for beatseqcol
+    const [isNameChange, setIsNameChange] = useState(false);
+    const [isSaved, setIsSaved] = useState(false)
 
-    // })
+    const handleNameChange = (status) => {
+        console.log("handleNameChange in BeatSeq, status is", status);
+        setIsNameChange(status)
+    }
+
+    const handleSave = (status) => {
+        setIsSaved(status);
+        console.log("handleSave in BeatSeq, status is", status)
+    }
 
     if (beatseqId === undefined || beatseqId === "") {//only beatseqcol & empty box
         return (
@@ -44,7 +53,7 @@ const BeatSeq = () => {
                     <BeatSeqColumn />
                 </div>
                 <div>
-                    Choose from playlist to load the beat sequencer
+                    Choose from playlist or click "new" to load the beat sequencer
                 </div>
             </div>
         )
@@ -56,11 +65,13 @@ const BeatSeq = () => {
             <div>
                 <h1>Beat Sequencer</h1>
                 <div>
-                    <BeatSeqColumn />
+                    <BeatSeqColumn nameChange={isNameChange} saved={isSaved} />
                 </div>
                 <div>
                     <DrumMachine
-                        oneBeatSeq={retrievedSeq} />
+                        oneBeatSeq={retrievedSeq}
+                        handleNameChange={handleNameChange}
+                        handleSave={handleSave} />
                 </div>
             </div>
         )

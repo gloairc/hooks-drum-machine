@@ -5,14 +5,19 @@ import BeatSeqOneCard from "./BeatSeqOneCard"
 const BeatSeqList = (props) => {
     const [activeList, setActiveList] = useState([]);
     const [dataReceived, setdataReceived] = useState(false);
-    const userId = "user1" //hardcode first
-    //const userId = sessionStorage.getItem("userId");
-    console.log("newmachineprops", props.newMachineCreated)
+    // const userId = "601ff16499a7774380ea4248" //hardcode first
+    // const userId = sessionStorage.getItem("userId");
+    const username = sessionStorage.getItem("username");
 
+    console.log("newmachineprops", props.newMachineCreated) //not always true
+    console.log("nameChange", props.nameChange)
+    console.log("saved", props.saved)
     useEffect(() => { //get the full list and filter the active ones
-        //setdataReceived(false) //is this needed?
+        setdataReceived(false) //is this needed?
+        console.log("getting playlist for user", username)
         axios
-            .get(`/api/beatSequence/user/${userId}`) //should use user controller instead
+            // .get(`/api/beatSequence/user/${userId}`)
+            .get(`/api/beatSequence/user/${username}`)
             .then((response) => {
                 console.log("axios ran and response is", response.data)
                 //handle when only one result is returned and is an object -> fit it into an array
@@ -31,8 +36,7 @@ const BeatSeqList = (props) => {
                 }
             }
             );
-    }, [props.newMachineCreated]); //should also render everytime change name
-    //this works when refrest the page, maybe should change to running everytime someone click save button? so set state for save button?
+    }, [props.newMachineCreated, props.nameChange, props.saved]); //should also render everytime change name, save, new machine
 
     const noList = (//inform no list, start by clicking add button
         <div>

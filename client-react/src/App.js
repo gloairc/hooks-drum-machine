@@ -5,22 +5,27 @@ import {
     Route,
     Redirect,
 } from "react-router-dom";
-import Home from './pages/Home'
-import BeatSeq from './pages/BeatSeq'
-import BeatSeqTeaser from './pages/BeatSeqTeaser'
-import Login from './pages/account/Login'
-import SignUp from './pages/account/SignUp'
-import AccountView from './pages/account/AccountView'
-import AccountEdit from './pages/account/AccountEdit'
-import PasswordEdit from './pages/account/PasswordEdit'
+import Home from "./pages/Home"
+import BeatSeq from "./pages/BeatSeq"
+import BeatSeqTeaser from "./pages/BeatSeqTeaser"
+import Login from "./pages/account/Login"
+import SignUp from "./pages/account/SignUp"
+import AccountView from "./pages/account/AccountView"
+import AccountEdit from "./pages/account/AccountEdit"
+import PasswordEdit from "./pages/account/PasswordEdit"
+import Logout from "./pages/account/Logout"
+import DeleteAccount from "./pages/account/DeleteAccount"
+import Info from "./pages/Info"
 
 function App() {
     const [loggedIn, setLoggedIn] = useState();
     const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
+    const [username, setUsername] = useState(sessionStorage.getItem("username"));
 
     useEffect(() => {
         console.log("App useEffect");
         setUserId(sessionStorage.getItem("userId"));
+        setUsername(sessionStorage.getItem("username"));
     }, [loggedIn]);
 
     return (
@@ -60,22 +65,6 @@ function App() {
                         {/* {userId ? <PasswordEdit /> : <Redirect to={"/login"} />} */}
                         <PasswordEdit />
                     </Route>
-
-                    {/* <Route exact path="/logout">
-                        <Logout setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
-                    </Route> */}
-                </Switch>
-            </Router>
-        </div>
-    );
-}
-export default App;
-
-
-{/*<div>
-            <NavBar loggedIn={loggedIn} />
-            <Router>
-                <Switch>     
                     <Route exact path="/user/:id/delete">
                         {userId ? (
                             <DeleteAccount setLoggedIn={setLoggedIn} />
@@ -83,9 +72,15 @@ export default App;
                                 <Redirect to={"/login"} />
                             )}
                     </Route>
+                    <Route exact path="/logout">
+                        <Logout setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
+                    </Route>
                     <Route exact path="/info">
                         <Info />
                     </Route>
                 </Switch>
             </Router>
-        </div> */}
+        </div>
+    );
+}
+export default App;

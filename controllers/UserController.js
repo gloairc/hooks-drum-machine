@@ -15,7 +15,7 @@ router.get("/seed", (req, res) => {
         email: "some@email.com",
         username: "user0",
         password: "aaaa1111",
-        savedBeats: ["601c232212411a45c8b79266", "601c232212411a45c8b79272"],
+        savedBeats: ["601d663a66153426d0518e7f"],
         status: "Active",
       },
       {
@@ -23,15 +23,15 @@ router.get("/seed", (req, res) => {
         email: "do@email.com",
         username: "user1",
         password: "aaaa1111",
-        savedBeats: ["601c232212411a45c8b79269", "601c232212411a45c8b7926f"],
+        savedBeats: ["601eabb832cd5183fc161ae1", "601f6f1f5bdcaa491c77197b", "601f9ccb6dd05c8158925635", "601d663a66153426d0518e80"],
         status: "Active",
       },
       {
         name: "CAllo",
         email: "qwe@email.com",
         username: "user2",
-        password: "aaaa1111",
-        savedBeats: ["601c232212411a45c8b7926c"],
+        password: "12345678",
+        savedBeats: [],
         status: "Active",
       },
       {
@@ -95,7 +95,7 @@ router.post("/", (req, res) => {
     if (error) {
       res.send(error);
     } else {
-      res.send("submitted!");
+      res.send(req.body);
       console.log("submitted");
       return user;
     }

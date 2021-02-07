@@ -21,8 +21,11 @@ const BPMF = (props) => {
     // console.log("BPMF inital BPM", props.initalBPM)
 
     useEffect(() => {// trigger setBPM when propsLoaded becomes true
-        setBPM(props.initalBPM)
-    }, [props.initalBPM])
+        if (props.propsLoaded === true) {
+            setBPM(props.initalBPM)
+        }
+        props.handlePropsLoadedStatus(false)
+    }, [props.initalBPM, props.propsLoaded])
 
     const onBPMchange = (e) => {
         const newBPM = (e.target.value);

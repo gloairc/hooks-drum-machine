@@ -79,6 +79,11 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   const [bpm, setBpm] = useState(initialBpm) //doesnt change when id change
   const [bpmPropsLoaded, setbpmPropsLoaded] = useState(false)
 
+  const handlePropsLoadedStatus = (status) => {
+    setbpmPropsLoaded(status)
+    console.log("seeting bpmpropsloaded stats", status)
+  }
+
   const [titleChange, setTitleChange] = useState(false)
 
   const handleBPMchange = (newBPM) => {//setBpm
@@ -87,13 +92,14 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   }
 
   // const userId = sessionStorage.getItem('userId')
+
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
   const stepsRef = useRef(stepState);
   stepsRef.current = stepState;
   const currentStepRef = useRef(currentStep);
   currentStepRef.current = currentStep;
-
+  // console.log("bpmPropsLoaded", bpmPropsLoaded)
   // console.log("props", props)
   useEffect(() => { //set beatGrid,name, tempo from saved seq
     setbpmPropsLoaded(false)
@@ -107,7 +113,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
       setbeatSeqName(props.oneBeatSeq.name)
       // load the tempo
       setInitialBpm(props.oneBeatSeq.tempo)
-      // console.log("setinitialBPM", props.oneBeatSeq.tempo)
+      console.log("setinitialBPM", props.oneBeatSeq.tempo)
       setbpmPropsLoaded(true)
     }
   }, [props.oneBeatSeq._id]) //re-render everytime params id changes
@@ -164,13 +170,16 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
 
   useEffect(() => {
     if (titleChange === true) {
-      handleSaveClick() //then save it
+      handleSaveClick(); //then save it
+      props.handleNameChange(true)
+      console.log("DM, titlechange")
     }
     setTitleChange(false)  //after save, change to false
   }, [titleChange])
 
   const handleSaveClick = (e) => {//AXIOS PUT TO EDIT
     console.log("clicked save, to axios put")
+    props.handleSave(false)
     const beatSetUp = {
       // userId: "user1", //{userId} from session storage
       username: "user1", //no need once we set up userId
@@ -184,6 +193,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
       .put(`/api/beatSequence/${props.oneBeatSeq._id}/edit`, beatSetUp)
       .then((response) => {
         console.log("put to MongoDB", response.data)
+        props.handleSave(true)
       })
       .catch((error) => {
         console.log("error", error);
@@ -198,8 +208,8 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
       <Container>
         <Transport>
           {/* <Logo>{beatSeqName}</Logo> */}
-          <TitleField title={beatSeqName} handleTitleChange={handleTitleChange} />
-          <BPMF initalBPM={initialBpm} handleBPMchange={handleBPMchange} propsLoaded={bpmPropsLoaded} />
+          <Logo> <TitleField title={beatSeqName} handleTitleChange={handleTitleChange} /></Logo>
+          <Logo>BPM</Logo><BPMF initalBPM={initialBpm} handleBPMchange={handleBPMchange} propsLoaded={bpmPropsLoaded} handlePropsLoadedStatus={handlePropsLoadedStatus} />
           {startButton}
         </Transport>
         <React.Suspense fallback={<p>loading</p>}>

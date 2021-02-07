@@ -159,7 +159,7 @@ const AccountDetailsForm = (props) => {
                                 <Button
                                     variant="outline-warning"
                                     style={{
-                                        borderRadius: "20px",
+                                        borderRadius: "10px",
                                         width: "170px",
                                         border: "3px solid",
                                         fontWeight: "bold",
@@ -209,7 +209,7 @@ const AccountDetailsForm = (props) => {
                         <Button
                             variant="outline-warning"
                             style={{
-                                borderRadius: "20px",
+                                borderRadius: "10px",
                                 width: "150px",
                                 border: "3px solid",
                                 fontWeight: "bold",

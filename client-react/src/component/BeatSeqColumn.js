@@ -1,19 +1,19 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import BeatSeqList from './BeatSeqList'
-const BeatSeqColumn = () => {
+const BeatSeqColumn = (props) => {
     const [machineCreated, setMachineCreated] = useState(false)
     const [newMachineId, setNewMachineId] = useState("")
     // const userId = sessionStorage.getItem("userId");
-    const userId = "user1";
+    const username = sessionStorage.getItem("username");
     const history = useHistory()
 
     const handleAddMachineClick = () => {
         setMachineCreated(false);
         console.log("add new machine");
         const newMachineUser = { //need to fix here
-            username: userId
+            username: username
         };
         axios
             .post("/api/beatSequence", newMachineUser)
@@ -29,15 +29,17 @@ const BeatSeqColumn = () => {
             });
     }
 
-    if (machineCreated === true) {
-        return history.push(`/beatseq/${newMachineId}`);
-        // return <Redirect to={`/beatseq/${newMachineId}`} />;
-    }
+    useEffect(() => {
+        if (machineCreated === true) {
+            return history.push(`/beatseq/${newMachineId}`);
+        }
+        setMachineCreated(false)
+    }, [machineCreated])
 
     return (
         <div id="beatSeqCol">
             beatSeqColumn
-            <BeatSeqList newMachineCreated={machineCreated} />
+            <BeatSeqList newMachineCreated={machineCreated} nameChange={props.nameChange} saved={props.saved} />
             {/* above doesnt seem to work, probably need useEffect */}
 
             <button

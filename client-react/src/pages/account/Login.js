@@ -21,11 +21,14 @@ const Login = (props) => {
         //remove if using axios
         setLoginStatus(true);
         props.setLoggedIn(true);
+        sessionStorage.setItem("username", formData.username)
+        //
         // axios
         //     .post("/session", formData)
         //     .then((response) => {
         //         if (response.data._id) {
         //             sessionStorage.setItem("userId", response.data._id);
+        //             sessionStorage.setItem("username", response.data.username);
         //             setLoginStatus(true);
         //             props.setLoggedIn(true);
         //         }

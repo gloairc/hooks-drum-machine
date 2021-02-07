@@ -50,7 +50,7 @@ const Account = () => {
                                         <Button
                                             variant="outline-warning"
                                             style={{
-                                                borderRadius: "25px",
+                                                borderRadius: "10px",
                                                 padding: "6px",
                                                 width: "150px",
                                                 marginTop: "10px",
@@ -86,12 +86,12 @@ const Account = () => {
                             <Button
                                 variant="outline-warning"
                                 style={{
-                                    borderRadius: "25px",
+                                    borderRadius: "10px",
                                     padding: "6px",
                                     width: "150px",
-                                    marginTop: "10px",
-                                    border: "3px solid",
+                                    border: "2px solid",
                                     fontWeight: "bold",
+                                    margin: "5px",
                                 }}
                             >
                                 Edit Profile
@@ -103,7 +103,7 @@ const Account = () => {
                             <Button
                                 variant="outline-warning"
                                 style={{
-                                    borderRadius: "25px",
+                                    borderRadius: "10px",
                                     padding: "6px",
                                     width: "150px",
                                     marginTop: "10px",
@@ -120,10 +120,11 @@ const Account = () => {
                             <Button
                                 variant="danger"
                                 style={{
-                                    borderRadius: "25px",
+                                    borderRadius: "10px",
                                     padding: "6px",
                                     width: "150px",
-                                    marginTop: "10px",
+                                    border: "2px solid red",
+                                    margin: "5px",
                                 }}
                             >
                                 Delete Account
