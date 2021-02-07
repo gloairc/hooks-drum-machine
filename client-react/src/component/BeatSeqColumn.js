@@ -12,7 +12,7 @@ const BeatSeqColumn = () => {
     const handleAddMachineClick = () => {
         setMachineCreated(false);
         console.log("add new machine");
-        const newMachineUser = {
+        const newMachineUser = { //need to fix here
             username: userId
         };
         axios
