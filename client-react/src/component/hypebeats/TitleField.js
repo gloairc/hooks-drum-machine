@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 
+// props = props.title, props.handleTitleChange
+
 const TitleField = (props) => {
     const [editing, setEditing] = useState(false)
     const [textValue, setTextValue] = useState(props.title) //default is untitled
@@ -9,21 +11,22 @@ const TitleField = (props) => {
         setEditing(true)
     };
 
-    useEffect(() => {// trigger setBPM when propsLoaded becomes true
+    useEffect(() => {// initial name
         setTextValue(props.title)
     }, [props.title])
 
-
     const handleKeyDown = (event) => {//press Enter => Axios
         if (event.code === "Enter") {
-            console.log("Axios Put!");//props
+            console.log("pressed enter for name change");
+            props.handleTitleChange(textValue)
             setEditing(false);
         }
         console.log("handleKeyUp event", event)
     }
 
     const handleBlur = (event) => {// blur => Axios
-        console.log("Axios Put!");//props
+        console.log("onBlur for name change");
+        props.handleTitleChange(textValue)
         setEditing(false);
         console.log("handleBlur event", event)
     }

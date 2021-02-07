@@ -31,27 +31,8 @@ const BeatSeqList = (props) => {
                 }
             }
             );
-    }, [props.newMachineCreated]);//this works when refrest the page, maybe should change to running everytime someone click save button? so set state for save button?
-
-    // const dummyList = [//dummy playlist
-    //     {
-    //         _id: "A",
-    //         name: "Alpha",
-    //         createdAt: "test created at",
-    //         updatedAt: "11-11-11"
-    //     },
-    //     {
-    //         _id: "B",
-    //         name: "Bravo",
-    //         createdAt: "random",
-    //         updatedAt: "22-22-22"
-    //     },
-    //     {
-    //         _id: "C",
-    //         name: "Charlie",
-    //         createdAt: "22",
-    //         updatedAt: "33-33-33"
-    //     }]
+    }, [props.newMachineCreated]); //should also render everytime change name
+    //this works when refrest the page, maybe should change to running everytime someone click save button? so set state for save button?
 
     const noList = (//inform no list, start by clicking add button
         <div>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import BeatSeqList from './BeatSeqList'
 const BeatSeqColumn = () => {
     const [machineCreated, setMachineCreated] = useState(false)

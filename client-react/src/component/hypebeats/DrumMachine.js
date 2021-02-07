@@ -4,7 +4,7 @@ import Tone from 'tone';
 import axios from 'axios'
 
 // import useBPM from './useBPM';
-import BPMF from './BPM';
+import BPMF from './BPMF';
 import useStart from './useStart';
 import StepContext from './StepContext';
 import Transport from './Transport';
@@ -78,6 +78,8 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   // console.log("outside props.oneBeatSeq.tempo", props.oneBeatSeq.tempo)
   const [bpm, setBpm] = useState(initialBpm) //doesnt change when id change
   const [bpmPropsLoaded, setbpmPropsLoaded] = useState(false)
+
+  const [titleChange, setTitleChange] = useState(false)
 
   const handleBPMchange = (newBPM) => {//setBpm
     console.log("handleBPMchange outside", newBPM)
@@ -154,11 +156,24 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     [start]
   );
 
+  const handleTitleChange = (newTitle) => {
+    console.log("handleTitleChange in drummachine")
+    setbeatSeqName(newTitle)
+    setTitleChange(true)
+  }
+
+  useEffect(() => {
+    if (titleChange === true) {
+      handleSaveClick() //then save it
+    }
+    setTitleChange(false)  //after save, change to false
+  }, [titleChange])
+
   const handleSaveClick = (e) => {//AXIOS PUT TO EDIT
     console.log("clicked save, to axios put")
     const beatSetUp = {
-      // userId: "user10", //{userId} from session storage
-      username: "user10",
+      // userId: "user1", //{userId} from session storage
+      username: "user1", //no need once we set up userId
       name: beatSeqName,
       tempo: bpm,
       beatGrid: stepState,
@@ -183,7 +198,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
       <Container>
         <Transport>
           {/* <Logo>{beatSeqName}</Logo> */}
-          <TitleField title={beatSeqName} />
+          <TitleField title={beatSeqName} handleTitleChange={handleTitleChange} />
           <BPMF initalBPM={initialBpm} handleBPMchange={handleBPMchange} propsLoaded={bpmPropsLoaded} />
           {startButton}
         </Transport>
