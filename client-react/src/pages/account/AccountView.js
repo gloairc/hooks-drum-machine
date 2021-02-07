@@ -7,19 +7,21 @@ import { Row, Col, Container, Button } from "react-bootstrap";
 const Account = () => {
     const [formData, setFormData] = useState({});
     const userId = sessionStorage.getItem("userId");
+    // const userId = "601ff16499a7774380ea4248"
     const userIdParam = useParams().id;
 
     useEffect(() => {
         axios
-            .get(`/user/${userId}`)
+            .get(`/api/user/${userIdParam}`)
+            // .get(`/user/${userId}`)
             .then((response) => {
                 setFormData(response.data);
-                console.log(response);
+                console.log("getting user to view", response);
             })
             .catch((error) => {
                 console.log("error", error);
             });
-    }, []);
+    }, [userId, userIdParam]);
 
     const keyWidth = 2;
     const valueWidth = 5;

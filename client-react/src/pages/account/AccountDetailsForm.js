@@ -17,12 +17,13 @@ const AccountDetailsForm = (props) => {
     useEffect(() => {
         if (userId) {
             setIsLoading(true)
-            axios.get(`/user/${userId}`)
+            console.log("before axios")
+            axios.get(`/api/user/${userId}`)
                 .then((response) => {
                     setFormData(response.data)
                     setCurrentUsername(response.data.username)
                     setIsLoading(false)
-                    console.log(response)
+                    console.log("response get user", response)
                 })
                 .catch((error) => {
                     console.log('error', error)
@@ -41,7 +42,7 @@ const AccountDetailsForm = (props) => {
         };
         if (!userId) { //new user => POST
             axios
-                .post("/user", formData)
+                .post("/api/user", formData)
                 .then((response) => {
                     console.log(response);
                     sessionStorage.setItem("userId", response.data._id);
@@ -59,7 +60,7 @@ const AccountDetailsForm = (props) => {
             // console.log(validate.error)
         } else if (userId) {//existing user => PUT
             axios
-                .put(`/user/${userId}`, updatedInfo)
+                .put(`/api/user/${userId}`, updatedInfo)
                 .then((response) => {
                     setTimeout(() => {
                         setSent(true);
@@ -92,7 +93,7 @@ const AccountDetailsForm = (props) => {
 
     const handleBlur = (event) => {
         setErrorMsg("");
-        axios.get('/user', {  // /user?username=formData.username
+        axios.get('/api/user', {  // /user?username=formData.username
             params: { username: formData.username }
         })
             .then((response) => {// either receive the existing one user else or all users when username ===""
