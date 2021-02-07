@@ -10,6 +10,7 @@ import StepContext from './StepContext';
 import Transport from './Transport';
 import StepSequencer from './StepSequencer';
 import Fx from './FX';
+import TitleField from './TitleField';
 
 const Container = styled.div`
   max-width: 800px;
@@ -53,17 +54,6 @@ const config = {//default load
     OpenHiHat: process.env.PUBLIC_URL + '/sounds/openhihat.wav',
   },
 };
-
-// const beatGrid1 = props.oneBeatSeq.beatGrid;
-// const instruNameforTracks = beatGrid1.map((item) => { return item.name });
-
-// const customizedConfig = {//load from beatGrid
-//   tracks: audioTrack,  // ['Kick', 'Sub1', 'Sub2'...],
-//   samples: {
-//     // Kick: process.env.PUBLIC_URL + '/sounds/kick.wav',
-//   },
-// };
-
 
 const initialStepState = {
   //props.beatGrid.name : props.beatGrid.beatRow
@@ -192,7 +182,8 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     <StepContext.Provider value={{ state: stepState, setSteps }}>
       <Container>
         <Transport>
-          <Logo>{beatSeqName}</Logo>
+          {/* <Logo>{beatSeqName}</Logo> */}
+          <TitleField title={beatSeqName} />
           <BPMF initalBPM={initialBpm} handleBPMchange={handleBPMchange} propsLoaded={bpmPropsLoaded} />
           {startButton}
         </Transport>

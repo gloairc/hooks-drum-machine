@@ -17,8 +17,8 @@ const BPM = styled.input`
 //pass down initalBPM and handleBPMchange(), propsLoaded
 const BPMF = (props) => {
     const [bpm, setBPM] = useState(props.initalBPM); //inital state default is 65 propsLoaded=false
-    console.log("BPMF bpm", bpm)
-    console.log("BPMF inital BPM", props.initalBPM)
+    // console.log("BPMF bpm", bpm)
+    // console.log("BPMF inital BPM", props.initalBPM)
 
     useEffect(() => {// trigger setBPM when propsLoaded becomes true
         setBPM(props.initalBPM)
