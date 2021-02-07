@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import Tone from 'tone';
 import axios from 'axios'
 
-import useBPM from './useBPM';
+// import useBPM from './useBPM';
+import BPMF from './BPM';
 import useStart from './useStart';
 import StepContext from './StepContext';
 import Transport from './Transport';
@@ -82,22 +83,18 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   const [beatSeqName, setbeatSeqName] = useState("Untitled")
 
   const [start, startButton] = useStart();
-  // const [bpm, bpmSelector] = useBPM(65);
   const [initialBpm, setInitialBpm] = useState(65) //run first round
+  // console.log("outside initialBPM", initialBpm)
+  // console.log("outside props.oneBeatSeq.tempo", props.oneBeatSeq.tempo)
+  const [bpm, setBpm] = useState(initialBpm) //doesnt change when id change
+  const [bpmPropsLoaded, setbpmPropsLoaded] = useState(false)
 
-  console.log("props.oneBeatSeq.tempo", props.oneBeatSeq.tempo)
-  useEffect(() => {
-    if (props.oneBeatSeq.tempo !== undefined) {
-      setInitialBpm(props.oneBeatSeq.tempo)
-    }
-  }, [props.oneBeatSeq.tempo])
+  const handleBPMchange = (newBPM) => {//setBpm
+    console.log("handleBPMchange outside", newBPM)
+    setBpm(newBPM)
+  }
 
-
-  const [bpm, bpmSelector] = useBPM(initialBpm); //default should be 65, props.oneBeatSeq.tempo
-  //useBPM is function that set bpm according to frontend toggle, returns bpm
   // const userId = sessionStorage.getItem('userId')
-
-
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
   const stepsRef = useRef(stepState);
@@ -107,7 +104,8 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
 
   // console.log("props", props)
   useEffect(() => { //set beatGrid,name, tempo from saved seq
-    console.log("useEffect to set initial state, beatseq name")
+    setbpmPropsLoaded(false)
+    console.log("useEffect to set initial state, beatseq name, tempo")
     if (Object.keys(props.oneBeatSeq).length !== 0) {//if props.oneBeatSeq is not empty
       if (props.oneBeatSeq.beatGrid.length === 0) {//if beatGrid is empty
         setSteps(initialStepState) //default {Kick:[], Snare:[]}, shouldn't be the case
@@ -117,10 +115,10 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
       setbeatSeqName(props.oneBeatSeq.name)
       // load the tempo
       setInitialBpm(props.oneBeatSeq.tempo)
-
+      // console.log("setinitialBPM", props.oneBeatSeq.tempo)
+      setbpmPropsLoaded(true)
     }
   }, [props.oneBeatSeq._id]) //re-render everytime params id changes
-
 
 
   useEffect(//playsound
@@ -195,7 +193,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
       <Container>
         <Transport>
           <Logo>{beatSeqName}</Logo>
-          {bpmSelector}
+          <BPMF initalBPM={initialBpm} handleBPMchange={handleBPMchange} propsLoaded={bpmPropsLoaded} />
           {startButton}
         </Transport>
         <React.Suspense fallback={<p>loading</p>}>
