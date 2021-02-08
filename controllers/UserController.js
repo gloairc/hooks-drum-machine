@@ -1,57 +1,24 @@
+const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const { body, validationResult } = require("express-validator");
 const methodOverride = require("method-override");
 router.use(methodOverride("_method"));
 const { StatusCodes } = require("http-status-codes");
+const modelDefaults = require("../models/modelDefaults");
 
 // SEEDING
 router.get("/seed", (req, res) => {
   console.log("seeding");
-  User.create(
-    [
-      {
-        name: "Allo",
-        email: "some@email.com",
-        username: "user0",
-        password: "aaaa1111",
-        savedBeats: ["601d663a66153426d0518e7f"],
-        status: "Active",
-      },
-      {
-        name: "BAllo",
-        email: "do@email.com",
-        username: "user1",
-        password: "aaaa1111",
-        savedBeats: ["601eabb832cd5183fc161ae1", "601f6f1f5bdcaa491c77197b", "601f9ccb6dd05c8158925635", "601d663a66153426d0518e80"],
-        status: "Active",
-      },
-      {
-        name: "CAllo",
-        email: "qwe@email.com",
-        username: "user2",
-        password: "12345678",
-        savedBeats: [],
-        status: "Active",
-      },
-      {
-        name: "DAllo",
-        email: "tyu@email.com",
-        username: "user3",
-        password: "aaaa1111",
-        savedBeats: [],
-        status: "Active",
-      },
-    ],
-    (error, user) => {
-      if (error) {
-        console.log(error);
-        return res.send({ ...error, message: "likely user already exist" });
-      }
-      console.log("users", user);
-      res.redirect("/api/user");
+  User.create(modelDefaults.userSeed, (error, user) => {
+    if (error) {
+      console.log(error);
+      return res.send({ ...error, message: "likely user already exist" });
     }
-  );
+    console.log("users", user);
+    res.redirect("/api/user");
+  });
 });
 
 // INDEX (show all users - admin access only)
@@ -89,34 +56,116 @@ router.get("/:id", (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
-  //create new user
-  User.create(req.body, (error, user) => {
-    if (error) {
-      res.send(error);
+router.post(
+  "/",
+  body("name", "Please enter your name").trim().notEmpty(),
+  body("email", "Please enter a valid email address").isEmail(),
+  body(
+    "username",
+    "Username has to be at least 8 alphanumeric characters long."
+  )
+    .trim()
+    .isLength({ min: 8 }),
+  body(
+    "password",
+    "Password has to be at least 8 alphanumeric characters long."
+  )
+    .trim()
+    .isLength({ min: 8 })
+    .isAlphanumeric(),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // Errors returned in an array `errors.array()`.
+      const locals = { UserInput: req.body, errors: errors.array() };
+      res.status(StatusCodes.BAD_REQUEST).send(locals);
     } else {
-      res.send(req.body);
-      console.log("submitted");
-      return user;
-    }
-  });
-});
+      //Data is valid
+      console.log(req.body);
+      //overwrite the user password with the hashed password, then pass that in to our database
+      req.body.password = bcrypt.hashSync(
+        req.body.password,
+        bcrypt.genSaltSync()
+      );
 
-router.put("/:id", (req, res) => {
-  //edit account
-  User.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true },
-    (error, updatedUser) => {
-      if (error) {
-        res.send(error);
-      } else {
-        res.send(updatedUser);
-      }
+      //create new user
+      User.create(req.body, (error, user) => {
+        if (error) {
+          res.send(error);
+        } else {
+          res.send("submitted!");
+          console.log("submitted");
+          return user;
+        }
+      });
+
+      // User.create(req.body, (err, createdUser) => {
+      //   if (err) {
+      //     res.status(StatusCodes.BAD_REQUEST).send(err);
+      //   } else {
+      //     console.log("user is created");
+      //     req.session.currentUser = createdUser;
+      //     //req.session creates a session, we are also creating a field called currentUser = createdUser
+      //     res.status(StatusCodes.CREATED).send(createdUser);
+      //   }
+      // });
     }
-  );
-});
+  }
+);
+
+//edit account
+router.put(
+  "/:id",
+  body("name", "Please enter your name").optional().trim().notEmpty(),
+  body("email", "Please enter a valid email address").optional().isEmail(),
+  body(
+    "username",
+    "Username has to be at least 8 alphanumeric characters long."
+  )
+    .optional()
+    .trim()
+    .isLength({ min: 8 }),
+  body(
+    "password",
+    "Password has to be at least 8 alphanumeric characters long."
+  )
+    .optional()
+    .trim()
+    .isLength({ min: 8 })
+    .isAlphanumeric(),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // Errors returned in an array `errors.array()`.
+      const locals = { UserInput: req.body, errors: errors.array() };
+      res.status(StatusCodes.BAD_REQUEST).send(locals);
+    } else {
+      // when user update account page
+      if (req.body.password && req.body.password !== "") {
+        //user changes password
+        req.body.password = bcrypt.hashSync(
+          req.body.password,
+          bcrypt.genSaltSync()
+        );
+      } else if (req.body.password === "") {
+        // users didnt change password, remove the field "password"
+        delete req.body.password;
+      }
+      User.findByIdAndUpdate(
+        req.params.id, // id
+        req.body, // what to update
+        { new: true },
+        (error, updatedUser) => {
+          if (error) {
+            res.status(StatusCodes.BAD_REQUEST).send(error);
+          } else {
+            res.status(StatusCodes.OK).send(updatedUser);
+          }
+        }
+      );
+    }
+  }
+);
 
 router.put("/:id/sdelete", (req, res) => {
   //softdelete
