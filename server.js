@@ -50,6 +50,16 @@ app.get("/api", (req, res) => {
   res.send("this is for api");
 });
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("./client-react/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "client-react", "build", "index.html")
+    );
+  });
+}
+
 const port = process.env.PORT || 4001;
 app.listen(port, () => {
   console.log("Server is listening on port " + port);
