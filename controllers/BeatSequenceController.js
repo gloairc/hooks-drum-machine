@@ -3,15 +3,15 @@ const router = express.Router();
 const BeatSequence = require("../models/beatSequence");
 const Instrument = require("../models/instrument");
 const methodOverride = require("method-override");
-const beatSequenceDummy = require("../dummyData.js");
+const beatSequenceDummy2 = require("../dummyData2.js");
 router.use(methodOverride("_method"));
 
 router.get("/seed", (req, res) => {
-  BeatSequence.create(beatSequenceDummy, (error, instrument) => {
+  BeatSequence.create(beatSequenceDummy2, (error, instrument) => {
     if (error) {
       res.send(error);
     } else {
-      console.log(beatSequenceDummy);
+      console.log(beatSequenceDummy2);
       console.log(instrument);
       res.send(instrument);
     }
@@ -29,7 +29,7 @@ router.get("/", (req, res) => {
   console.log("get all sequences");
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", (req, res) => {//getting one sequence
   //show one instrument
   BeatSequence.find(
     { _id: req.params.id, status: "Active" },
@@ -51,10 +51,10 @@ router.get("/:id", (req, res) => {
 //   console.log("get user's sequences");
 // });
 
-router.get("/:username", (req, res) => {
-  //show one instrument
+router.get("/user/:username", (req, res) => {//to search using UserController instead
   BeatSequence.find(
     { username: req.params.username, status: "Active" },
+    // { username: req.params.username, status: "Active" }, //check if user is active? but not needed because non-active user wont be able to log in
     (error, sequence) => {
       res.send(sequence);
       return sequence;
@@ -100,7 +100,7 @@ router.post("/", (req, res) => {
     if (error) {
       res.send(error);
     } else {
-      res.send("submitted!");
+      res.send(sequence);
       console.log("submitted");
       return sequence;
     }
@@ -127,7 +127,7 @@ router.put("/:id/sdelete", (req, res) => {
 });
 
 router.put("/:id/edit", (req, res) => {
-  const newSeq = req.body.newSeq;
+  const newSeq = req.body;
   // dummy data below for testing
   // const newDummySeq = [
   //   {
@@ -148,7 +148,9 @@ router.put("/:id/edit", (req, res) => {
       res.send(err);
       console.log("error occurred " + err);
     } else {
-      sequence.beatGrid = newSeq;
+      sequence.beatGrid = newSeq.beatGrid;
+      sequence.name = newSeq.name;
+      sequence.tempo = newSeq.tempo
       sequence.save((er) => {
         if (er) {
           res.send(er);
