@@ -3,15 +3,17 @@ import { Navbar, Nav, Button, Col, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import { StatusProvider, useUser, useDispatch } from "./context/Context";
 
-const NavBar = (props) => {
+const NavBar = ({ loggedIn }) => { //was props
   //   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   //   const [userId, setUserId] = useState(localStorage.getItem("userId"));
-  const loggedIn = false;
-  const handleClick = (event) => {
-    // setUserType(localStorage.getItem("userType"));
-    // setUserId(localStorage.getItem("userId"));
-    console.log("handle click event");
-  };
+  loggedIn = false;
+  console.log("loggedIn", loggedIn)
+
+  // const handleClick = (event) => {
+  //   // setUserType(localStorage.getItem("userType"));
+  //   // setUserId(localStorage.getItem("userId"));
+  //   console.log("handle click event");
+  // };
 
   //   useEffect(() => {
   //     setUserType(localStorage.getItem("userType"));
@@ -41,13 +43,13 @@ const NavBar = (props) => {
 
           {loggedIn ? (
             <NavDropdown title="Account" id="basic-nav-dropdown">
-              <NavDropdown.Item href="">View Account</NavDropdown.Item>
-              <NavDropdown.Item href="">Logout</NavDropdown.Item>
+              <NavDropdown.Item href="/user/:id">View Account</NavDropdown.Item>
+              <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
             </NavDropdown>
           ) : (
               <>
-                <Nav.Link href="">Sign Up!</Nav.Link>
-                <Nav.Link href="">Login</Nav.Link>
+                <Nav.Link href="/user/new">Sign Up!</Nav.Link>
+                <Nav.Link href="/login">Login</Nav.Link>
               </>
             )}
         </Nav>

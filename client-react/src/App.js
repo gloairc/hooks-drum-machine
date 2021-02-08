@@ -16,6 +16,7 @@ import PasswordEdit from "./pages/account/PasswordEdit";
 import Logout from "./pages/account/Logout";
 import DeleteAccount from "./pages/account/DeleteAccount";
 import Info from "./pages/Info";
+import NavBar from "./component/NavBar";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState();
@@ -31,6 +32,7 @@ function App() {
   return (
     <div>
       {/* <NavBar loggedIn={loggedIn} /> */}
+      <NavBar loggedIn={loggedIn} />
       <Router>
         <Switch>
           <Route exact path="/">

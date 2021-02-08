@@ -56,7 +56,7 @@ jwtSession.post("/", async (req, res, next) => {
       httpOnly: true, // client-side js cannot access cookie info
       secure: true, // use HTTPS
     });
-
+    res.json({ token });
     res.send("You are now logged in!");
   } catch (err) {
     if (err.message === "Login failed") {
