@@ -2,16 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BeatSeqOneCard from "./BeatSeqOneCard"
 
-const BeatSeqList = () => {
+const BeatSeqList = (props) => {
     const [activeList, setActiveList] = useState([]);
     const [dataReceived, setdataReceived] = useState(false);
-    const userId = "user1" //hardcode first
-    //const userId = sessionStorage.getItem("userId");
+    // const userId = "601ff16499a7774380ea4248" //hardcode first
+    // const userId = sessionStorage.getItem("userId");
+    const username = sessionStorage.getItem("username");
 
+    console.log("newmachineprops", props.newMachineCreated) //not always true
+    console.log("nameChange", props.nameChange)
+    console.log("saved", props.saved)
     useEffect(() => { //get the full list and filter the active ones
-        //setdataReceived(false) //is this needed?
+        setdataReceived(false) //is this needed?
+        console.log("getting playlist for user", username)
         axios
-            .get(`/beatSequence/${userId}`)
+            // .get(`/api/beatSequence/user/${userId}`)
+            .get(`/api/beatSequence/user/${username}`)
             .then((response) => {
                 console.log("axios ran and response is", response.data)
                 //handle when only one result is returned and is an object -> fit it into an array
@@ -30,27 +36,7 @@ const BeatSeqList = () => {
                 }
             }
             );
-    }, [dataReceived]);//this works when refrest the page, maybe should change to running everytime someone click save button? so set state for save button?
-
-    // const dummyList = [//dummy playlist
-    //     {
-    //         _id: "A",
-    //         name: "Alpha",
-    //         createdAt: "test created at",
-    //         updatedAt: "11-11-11"
-    //     },
-    //     {
-    //         _id: "B",
-    //         name: "Bravo",
-    //         createdAt: "random",
-    //         updatedAt: "22-22-22"
-    //     },
-    //     {
-    //         _id: "C",
-    //         name: "Charlie",
-    //         createdAt: "22",
-    //         updatedAt: "33-33-33"
-    //     }]
+    }, [props.newMachineCreated, props.nameChange, props.saved]); //should also render everytime change name, save, new machine
 
     const noList = (//inform no list, start by clicking add button
         <div>

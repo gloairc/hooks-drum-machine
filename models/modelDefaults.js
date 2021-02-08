@@ -3,25 +3,25 @@ const router = express.Router();
 const Instrument = require("../models/instrument");
 
 const defaultGrid = Array(16).fill(0);
-// const getInstruments = async () => {
-//   let instrArray = [];
-//   await Instrument.find({}, (error, instruments) => {
-//     // console.log(instruments);
-//     instrArray = instruments.map((instrument) => {
-//       return {
-//         id: instrument.id,
-//         name: instrument.name,
-//         beatRow: defaultGrid,
-//       };
-//     });
-//   });
-//   //   console.log(instrArray);
-//   return instrArray;
-// };
+// // const getInstruments = async () => {
+// //   let instrArray = [];
+// //   await Instrument.find({}, (error, instruments) => {
+// //     // console.log(instruments);
+// //     instrArray = instruments.map((instrument) => {
+// //       return {
+// //         id: instrument.id,
+// //         name: instrument.name,
+// //         beatRow: defaultGrid,
+// //       };
+// //     });
+// //   });
+// //   //   console.log(instrArray);
+// //   return instrArray;
+// // };
 
-// const instrumentArray = getInstruments();
-// console.log(instrumentArray[1]);
-// console.log(getInstruments().mongooseCollection.name);
+// // const instrumentArray = getInstruments();
+// // console.log(instrumentArray[1]);
+// // console.log(getInstruments().mongooseCollection.name);
 
 // const defaultBeat = [
 //   {
@@ -57,6 +57,7 @@ const defaultGrid = Array(16).fill(0);
 //     beatRow: defaultGrid,
 //   },
 // ];
+<<<<<<< HEAD
 
 const userSeed = [
   {
@@ -106,6 +107,22 @@ const defaultBeat = {
 // const defaultBeat = instrumentArray;
 // console.log("here");
 // console.log(instrumentArray);
+=======
+
+// // const defaultBeat = instrumentArray;
+// // console.log("here");
+// // console.log(instrumentArray);
+
+const defaultBeat = {
+  "Kick": defaultGrid,
+  "Sub1": defaultGrid,
+  "Sub2": defaultGrid,
+  "Snare": defaultGrid,
+  "Clap": defaultGrid,
+  "HiHat": defaultGrid,
+  "OpenHiHat": defaultGrid,
+};
+>>>>>>> 195d5739040e1f7a2f75b895eb70a66ea7cdee35
 
 const modelDefaults = {
   sequence: defaultBeat,

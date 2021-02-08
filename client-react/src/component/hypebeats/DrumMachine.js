@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import Tone from 'tone';
 import axios from 'axios'
 
-import useBPM from './useBPM';
+// import useBPM from './useBPM';
+import BPMF from './BPMF';
 import useStart from './useStart';
 import StepContext from './StepContext';
 import Transport from './Transport';
 import StepSequencer from './StepSequencer';
 import Fx from './FX';
+import TitleField from './TitleField';
 
 const Container = styled.div`
   max-width: 800px;
@@ -40,7 +42,7 @@ const Logo = styled.h1`
   display: inline-block;
 `;
 
-const config = {
+const config = {//default load
   tracks: ['Kick', 'Sub1', 'Sub2', 'Snare', 'Clap', 'HiHat', 'OpenHiHat'],
   samples: {
     Kick: process.env.PUBLIC_URL + '/sounds/kick.wav',
@@ -54,6 +56,7 @@ const config = {
 };
 
 const initialStepState = {
+  //props.beatGrid.name : props.beatGrid.beatRow
   Kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   Sub1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   Sub2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -70,7 +73,23 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   const [beatSeqName, setbeatSeqName] = useState("Untitled")
 
   const [start, startButton] = useStart();
-  const [bpm, bpmSelector] = useBPM(65);
+  const [initialBpm, setInitialBpm] = useState(65) //run first round
+  // console.log("outside initialBPM", initialBpm)
+  // console.log("outside props.oneBeatSeq.tempo", props.oneBeatSeq.tempo)
+  const [bpm, setBpm] = useState(initialBpm) //doesnt change when id change
+  const [bpmPropsLoaded, setbpmPropsLoaded] = useState(false)
+
+  const handlePropsLoadedStatus = (status) => {
+    setbpmPropsLoaded(status)
+    console.log("seeting bpmpropsloaded stats", status)
+  }
+
+  const [titleChange, setTitleChange] = useState(false)
+
+  const handleBPMchange = (newBPM) => {//setBpm
+    console.log("handleBPMchange outside", newBPM)
+    setBpm(newBPM)
+  }
 
   // const userId = sessionStorage.getItem('userId')
 
@@ -80,8 +99,27 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
   stepsRef.current = stepState;
   const currentStepRef = useRef(currentStep);
   currentStepRef.current = currentStep;
+  // console.log("bpmPropsLoaded", bpmPropsLoaded)
+  // console.log("props", props)
+  useEffect(() => { //set beatGrid,name, tempo from saved seq
+    setbpmPropsLoaded(false)
+    console.log("useEffect to set initial state, beatseq name, tempo")
+    if (Object.keys(props.oneBeatSeq).length !== 0) {//if props.oneBeatSeq is not empty
+      if (props.oneBeatSeq.beatGrid.length === 0) {//if beatGrid is empty
+        setSteps(initialStepState) //default {Kick:[], Snare:[]}, shouldn't be the case
+      } else {
+        setSteps(props.oneBeatSeq.beatGrid)
+      }
+      setbeatSeqName(props.oneBeatSeq.name)
+      // load the tempo
+      setInitialBpm(props.oneBeatSeq.tempo)
+      console.log("setinitialBPM", props.oneBeatSeq.tempo)
+      setbpmPropsLoaded(true)
+    }
+  }, [props.oneBeatSeq._id]) //re-render everytime params id changes
 
-  useEffect(//steps
+
+  useEffect(//playsound
     () => {
       Tone.Transport.scheduleRepeat(function (time) {
         Object.keys(buffersRef.current).forEach(b => {
@@ -124,23 +162,38 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     [start]
   );
 
+  const handleTitleChange = (newTitle) => {
+    console.log("handleTitleChange in drummachine")
+    setbeatSeqName(newTitle)
+    setTitleChange(true)
+  }
+
+  useEffect(() => {
+    if (titleChange === true) {
+      handleSaveClick(); //then save it
+      props.handleNameChange(true)
+      console.log("DM, titlechange")
+    }
+    setTitleChange(false)  //after save, change to false
+  }, [titleChange])
+
   const handleSaveClick = (e) => {//AXIOS PUT TO EDIT
     console.log("clicked save, to axios put")
+    props.handleSave(false)
     const beatSetUp = {
-      userId: "user10", //{userId} from session storage
+      // userId: "user1", //{userId} from session storage
+      username: "user1", //no need once we set up userId
       name: beatSeqName,
       tempo: bpm,
       beatGrid: stepState,
-      username: "to remove this username field. use id"
-      //remove if using mongdo
-      // status: "active",
-      // UpdatedAt: "2021-04-02" //todays'date
     }
     console.log("beatSetUp", beatSetUp)
+    console.log(stepState)
     axios
-      .put("/beatSequence/", beatSetUp) //previously was post
+      .put(`/api/beatSequence/${props.oneBeatSeq._id}/edit`, beatSetUp)
       .then((response) => {
-        console.log("posted to MongoDB", response)
+        console.log("put to MongoDB", response.data)
+        props.handleSave(true)
       })
       .catch((error) => {
         console.log("error", error);
@@ -154,8 +207,9 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     <StepContext.Provider value={{ state: stepState, setSteps }}>
       <Container>
         <Transport>
-          <Logo>{beatSeqName}</Logo>
-          {bpmSelector}
+          {/* <Logo>{beatSeqName}</Logo> */}
+          <Logo> <TitleField title={beatSeqName} handleTitleChange={handleTitleChange} /></Logo>
+          <Logo>BPM</Logo><BPMF initalBPM={initialBpm} handleBPMchange={handleBPMchange} propsLoaded={bpmPropsLoaded} handlePropsLoadedStatus={handlePropsLoadedStatus} />
           {startButton}
         </Transport>
         <React.Suspense fallback={<p>loading</p>}>
@@ -166,10 +220,6 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
             setBuffers={setBuffers}
           />
           <ButtonContainer>
-            {/* <Fx sound="sounds/loop.wav" title="Turn Up (F)" />
-            <Fx sound="sounds/loop130.wav" title="SQUAD (Am)" />
-            <Fx sound="sounds/hey.wav" title="Hey" />
-            <Fx sound="sounds/yeah.wav" title="Yeah" /> */}
             <Fx sound={process.env.PUBLIC_URL + "/sounds/loop.wav"} title="Turn Up (F)" />
             <Fx sound={process.env.PUBLIC_URL + "/sounds/loop130.wav"} title="SQUAD (Am)" />
             <Fx sound={process.env.PUBLIC_URL + "/sounds/hey.wav"} title="Hey" />

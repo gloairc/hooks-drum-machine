@@ -12,7 +12,10 @@ const beatSequenceSchema = new mongoose.Schema(
     username: { type: String, required: true },
     name: { type: String, required: true, default: "untitled" },
     tempo: { type: Number, required: true, default: 65 },
+<<<<<<< HEAD
     // beatGrid: { type: Array, default: modelDefaults.sequence },
+=======
+>>>>>>> 195d5739040e1f7a2f75b895eb70a66ea7cdee35
     beatGrid: { type: Object, default: modelDefaults.sequence },
     status: { type: String, default: "Active", enum: ["Active", "Inactive"] },
   },
