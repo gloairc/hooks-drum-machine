@@ -2,18 +2,24 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import BeatSeqList from './BeatSeqList'
+const jwt = require("jsonwebtoken");
+
 const BeatSeqColumn = (props) => {
     const [machineCreated, setMachineCreated] = useState(false)
     const [newMachineId, setNewMachineId] = useState("")
     // const userId = localStorage.getItem("userId");
-    const username = localStorage.getItem("username");
+    // console.log("props at beatseqcol", props)
+    // const username = props.user.username
     const history = useHistory()
+    const token = localStorage.getItem("token");
+    const decoded = jwt.verify(token, "sei-26");//cant read secret :/
+    const user = { userId: decoded.user._id, username: decoded.user.username }
 
     const handleAddMachineClick = () => {
         setMachineCreated(false);
         console.log("add new machine");
         const newMachineUser = { //need to fix here
-            username: username
+            username: user.username
         };
         axios
             .post("/api/beatSequence", newMachineUser)
@@ -39,8 +45,7 @@ const BeatSeqColumn = (props) => {
     return (
         <div id="beatSeqCol">
             beatSeqColumn
-            <BeatSeqList newMachineCreated={machineCreated} nameChange={props.nameChange} saved={props.saved} />
-            {/* above doesnt seem to work, probably need useEffect */}
+            <BeatSeqList newMachineCreated={machineCreated} nameChange={props.nameChange} saved={props.saved} user={user} />
 
             <button
                 onClick={() => handleAddMachineClick()}

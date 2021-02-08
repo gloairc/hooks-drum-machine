@@ -89,7 +89,7 @@ export default function DrumMachine(props) {//set in retreivedSeq object useEffe
     console.log("outside initalBpm", initialBpm)
     const [bpm, bpmSelector] = useBPM(initialBpm); //this runs once
 
-    // const userId = sessionStorage.getItem('userId')
+    // const userId = localStorage.getItem('userId')
     const buffersRef = useRef(buffers);
     buffersRef.current = buffers;
     const stepsRef = useRef(stepState);

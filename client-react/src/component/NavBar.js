@@ -1,24 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Button, Col, NavDropdown } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "../App.css"
+// import "bootstrap/dist/css/bootstrap.min.css";
 // import { StatusProvider, useUser, useDispatch } from "./context/Context";
+const jwt = require("jsonwebtoken");
 
-const NavBar = ({ loggedIn }) => { //was props
-  //   const [userType, setUserType] = useState(localStorage.getItem("userType"));
-  //   const [userId, setUserId] = useState(localStorage.getItem("userId"));
-  loggedIn = false;
-  console.log("loggedIn", loggedIn)
+const NavBar = (props) => {// user={userId, userName}
+  const [user, setUser] = useState(props.user)
+  console.log("props at Nav bar", props)
+  // console.log("props.user.userId at NavBar", props.user.userId)
+  // console.log("props.user.username at NavBar", props.user.username)
 
-  // const handleClick = (event) => {
+  let userNav = ""
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token === undefined || token === "" || token === null) {
+      return
+    } else {
+      const decoded = jwt.verify(token, "sei-26");//cant read secret :/
+      userNav = { userId: decoded.user._id, username: decoded.user.username }
+      setUser(userNav)
+    }
+  }, [props.user])
+
+  // useEffect(() => {//setUsername rerender when username change
+  //   //   if (Object.keys(props.user) !== 0) {
+  //   setUsername(props.user.username)
+  //   // setUserId(props.user.userId)
+  //   // };
+  // }, [props.user.username]);
+
+  console.log("NavBar username", user)
+  const loggedIn = user.userId === undefined ? false : true
+
+  // const handleClick = (event) => {//signup and logout
   //   // setUserType(localStorage.getItem("userType"));
   //   // setUserId(localStorage.getItem("userId"));
   //   console.log("handle click event");
   // };
-
-  //   useEffect(() => {
-  //     setUserType(localStorage.getItem("userType"));
-  //     setUserId(localStorage.getItem("userId"));
-  //   }, [props]);
 
   return (
     <Navbar
@@ -31,6 +50,7 @@ const NavBar = ({ loggedIn }) => { //was props
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
+          {loggedIn ? (<span id="welcome-name">Welcome {user.username}</span>) : ""}
           <Nav.Link href="/">Home</Nav.Link>
 
           <Nav.Link href="/help">Help</Nav.Link>
@@ -43,7 +63,7 @@ const NavBar = ({ loggedIn }) => { //was props
 
           {loggedIn ? (
             <NavDropdown title="Account" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/user/:id">View Account</NavDropdown.Item>
+              <NavDropdown.Item href={`/user/${user.userId}`}>View Account</NavDropdown.Item>
               <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
             </NavDropdown>
           ) : (

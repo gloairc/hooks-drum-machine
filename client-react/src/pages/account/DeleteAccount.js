@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Redirect, useParams } from 'react-router-dom'
 
-const DeleteAccount = (props) => {
-    const userId = localStorage.getItem('userId')
+const DeleteAccount = (props) => {//user={userId, username}
+    const userId = props.user.userId
+    console.log("props.user.userID at Delete account", props.user.userId)
     const [userDeleted, setUserDeleted] = useState(false)
 
     const userIdParam = useParams().id
@@ -31,10 +32,10 @@ const DeleteAccount = (props) => {
 
     return (
         <>
-            {/* {userId === userIdParam ? */}
-            <p> We are deleting your account. You will be redirected once done.</p>
-            {/* :
-                <Redirect to={'/restricted'} />} */}
+            {userId === userIdParam ?
+                <p> We are deleting your account. You will be redirected once done.</p>
+                :
+                <Redirect to={'/restricted'} />}
         </>
     )
 }

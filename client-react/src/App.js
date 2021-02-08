@@ -5,6 +5,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+
 import Home from "./pages/Home";
 import BeatSeq from "./pages/BeatSeq";
 import BeatSeqTeaser from "./pages/BeatSeqTeaser";
@@ -17,30 +18,33 @@ import Logout from "./pages/account/Logout";
 import DeleteAccount from "./pages/account/DeleteAccount";
 import Info from "./pages/Info";
 import NavBar from "./component/NavBar";
+const jwt = require("jsonwebtoken");
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState();
-  const [userId, setUserId] = useState(localStorage.getItem("userId"));
-  const [username, setUsername] = useState(localStorage.getItem("username"));
+  const [user, setUser] = useState({});
+  // const [token, setToken] = useState("")
+  console.log("user at App", user)
 
-  useEffect(() => {
-    console.log("App useEffect");
-    setUserId(localStorage.getItem("userId"));
-    setUsername(localStorage.getItem("username"));
-  }, [loggedIn]);
+  // useEffect(() => {
+  //   if (token !== "") {
+  //     const decoded = jwt.verify(token, "sei-26");//cant read secret :/
+  //     setUser({ userId: decoded.user._id, username: decoded.user.username })
+  //     console.log("user after setItem", user)
+  //   }
+  // }, [token]) //run once when token changes from "" to "xxx"
+
 
   return (
     <div>
-      {/* <NavBar loggedIn={loggedIn} /> */}
-      <NavBar loggedIn={loggedIn} />
+      <NavBar user={user} />
       <Router>
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
-          {/* <Route exact path="/restricted">
-                        <h1>You are not authorised to visit this page.</h1>
-                    </Route> */}
+          <Route exact path="/restricted">
+            <h1>You are not authorised to visit this page.</h1>
+          </Route>
           <Route exact path="/beatseq">
             <BeatSeq />
           </Route>
@@ -51,10 +55,10 @@ function App() {
             <BeatSeqTeaser />
           </Route>
           <Route exact path="/login">
-            <Login setLoggedIn={setLoggedIn} />
+            <Login setUser={setUser} />
           </Route>
           <Route exact path="/user/new">
-            <SignUp setLoggedIn={setLoggedIn} />
+            <SignUp />
           </Route>
           <Route exact path="/user/:id">
             {/* {userId ? <AccountView /> : <Redirect to={"/login"} />} */}
@@ -68,16 +72,18 @@ function App() {
             <PasswordEdit />
           </Route>
           <Route exact path="/user/:id/delete">
-            {userId ? (
+            {/* {userId ? (
               <DeleteAccount setLoggedIn={setLoggedIn} />
             ) : (
                 <Redirect to={"/login"} />
-              )}
+              )} */}
+            <DeleteAccount />
+
           </Route>
           <Route exact path="/logout">
-            <Logout setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
+            <Logout />
           </Route>
-          <Route exact path="/info">
+          <Route exact path="/help">
             <Info />
           </Route>
         </Switch>

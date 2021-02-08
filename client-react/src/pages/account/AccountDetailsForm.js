@@ -5,7 +5,7 @@ import { Form, Button, FormLabel, FormControl, FormGroup, FormText, FormCheck, R
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { useParams, Link, Redirect } from "react-router-dom";
 
-const AccountDetailsForm = (props) => {
+const AccountDetailsForm = (props) => {//received user={userId, userName} from AccountEdit
     const [formData, setFormData] = useState({
     })
     const [currentUsername, setCurrentUsername] = useState()
@@ -14,7 +14,7 @@ const AccountDetailsForm = (props) => {
     const [isLoading, setIsLoading] = useState(false)
     const userId = useParams().id
 
-    useEffect(() => {
+    useEffect(() => {//get user is there is userId in params
         if (userId) {
             setIsLoading(true)
             console.log("before axios")
@@ -29,7 +29,7 @@ const AccountDetailsForm = (props) => {
                     console.log('error', error)
                 })
         } else {
-            console.log('new user. no set data')
+            console.log("new user. no set data")
         }
     }, [])
 
@@ -45,8 +45,9 @@ const AccountDetailsForm = (props) => {
                 .post("/api/user", formData)
                 .then((response) => {
                     console.log(response);
-                    localStorage.setItem("userId", response.data._id);
-                    localStorage.setItem("username", response.data.username);
+                    // localStorage.setItem("userId", response.data._id);
+                    // localStorage.setItem("username", response.data.username);
+                    //next time to axios a session and get token
                     setTimeout(() => {
                         setSent(true);
                     }, 2000);
@@ -63,6 +64,11 @@ const AccountDetailsForm = (props) => {
             axios
                 .put(`/api/user/${userId}`, updatedInfo)
                 .then((response) => {
+                    //need to let navbar know so it can re-render itself
+                    console.log("put response", response)
+                    //trigger Navbar change
+                    // props.changeName(response.data.username)
+                    console.log("response.data after put", response.data)
                     setTimeout(() => {
                         setSent(true);
                     }, 2000);
@@ -78,7 +84,8 @@ const AccountDetailsForm = (props) => {
         return <Redirect to={`/user/${userId}`} />
     }
     else if (sent && !userId) { //signing up
-        return <Redirect to={'/beatseq'} />
+        // return <Redirect to={'/beatseq'} />
+        return <Redirect to={'/login'} />
     }
 
     const showErrors = () => {

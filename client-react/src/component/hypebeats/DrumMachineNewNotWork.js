@@ -80,7 +80,7 @@ export default function DrumMachine(props) {
   const [start, startButton] = useStart();
   const [bpm, bpmSelector] = useBPM(65);
 
-  // const userId = sessionStorage.getItem('userId')
+  // const userId = localStorage.getItem('userId')
 
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;

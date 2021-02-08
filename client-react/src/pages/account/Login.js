@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Form, Button, FormLabel, FormControl, FormGroup, FormText, Row, Col, Alert } from 'react-bootstrap';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { Redirect } from 'react-router-dom';
+const jwt = require("jsonwebtoken");
 
 const Login = (props) => {
     const [formData, setFormData] = useState({
@@ -11,39 +12,43 @@ const Login = (props) => {
     });
 
     const [errorMsg, setErrorMsg] = useState("");
-    const [loginStatus, setLoginStatus] = useState(false);
+    const [loginStatus, setLoginStatus] = useState(false); //to redirect to /beatseq
+    const [status, setStatus] = useState(""); //inform user that logging in
 
-    const [status, setStatus] = useState();
+    const secret = process.env.JWT_SECRET_KEY;
 
-    const handleSubmit = (event) => {
+    const handleLogin = (event) => {
         event.preventDefault();
-        setStatus("logging in");
-        // //remove if using axios
-        // setLoginStatus(true);
-        // props.setLoggedIn(true);
-        // localStorage.setItem("username", formData.username)
+        setStatus("logging in"); //re-render
 
         axios
-            .post("/api/session", formData, { withCredentials: true })
+            .post("/api/session", formData, { withCredentials: true }) //get token
             .then((response) => {
-                if (response.data.token) {
-                    //decode the token then set local/session storage
-                    //user
-
-                    // localStorage.setItem("userId", user._id);
-                    // localStorage.setItem("username", user.username);
+                console.log("response.data", response.data)
+                if (response.data.token) {//set token to localStorage
+                    const token = response.data.token
+                    localStorage.setItem("token", token);
+                    const decoded = jwt.verify(token, "sei-26");//cant read secret :/
+                    // // console.log("decoded.user", decoded.user)
+                    // // localStorage.setItem("userId", decoded.user._id);
+                    // // localStorage.setItem("username", decoded.user.username);
+                    const user = { userId: decoded.user._id, username: decoded.user.username } //useState or if statement?
+                    // console.log("user after setItem", user)
+                    props.setUser(user);
+                    // props.setToken(token)
+                    console.log("logging in")
                     setLoginStatus(true);
-                    props.setLoggedIn(true);
                 }
             })
-            .catch((error) => {
+            .catch((error) => { //handling error not working
                 setStatus("");
-                setErrorMsg(error.response.data.error); // custom message from backend
-                console.log(error.response.data);
+                setErrorMsg(error.error);
+                // setErrorMsg(error.response.data.error); // custom message from backend
+                console.log("error from posting session", error);
             });
     };
 
-    if (loginStatus === true) { //redirect to /beatseq
+    if (loginStatus === true) { //redirect to /beatseq{
         return <Redirect to={"/beatseq"} />;
     }
 
@@ -61,7 +66,7 @@ const Login = (props) => {
                     <Col sm={buffer} />
                     {errorMsg ? <Alert variant="danger">Error! {errorMsg}</Alert> : ""}
                 </Row>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleLogin}>
                     <FormGroup as={Row} controlId="username">
                         <Col sm={buffer} />
                         <FormLabel column sm={keyWidth}>Username:</FormLabel>
@@ -70,15 +75,12 @@ const Login = (props) => {
                                 type="text"
                                 value={formData.username}
                                 onChange={(event) => {
-                                    console.log(event.target)
+                                    // console.log(event.target)
                                     setFormData((state) => {
                                         return { ...state, username: event.target.value }
                                     })
                                 }}
                             />
-                            {/* <FormText className="text-muted">
-                                Username must be at least 8 characters long
-                                </FormText> */}
                         </Col>
                     </FormGroup>
 
@@ -93,7 +95,6 @@ const Login = (props) => {
                                         return { ...state, password: event.target.value }
                                     })
                                 }} />
-                            {/* <FormText className="text-muted">Password must be at least 8 characters long</FormText> */}
                         </Col>
                     </FormGroup>
                     <Row>
