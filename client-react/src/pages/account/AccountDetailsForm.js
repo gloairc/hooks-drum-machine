@@ -46,6 +46,7 @@ const AccountDetailsForm = (props) => {
                 .then((response) => {
                     console.log(response);
                     sessionStorage.setItem("userId", response.data._id);
+                    sessionStorage.setItem("username", response.data.username);
                     setTimeout(() => {
                         setSent(true);
                     }, 2000);
