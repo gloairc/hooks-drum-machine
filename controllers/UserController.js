@@ -93,7 +93,7 @@ router.post(
         if (error) {
           res.send(error);
         } else {
-          res.send("submitted!");
+          res.send(user);
           console.log("submitted");
           return user;
         }

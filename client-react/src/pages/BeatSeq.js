@@ -5,7 +5,9 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const BeatSeq = () => {
+
+const BeatSeq = (props) => { //user={userId, username}
+    console.log("props at BeatSeq page", props)
     const beatseqId = useParams().id
     console.log("beatseqId from params is", beatseqId)
 
