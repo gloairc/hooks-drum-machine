@@ -18,26 +18,29 @@ const Login = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         setStatus("logging in");
-        //remove if using axios
-        setLoginStatus(true);
-        props.setLoggedIn(true);
-        sessionStorage.setItem("username", formData.username)
-        //
-        // axios
-        //     .post("/session", formData)
-        //     .then((response) => {
-        //         if (response.data._id) {
-        //             sessionStorage.setItem("userId", response.data._id);
-        //             sessionStorage.setItem("username", response.data.username);
-        //             setLoginStatus(true);
-        //             props.setLoggedIn(true);
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         setStatus("");
-        //         setErrorMsg(error.response.data.error); // custom message from backend
-        //         console.log(error.response.data);
-        //     });
+        // //remove if using axios
+        // setLoginStatus(true);
+        // props.setLoggedIn(true);
+        // localStorage.setItem("username", formData.username)
+
+        axios
+            .post("/api/session", formData, { withCredentials: true })
+            .then((response) => {
+                if (response.data.token) {
+                    //decode the token then set local/session storage
+                    //user
+
+                    // localStorage.setItem("userId", user._id);
+                    // localStorage.setItem("username", user.username);
+                    setLoginStatus(true);
+                    props.setLoggedIn(true);
+                }
+            })
+            .catch((error) => {
+                setStatus("");
+                setErrorMsg(error.response.data.error); // custom message from backend
+                console.log(error.response.data);
+            });
     };
 
     if (loginStatus === true) { //redirect to /beatseq

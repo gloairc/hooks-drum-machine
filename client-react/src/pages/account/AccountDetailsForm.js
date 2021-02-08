@@ -45,8 +45,8 @@ const AccountDetailsForm = (props) => {
                 .post("/api/user", formData)
                 .then((response) => {
                     console.log(response);
-                    sessionStorage.setItem("userId", response.data._id);
-                    sessionStorage.setItem("username", response.data.username);
+                    localStorage.setItem("userId", response.data._id);
+                    localStorage.setItem("username", response.data.username);
                     setTimeout(() => {
                         setSent(true);
                     }, 2000);

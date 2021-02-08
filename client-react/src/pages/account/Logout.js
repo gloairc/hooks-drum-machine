@@ -5,7 +5,7 @@ import axios from "axios";
 const Logout = (props) => {
     axios.delete('/session')
         .then((response) => {
-            sessionStorage.clear()
+            localStorage.clear()
             console.log(response)
         }).then(() => {
             props.setLoggedIn(false)

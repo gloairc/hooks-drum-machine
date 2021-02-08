@@ -4,18 +4,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import { StatusProvider, useUser, useDispatch } from "./context/Context";
 
 const NavBar = (props) => {
-  //   const [userType, setUserType] = useState(sessionStorage.getItem("userType"));
-  //   const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
+  //   const [userType, setUserType] = useState(localStorage.getItem("userType"));
+  //   const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const loggedIn = false;
   const handleClick = (event) => {
-    // setUserType(sessionStorage.getItem("userType"));
-    // setUserId(sessionStorage.getItem("userId"));
+    // setUserType(localStorage.getItem("userType"));
+    // setUserId(localStorage.getItem("userId"));
     console.log("handle click event");
   };
 
   //   useEffect(() => {
-  //     setUserType(sessionStorage.getItem("userType"));
-  //     setUserId(sessionStorage.getItem("userId"));
+  //     setUserType(localStorage.getItem("userType"));
+  //     setUserId(localStorage.getItem("userId"));
   //   }, [props]);
 
   return (
@@ -36,8 +36,8 @@ const NavBar = (props) => {
           {loggedIn ? (
             <Nav.Link href="/beatseq">Beat Sequencer</Nav.Link>
           ) : (
-            <Nav.Link href="/teaser">Teaser</Nav.Link>
-          )}
+              <Nav.Link href="/teaser">Teaser</Nav.Link>
+            )}
 
           {loggedIn ? (
             <NavDropdown title="Account" id="basic-nav-dropdown">
@@ -45,11 +45,11 @@ const NavBar = (props) => {
               <NavDropdown.Item href="">Logout</NavDropdown.Item>
             </NavDropdown>
           ) : (
-            <>
-              <Nav.Link href="">Sign Up!</Nav.Link>
-              <Nav.Link href="">Login</Nav.Link>
-            </>
-          )}
+              <>
+                <Nav.Link href="">Sign Up!</Nav.Link>
+                <Nav.Link href="">Login</Nav.Link>
+              </>
+            )}
         </Nav>
       </Navbar.Collapse>
       {/* <Col md={3} xs={2} xl={2} lg={2}>

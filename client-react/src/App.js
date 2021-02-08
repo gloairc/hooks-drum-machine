@@ -19,13 +19,13 @@ import Info from "./pages/Info";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState();
-  const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
-  const [username, setUsername] = useState(sessionStorage.getItem("username"));
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
+  const [username, setUsername] = useState(localStorage.getItem("username"));
 
   useEffect(() => {
     console.log("App useEffect");
-    setUserId(sessionStorage.getItem("userId"));
-    setUsername(sessionStorage.getItem("username"));
+    setUserId(localStorage.getItem("userId"));
+    setUsername(localStorage.getItem("username"));
   }, [loggedIn]);
 
   return (
@@ -69,8 +69,8 @@ function App() {
             {userId ? (
               <DeleteAccount setLoggedIn={setLoggedIn} />
             ) : (
-              <Redirect to={"/login"} />
-            )}
+                <Redirect to={"/login"} />
+              )}
           </Route>
           <Route exact path="/logout">
             <Logout setLoggedIn={setLoggedIn} loggedIn={loggedIn} />

@@ -5,8 +5,8 @@ import BeatSeqList from './BeatSeqList'
 const BeatSeqColumn = (props) => {
     const [machineCreated, setMachineCreated] = useState(false)
     const [newMachineId, setNewMachineId] = useState("")
-    // const userId = sessionStorage.getItem("userId");
-    const username = sessionStorage.getItem("username");
+    // const userId = localStorage.getItem("userId");
+    const username = localStorage.getItem("username");
     const history = useHistory()
 
     const handleAddMachineClick = () => {

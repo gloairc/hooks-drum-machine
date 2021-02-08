@@ -9,7 +9,7 @@ const PasswordEdit = (props) => {
     const [changeStatus, setChangeStatus] = useState()
     const [errorMsg, setErrorMsg] = useState()
     const [redirect, setRedirect] = useState(false)
-    const userId = sessionStorage.getItem('userId')
+    const userId = localStorage.getItem('userId')
     const userIdParam = useParams().id
 
     const handleSubmit = (event) => {

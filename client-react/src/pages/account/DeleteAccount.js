@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Redirect, useParams } from 'react-router-dom'
 
 const DeleteAccount = (props) => {
-    const userId = sessionStorage.getItem('userId')
+    const userId = localStorage.getItem('userId')
     const [userDeleted, setUserDeleted] = useState(false)
 
     const userIdParam = useParams().id
@@ -13,7 +13,7 @@ const DeleteAccount = (props) => {
             axios.put(`/user/${userId}`, { status: "Inactive" })
                 .then((response) => {
                     console.log("deactivated user")
-                    sessionStorage.clear()
+                    localStorage.clear()
                     setTimeout(() => {
                         setUserDeleted(true)
                         props.setLoggedIn(false)

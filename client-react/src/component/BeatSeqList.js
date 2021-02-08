@@ -6,8 +6,8 @@ const BeatSeqList = (props) => {
     const [activeList, setActiveList] = useState([]);
     const [dataReceived, setdataReceived] = useState(false);
     // const userId = "601ff16499a7774380ea4248" //hardcode first
-    // const userId = sessionStorage.getItem("userId");
-    const username = sessionStorage.getItem("username");
+    // const userId = localStorage.getItem("userId");
+    const username = localStorage.getItem("username");
 
     console.log("newmachineprops", props.newMachineCreated) //not always true
     console.log("nameChange", props.nameChange)
