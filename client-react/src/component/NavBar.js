@@ -3,10 +3,11 @@ import { Navbar, Nav, Button, Col, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import { StatusProvider, useUser, useDispatch } from "./context/Context";
 
-const NavBar = (props) => {
+const NavBar = ({ loggedIn }) => {
   //   const [userType, setUserType] = useState(sessionStorage.getItem("userType"));
   //   const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
-  const loggedIn = false;
+  // const loggedIn = false;
+  console.log(loggedIn);
   const handleClick = (event) => {
     // setUserType(sessionStorage.getItem("userType"));
     // setUserId(sessionStorage.getItem("userId"));
@@ -41,13 +42,13 @@ const NavBar = (props) => {
 
           {loggedIn ? (
             <NavDropdown title="Account" id="basic-nav-dropdown">
-              <NavDropdown.Item href="">View Account</NavDropdown.Item>
-              <NavDropdown.Item href="">Logout</NavDropdown.Item>
+              <NavDropdown.Item href="/user/:id">View Account</NavDropdown.Item>
+              <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
             </NavDropdown>
           ) : (
             <>
-              <Nav.Link href="">Sign Up!</Nav.Link>
-              <Nav.Link href="">Login</Nav.Link>
+              <Nav.Link href="/user/new">Sign Up!</Nav.Link>
+              <Nav.Link href="/login">Login</Nav.Link>
             </>
           )}
         </Nav>
