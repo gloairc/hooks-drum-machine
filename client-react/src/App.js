@@ -1,41 +1,41 @@
-import React from 'react';
+import React from "react";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect,
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
 } from "react-router-dom";
 // import { useState, useEffect } from "react";
-import Home from './pages/Home'
-import BeatSeq from './pages/BeatSeq'
-import BeatSeqTeaser from './pages/BeatSeqTeaser'
+import Home from "./pages/Home";
+import BeatSeq from "./pages/BeatSeq";
+import BeatSeqTeaser from "./pages/BeatSeqTeaser";
 
 function App() {
-    return (
-        <div>
-            <Router>
-                <Switch>
-                    <Route exact path="/">
-                        <Home />
-                    </ Route>
-                    <Route exact path="/beatseq">
-                        <BeatSeq />
-                    </Route>
-                    <Route path="/beatseq/:id">
-                        <BeatSeq />
-                    </Route>
-                    <Route exact path="/teaser">
-                        <BeatSeqTeaser />
-                    </Route>
-                </Switch>
-            </Router>
-        </div>
-    );
+  return (
+    <div>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/beatseq">
+            <BeatSeq />
+          </Route>
+          <Route path="/beatseq/:id">
+            <BeatSeq />
+          </Route>
+          <Route exact path="/teaser">
+            <BeatSeqTeaser />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
 }
 export default App;
 
-
-{/*<div>
+{
+  /*<div>
             <NavBar loggedIn={loggedIn} />
             <Router>
                 <Switch>
@@ -78,4 +78,5 @@ export default App;
                     </Route>
                 </Switch>
             </Router>
-        </div> */}
+        </div> */
+}

@@ -38,7 +38,6 @@ const NavBar = (props) => {
           ) : (
             <Nav.Link href="/teaser">Teaser</Nav.Link>
           )}
-          <Nav.Link href="/drumkit">Help</Nav.Link>
 
           {loggedIn ? (
             <NavDropdown title="Account" id="basic-nav-dropdown">
