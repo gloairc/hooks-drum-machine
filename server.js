@@ -42,13 +42,13 @@ app.use("/api/user", UserController);
 const jwtController = require("./controllers/JwtController");
 app.use("/api/session", jwtController);
 
-app.get("/", (req, res) => {
-  res.send("test");
-});
+// app.get("/", (req, res) => {
+//   res.send("test");
+// });
 
-app.get("/api", (req, res) => {
-  res.send("this is for api");
-});
+// app.get("/api", (req, res) => {
+//   res.send("this is for api");
+// });
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("./client-react/build"));
