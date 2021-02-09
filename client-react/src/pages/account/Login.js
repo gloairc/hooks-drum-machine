@@ -25,7 +25,7 @@ const Login = (props) => {
   const [loginStatus, setLoginStatus] = useState(false); //to redirect to /beatseq
   const [status, setStatus] = useState(""); //inform user that logging in
 
-  const secret = process.env.JWT_SECRET_KEY;
+  // const secret = process.env.JWT_SECRET_KEY;
 
   const handleLogin = (event) => {
     event.preventDefault();
