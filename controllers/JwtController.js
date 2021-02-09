@@ -29,52 +29,44 @@ const { StatusCodes } = require("http-status-codes");
 
 //login
 jwtSession.post("/", async (req, res, next) => {
-  try {
-    // let currentSessionUser;
-    // const { username, password } = req.body;
-    const userLogin = await User.findOne(
-      { username: req.body.username },
-      (err, foundUser) => {
-        if (err) {
-          console.log(err);
-          res
-            .status(500)
-            .send({ error: "Oops there's a problem with the server database" });
-        } else if (!foundUser) {
-          // res.status(401).send({ error: "Sorry, no user found" });
-          res.status(401).send({ error: `Sorry, no user found` });
+  User.findOne({ username: req.body.username }, (err, foundUser) => {
+    if (err) {
+      console.log(err);
+      res
+        .status(500)
+        .send({ error: "Oops there's a problem with the server database" });
+    } else if (!foundUser) {
+      // res.status(401).send({ error: "Sorry, no user found" });
+      res.status(401).send({ error: `Sorry, no user found` });
+    } else {
+      //no error with server database and found user in database
+      // check User status
+      if (foundUser.status === "Active") {
+        if (bcrypt.compareSync(req.body.password, foundUser.password)) {
+          //password match
+          // req.session.currentUser = foundUser;
+          const token = createJWTToken(foundUser);
+          const oneDay = 24 * 60 * 60 * 1000;
+          const oneWeek = oneDay * 7;
+          const expiryDate = new Date(Date.now() + oneWeek);
+          res.cookie("token", token, {
+            expires: expiryDate,
+            httpOnly: true, // client-side js cannot access cookie info
+            secure: true, // use HTTPS
+          });
+          // res.status(200).send("You are now logged in!");
+          res.status(200).json({ token });
+
+          // res.status(200).send(foundUser);
+        } else {
+          // res.status(401).send({ error: "Password doesn't match" });
+          res.status(401).send({ error: `Password does not match` });
         }
+      } else {
+        res.status(401).send({ error: `User account has been deleted` });
       }
-    );
-    const result = await bcrypt.compare(req.body.password, userLogin.password);
-
-    if (!result) {
-      console.log("result", result)
-      throw new Error("Login failed");
     }
-
-    //create token
-    const token = createJWTToken(userLogin);
-    // req.session.currentUser = foundUser;
-
-    //set expiry for token
-    const oneDay = 24 * 60 * 60 * 1000;
-    const oneWeek = oneDay * 7;
-    const expiryDate = new Date(Date.now() + oneWeek);
-
-    res.cookie("token", token, {
-      expires: expiryDate,
-      httpOnly: true, // client-side js cannot access cookie info
-      secure: true, // use HTTPS
-    });
-    res.json({ token });
-    res.send("You are now logged in!");
-  } catch (err) {
-    if (err.message === "Login failed") {
-      err.statusCode = 400;
-    }
-    next(err);
-  }
+  });
 });
 
 //logout
