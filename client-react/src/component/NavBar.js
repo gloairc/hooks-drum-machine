@@ -53,7 +53,7 @@ const NavBar = (props) => {// user={userId, userName}
           {loggedIn ? (<span id="welcome-name">Welcome {user.username}</span>) : ""}
           <Nav.Link href="/">Home</Nav.Link>
 
-          <Nav.Link href="/help">Help</Nav.Link>
+          <Nav.Link href="/info">Help</Nav.Link>
 
           {loggedIn ? (
             <Nav.Link href="/beatseq">Beat Sequencer</Nav.Link>
