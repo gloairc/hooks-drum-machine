@@ -4,12 +4,12 @@ const modelDefaults = require("./modelDefaults");
 
 const beatSequenceSchema = new mongoose.Schema(
   {
-    // userId: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   required: true,
-    //   ref: "User",
-    // },
-    username: { type: String, required: true },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    username: { type: String, required: false }, // set to false since it we're using userId instead
     name: { type: String, required: true, default: "untitled" },
     tempo: { type: Number, required: true, default: 65 },
     beatGrid: { type: Object, default: modelDefaults.sequence },
