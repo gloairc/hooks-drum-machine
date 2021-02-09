@@ -40,16 +40,11 @@ const Login = (props) => {
           const token = response.data.token;
           localStorage.setItem("token", token);
           const decoded = jwt.verify(token, "sei-26"); //cant read secret :/
-          // // console.log("decoded.user", decoded.user)
-          // // localStorage.setItem("userId", decoded.user._id);
-          // // localStorage.setItem("username", decoded.user.username);
           const user = {
             userId: decoded.user._id,
             username: decoded.user.username,
           }; //useState or if statement?
-          // console.log("user after setItem", user)
           props.setUser(user);
-          // props.setToken(token)
           console.log("logging in");
           setLoginStatus(true);
         }

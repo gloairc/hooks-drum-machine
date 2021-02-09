@@ -54,50 +54,6 @@ router.get("/user/:userId", (req, res) => {
   console.log("get user's sequences");
 });
 
-// router.get("/user/:username", (req, res) => {
-//   //to search using UserController instead
-//   BeatSequence.find(
-//     { username: req.params.username, status: "Active" },
-//     // { username: req.params.username, status: "Active" }, //check if user is active? but not needed because non-active user wont be able to log in
-//     (error, sequence) => {
-//       res.send(sequence);
-//       return sequence;
-//     }
-//   );
-//   console.log("get user's sequences");
-// });
-
-// router.post("/", (req, res) => {
-//   //create new beatSequence
-//   // let newId;
-//   BeatSequence.create(req.body, (error, sequence) => {
-//     if (error) {
-//       res.send(error);
-//     } else {
-//       res.send("submitted! " + sequence);
-//       console.log("submitted");
-//       console.log(sequence);
-//       return sequence;
-//     }
-//   });
-
-//   // let instrArr = [];
-//   Instrument.find({}, (err, instrAll) => {
-//     const instrArr = instrAll.map((instr) => {
-//       console.log("one here");
-//       console.log(instr);
-//       return instr._id;
-//       // instrArr.push[instr._id];
-//     });
-//     console.log("all here");
-//     console.log(instrArr);
-
-//   });
-//   // console.log("all here2");
-//   // console.log(instrArr);
-//   // BeatSequence.find
-// });
-
 router.post("/", (req, res) => {
   //create new beatSequence
   BeatSequence.create(req.body, (error, sequence) => {
@@ -168,3 +124,47 @@ router.put("/:id/edit", (req, res) => {
 });
 
 module.exports = router;
+
+// router.get("/user/:username", (req, res) => {
+//   //to search using UserController instead
+//   BeatSequence.find(
+//     { username: req.params.username, status: "Active" },
+//     // { username: req.params.username, status: "Active" }, //check if user is active? but not needed because non-active user wont be able to log in
+//     (error, sequence) => {
+//       res.send(sequence);
+//       return sequence;
+//     }
+//   );
+//   console.log("get user's sequences");
+// });
+
+// router.post("/", (req, res) => {
+//   //create new beatSequence
+//   // let newId;
+//   BeatSequence.create(req.body, (error, sequence) => {
+//     if (error) {
+//       res.send(error);
+//     } else {
+//       res.send("submitted! " + sequence);
+//       console.log("submitted");
+//       console.log(sequence);
+//       return sequence;
+//     }
+//   });
+
+//   // let instrArr = [];
+//   Instrument.find({}, (err, instrAll) => {
+//     const instrArr = instrAll.map((instr) => {
+//       console.log("one here");
+//       console.log(instr);
+//       return instr._id;
+//       // instrArr.push[instr._id];
+//     });
+//     console.log("all here");
+//     console.log(instrArr);
+
+//   });
+//   // console.log("all here2");
+//   // console.log(instrArr);
+//   // BeatSequence.find
+// });

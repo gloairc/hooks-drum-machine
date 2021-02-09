@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
-//show only the name
+import axios from "axios"
+//show only the name and date updated
 const BeatSeqOneCard = (props) => {
     const bsName = props.name
     const bsUpdatedAt = props.updatedAt
@@ -14,7 +15,18 @@ const BeatSeqOneCard = (props) => {
     const handleDeleteBeatSeqClick = (e) => {
         e.stopPropagation();
         console.log("deleted beatSeq", bsId)
+        // ask for confirmation to delete
         //axios here
+        axios
+            .put(`api/beatsequence/${bsId}/sdelete`)
+            .then((response) => {
+                console.log("deactivated beatseq", bsId)
+                props.setRefreshList(true)
+            })
+            .catch((error) => {
+                console.log('error', error)
+            })
+        //render beatSeqlist again
     }
 
     return (
