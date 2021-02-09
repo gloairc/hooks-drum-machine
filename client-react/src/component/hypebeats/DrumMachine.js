@@ -4,13 +4,14 @@ import Tone from "tone";
 import axios from "axios";
 
 // import useBPM from './useBPM';
-import BPMF from "./BPMF";
-import useStart from "./useStart";
-import StepContext from "./StepContext";
-import Transport from "./Transport";
-import StepSequencer from "./StepSequencer";
-import Fx from "./FX";
-import TitleField from "./TitleField";
+import BPMF from './BPMF';
+import useStart from './useStart';
+import StepContext from './StepContext';
+import Transport from './Transport';
+import StepSequencer from './StepSequencer';
+import Fx from './FX';
+import TitleField from './TitleField';
+const jwt = require("jsonwebtoken");
 
 const Container = styled.div`
   max-width: 800px;
@@ -94,7 +95,10 @@ export default function DrumMachine(props) {
     setBpm(newBPM);
   };
 
-  // const userId = sessionStorage.getItem('userId')
+  // const userId = localStorage.getItem('userId')
+  const token = localStorage.getItem("token");
+  const decoded = jwt.verify(token, "sei-26");//cant read secret :/
+  const user = { userId: decoded.user._id, username: decoded.user.username }
 
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
@@ -191,7 +195,7 @@ export default function DrumMachine(props) {
     props.handleSave(false);
     const beatSetUp = {
       // userId: "user1", //{userId} from session storage
-      username: "user1", //no need once we set up userId
+      username: user.username, //no need once we set up userId
       name: beatSeqName,
       tempo: bpm,
       beatGrid: stepState,

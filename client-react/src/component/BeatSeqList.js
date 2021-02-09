@@ -6,8 +6,9 @@ const BeatSeqList = (props) => {
     const [activeList, setActiveList] = useState([]);
     const [dataReceived, setdataReceived] = useState(false);
     // const userId = "601ff16499a7774380ea4248" //hardcode first
-    // const userId = sessionStorage.getItem("userId");
-    const username = sessionStorage.getItem("username");
+    // const userId = localStorage.getItem("userId");
+    const username = props.user.username;
+    console.log("props.user.username at BeatSeqList", props.user.username)
 
     console.log("newmachineprops", props.newMachineCreated) //not always true
     console.log("nameChange", props.nameChange)
@@ -36,7 +37,7 @@ const BeatSeqList = (props) => {
                 }
             }
             );
-    }, [props.newMachineCreated, props.nameChange, props.saved]); //should also render everytime change name, save, new machine
+    }, [props.newMachineCreated, props.nameChange, props.saved, username]); //should also render everytime change name, save, new machine
 
     const noList = (//inform no list, start by clicking add button
         <div>

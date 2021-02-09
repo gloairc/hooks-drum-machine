@@ -34,11 +34,22 @@ jwtSession.post("/", async (req, res, next) => {
     // const { username, password } = req.body;
     const userLogin = await User.findOne(
       { username: req.body.username },
-      (err, foundUser) => {}
+      (err, foundUser) => {
+        if (err) {
+          console.log(err);
+          res
+            .status(500)
+            .send({ error: "Oops there's a problem with the server database" });
+        } else if (!foundUser) {
+          // res.status(401).send({ error: "Sorry, no user found" });
+          res.status(401).send({ error: `Sorry, no user found` });
+        }
+      }
     );
     const result = await bcrypt.compare(req.body.password, userLogin.password);
 
     if (!result) {
+      console.log("result", result)
       throw new Error("Login failed");
     }
 
