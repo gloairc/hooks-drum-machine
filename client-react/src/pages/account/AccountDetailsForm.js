@@ -45,8 +45,6 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
                 .post("/api/user", formData)
                 .then((response) => {
                     console.log(response);
-                    // localStorage.setItem("userId", response.data._id);
-                    // localStorage.setItem("username", response.data.username);
                     //next time to axios a session and get token
                     setTimeout(() => {
                         setSent(true);
@@ -130,8 +128,10 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
                     <Col sm={valueWidth}>
                         <FormControl
                             type="text"
-                            value={formData.username}
-                            disabled={isLoading}
+                            // value={formData.username}
+                            value={userId ? "" : formData.username}
+                            // disabled={ isLoading }
+                            disabled={userId}
                             onChange={(event) => {
                                 setFormData((state) => {
                                     return { ...state, username: event.target.value }
