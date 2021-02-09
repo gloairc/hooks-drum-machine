@@ -45,10 +45,10 @@ function App() {
             <h1>You are not authorised to visit this page.</h1>
           </Route>
           <Route exact path="/beatseq">
-            <BeatSeq />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <BeatSeq />}
           </Route>
           <Route path="/beatseq/:id">
-            <BeatSeq />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <BeatSeq />}
           </Route>
           <Route exact path="/teaser">
             <BeatSeqTeaser />
@@ -60,27 +60,19 @@ function App() {
             <SignUp setUser={setUser} />
           </Route>
           <Route exact path="/user/:id">
-            {/* {userId ? <AccountView /> : <Redirect to={"/login"} />} */}
-            <AccountView />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <AccountView />}
           </Route>
           <Route exact path="/user/:id/edit">
-            <AccountEdit />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <AccountEdit />}
           </Route>
           <Route exact path="/user/:id/changepassword">
-            {/* {userId ? <PasswordEdit /> : <Redirect to={"/login"} />} */}
-            <PasswordEdit />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <PasswordEdit />}
           </Route>
           <Route exact path="/user/:id/delete">
-            {/* {userId ? (
-              <DeleteAccount setLoggedIn={setLoggedIn} />
-            ) : (
-                <Redirect to={"/login"} />
-              )} */}
-            <DeleteAccount user={user} setUser={setUser} />
-
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <DeleteAccount user={user} setUser={setUser} />}
           </Route>
           <Route exact path="/logout">
-            <Logout setUser={setUser} />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <Logout user={user} setUser={setUser} />}
           </Route>
           <Route exact path="/info">
             <Info />
