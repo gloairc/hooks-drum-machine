@@ -36,8 +36,8 @@ function App() {
 
   return (
     <div>
-      <NavBar user={user} />
       <Router>
+        <NavBar user={user} />
         <Switch>
           <Route exact path="/">
             <Home />
@@ -81,7 +81,7 @@ function App() {
 
           </Route>
           <Route exact path="/logout">
-            <Logout />
+            <Logout setUser={setUser} />
           </Route>
           <Route exact path="/help">
             <Info />

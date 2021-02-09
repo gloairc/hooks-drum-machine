@@ -7,18 +7,17 @@ const BeatSeqList = (props) => {
     const [dataReceived, setdataReceived] = useState(false);
     // const userId = "601ff16499a7774380ea4248" //hardcode first
     // const userId = localStorage.getItem("userId");
-    const username = props.user.username;
-    console.log("props.user.username at BeatSeqList", props.user.username)
+    const userId = props.user.userId;
+    console.log("props.user.username at BeatSeqList", props.user.userId)
 
     console.log("newmachineprops", props.newMachineCreated) //not always true
     console.log("nameChange", props.nameChange)
     console.log("saved", props.saved)
     useEffect(() => { //get the full list and filter the active ones
         setdataReceived(false) //is this needed?
-        console.log("getting playlist for user", username)
+        console.log("getting playlist for user", userId)
         axios
-            // .get(`/api/beatSequence/user/${userId}`)
-            .get(`/api/beatSequence/user/${username}`)
+            .get(`/api/beatSequence/user/${userId}`)
             .then((response) => {
                 console.log("axios ran and response is", response.data)
                 //handle when only one result is returned and is an object -> fit it into an array
@@ -37,7 +36,7 @@ const BeatSeqList = (props) => {
                 }
             }
             );
-    }, [props.newMachineCreated, props.nameChange, props.saved, username]); //should also render everytime change name, save, new machine
+    }, [props.newMachineCreated, props.nameChange, props.saved]); //should also render everytime change name, save, new machine
 
     const noList = (//inform no list, start by clicking add button
         <div>

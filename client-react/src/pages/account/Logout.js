@@ -3,12 +3,11 @@ import axios from "axios";
 // import "bootstrap/dist/css/bootstrap.min.css";
 const jwt = require("jsonwebtoken");
 
-const Logout = () => {// user={userId, username}
+const Logout = (props) => {// user={userId, username}
     // console.log("props.user.userId at logout", props.user.userId)
     const token = localStorage.getItem("token");
     const decoded = jwt.verify(token, "sei-26");//cant read secret :/
     const user = { userId: decoded.user._id, username: decoded.user.username }
-
 
     const loggedIn = user.userId === undefined ? false : true
 
@@ -18,6 +17,7 @@ const Logout = () => {// user={userId, username}
             console.log(response)
         }).then(() => {
             // props.setLoggedIn(false)
+            props.setUser({ name: "" })
         })
         .catch((error) => {
             console.log(error)
