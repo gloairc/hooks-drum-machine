@@ -5,7 +5,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-
+import "./App.css";
 import Home from "./pages/Home";
 import BeatSeq from "./pages/BeatSeq";
 import BeatSeqTeaser from "./pages/BeatSeqTeaser";
@@ -23,7 +23,7 @@ const jwt = require("jsonwebtoken");
 function App() {
   const [user, setUser] = useState({});
   // const [token, setToken] = useState("")
-  console.log("user at App", user)
+  console.log("user at App", user);
 
   // useEffect(() => {
   //   if (token !== "") {
@@ -32,7 +32,6 @@ function App() {
   //     console.log("user after setItem", user)
   //   }
   // }, [token]) //run once when token changes from "" to "xxx"
-
 
   return (
     <div>
@@ -83,7 +82,7 @@ function App() {
           <Route exact path="/logout">
             <Logout setUser={setUser} />
           </Route>
-          <Route exact path="/help">
+          <Route exact path="/info">
             <Info />
           </Route>
         </Switch>
