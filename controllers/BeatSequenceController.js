@@ -43,8 +43,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/user/:userId", (req, res) => {
-  // when userController is ready, use this instead of username
-  //show one instrument
+  // get all sequences by user's id
   BeatSequence.find(
     { userId: req.params.userId, status: "Active" },
     (error, sequence) => {
