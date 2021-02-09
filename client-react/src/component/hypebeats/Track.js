@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-
-import Steps from './Steps';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { VolumeUp } from "@material-ui/icons";
+import Steps from "./Steps";
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,19 +26,23 @@ const Name = styled.h2`
 `;
 
 export default function Track({ buffer, name, setBuffers }) {
-  useEffect(
-    () => {
-      setBuffers(buffers => ({
-        ...buffers,
-        [name]: buffer,
-      }));
-    },
-    [buffer]
-  );
+  useEffect(() => {
+    setBuffers((buffers) => ({
+      ...buffers,
+      [name]: buffer,
+    }));
+  }, [buffer]);
   return (
     <Wrapper>
       <Info>
-        <Name>{name}</Name>
+        <Name
+          onClick={() => {
+            buffer.start();
+          }}
+        >
+          {name}
+          <VolumeUp />
+        </Name>
       </Info>
       <Steps name={name} />
     </Wrapper>
