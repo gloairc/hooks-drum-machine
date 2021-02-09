@@ -16,7 +16,7 @@ import AccountEdit from "./pages/account/AccountEdit";
 import PasswordEdit from "./pages/account/PasswordEdit";
 import Logout from "./pages/account/Logout";
 import DeleteAccount from "./pages/account/DeleteAccount";
-import Info from "./pages/Info";
+import Help from "./pages/Help";
 import NavBar from "./component/NavBar";
 const jwt = require("jsonwebtoken");
 
@@ -78,13 +78,12 @@ function App() {
               )} */}
 
             <DeleteAccount user={user} setUser={setUser} />
-    
           </Route>
           <Route exact path="/logout">
             <Logout setUser={setUser} />
           </Route>
-          <Route exact path="/info">
-            <Info />
+          <Route exact path="/help">
+            <Help />
           </Route>
         </Switch>
       </Router>
