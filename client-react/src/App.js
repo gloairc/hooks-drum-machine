@@ -77,7 +77,7 @@ function App() {
             ) : (
                 <Redirect to={"/login"} />
               )} */}
-            <DeleteAccount />
+            <DeleteAccount user={user} setUser={setUser} />
 
           </Route>
           <Route exact path="/logout">
