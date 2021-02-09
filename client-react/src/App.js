@@ -25,13 +25,13 @@ function App() {
   // const [token, setToken] = useState("")
   console.log("user at App", user);
 
-  // useEffect(() => {
-  //   if (token !== "") {
-  //     const decoded = jwt.verify(token, "sei-26");//cant read secret :/
-  //     setUser({ userId: decoded.user._id, username: decoded.user.username })
-  //     console.log("user after setItem", user)
-  //   }
-  // }, [token]) //run once when token changes from "" to "xxx"
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (token !== null) {
+      const decoded = jwt.verify(token, "sei-26"); //cant read secret :/
+      setUser({ userId: decoded.user._id, username: decoded.user.username })
+    }
+  })
 
   return (
     <div>
@@ -51,13 +51,13 @@ function App() {
             {user.userId === undefined ? <Redirect to={"/login"} /> : <BeatSeq />}
           </Route>
           <Route exact path="/teaser">
-            <BeatSeqTeaser />
+            {user.userId === undefined ? <BeatSeqTeaser /> : <Redirect to={"/beatseq"} />}
           </Route>
           <Route exact path="/login">
-            <Login setUser={setUser} />
+            {user.userId === undefined ? <Login setUser={setUser} /> : <Redirect to={"/beatseq"} />}
           </Route>
           <Route exact path="/user/new">
-            <SignUp setUser={setUser} />
+            {user.userId === undefined ? <SignUp setUser={setUser} /> : <Redirect to={`/user/${user.userId}`} />}
           </Route>
           <Route exact path="/user/:id">
             {user.userId === undefined ? <Redirect to={"/login"} /> : <AccountView />}
@@ -79,7 +79,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </div>
+    </div >
   );
 }
 export default App;
