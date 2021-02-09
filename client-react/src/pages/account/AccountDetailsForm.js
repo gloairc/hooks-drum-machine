@@ -61,11 +61,16 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
                                     userId: decoded.user._id,
                                     username: decoded.user.username,
                                 };
-                                props.setUser(user);
                                 console.log("logging in");
-                                setTimeout(() => {
-                                    setSent(true); //created user & posted session
-                                }, 2000);
+                                props.setUser(user);
+                                //to replace with Kayla's special effect
+                                alert("User created and directing you to landing page")
+                                setSent(true); //created user & posted session
+                                // setTimeout(() => {
+                                //     alert("User created and directing you to landing page")
+                                //     props.setUser(user);
+                                //     setSent(true); //created user & posted session
+                                // }, 1000);
                             }
                         })
                         .catch((error) => {

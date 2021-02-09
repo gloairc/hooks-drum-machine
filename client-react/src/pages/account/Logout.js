@@ -17,7 +17,7 @@ const Logout = (props) => {// user={userId, username}
             console.log(response)
         }).then(() => {
             // props.setLoggedIn(false)
-            props.setUser({ name: "" })
+            props.setUser({ username: "" })
         })
         .catch((error) => {
             console.log(error)
