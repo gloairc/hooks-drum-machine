@@ -23,7 +23,7 @@ const jwt = require("jsonwebtoken");
 function App() {
   const [user, setUser] = useState({});
   // const [token, setToken] = useState("")
-  console.log("user at App", user)
+  console.log("user at App", user);
 
   // useEffect(() => {
   //   if (token !== "") {
@@ -32,7 +32,6 @@ function App() {
   //     console.log("user after setItem", user)
   //   }
   // }, [token]) //run once when token changes from "" to "xxx"
-
 
   return (
     <div>
@@ -78,12 +77,11 @@ function App() {
                 <Redirect to={"/login"} />
               )} */}
             <DeleteAccount />
-
           </Route>
           <Route exact path="/logout">
             <Logout />
           </Route>
-          <Route exact path="/help">
+          <Route exact path="/info">
             <Info />
           </Route>
         </Switch>
