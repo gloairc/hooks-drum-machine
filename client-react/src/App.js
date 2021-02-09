@@ -5,7 +5,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-
+import "./App.css";
 import Home from "./pages/Home";
 import BeatSeq from "./pages/BeatSeq";
 import BeatSeqTeaser from "./pages/BeatSeqTeaser";

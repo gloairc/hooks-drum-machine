@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 //need to adust positioning for each popover
 
@@ -33,116 +34,338 @@ const Info = () => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  // const renderPopover = () => {
-  //   return (
-
-  //   );
-  // };
-
   return (
     <>
       <h1>Info Help Page</h1>
-      <div>
-        <Button
-          aria-describedby={id}
-          variant="contained"
-          color="primary"
-          onClick={(e) => handleClick(e, 1)}
+      <div className="infoHelper">
+        <div align="cneter">
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 1)}
+          >
+            1.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 1)}
+          >
+            1.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 2)}
+          >
+            2.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 3)}
+          >
+            3.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 4)}
+          >
+            4.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 5)}
+          >
+            5.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 6)}
+          >
+            6.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 7)}
+          >
+            7.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 8)}
+          >
+            8.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 9)}
+          >
+            9.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 10)}
+          >
+            10.
+          </Button>
+        </div>
+        {/* <Grid
+          container
+          spacing={10}
+          className="flexGrow"
+          align="center"
+          alignItems="center"
+          justify="center"
         >
-          1.
-        </Button>
+          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+            <Grid item xs={4}>
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleClick(e, 1)}
+              >
+                1.
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleClick(e, 2)}
+              >
+                2.
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleClick(e, 3)}
+              >
+                3.
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+            <Grid item xs={4}>
+              {" "}
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleClick(e, 4)}
+              >
+                4.
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleClick(e, 5)}
+              >
+                5.
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleClick(e, 6)}
+              >
+                6.
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+            <Grid item xs={4}>
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleClick(e, 7)}
+              >
+                7.
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleClick(e, 8)}
+              >
+                8.
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleClick(e, 9)}
+              >
+                9.
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+            <Grid item xs={4}>
+              <Button
+                aria-describedby={id}
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleClick(e, 10)}
+              >
+                10.
+              </Button>
+            </Grid>
+            <Grid item xs={4}></Grid>
+          </Grid>
+          <Grid
+            container
+            item
+            xs={12}
+            spacing={3}
+            className="infoButtonsRow"
+          ></Grid>
+        </Grid> */}
+
+        {/* <Grid container spacing={1} className="infoButtons">
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 1)}
+          >
+            1.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 1)}
+          >
+            1.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 2)}
+          >
+            2.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 3)}
+          >
+            3.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 4)}
+          >
+            4.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 5)}
+          >
+            5.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 6)}
+          >
+            6.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 7)}
+          >
+            7.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 8)}
+          >
+            8.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 9)}
+          >
+            9.
+          </Button>
+
+          <Button
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={(e) => handleClick(e, 10)}
+          >
+            10.
+          </Button>
+        </Grid> */}
       </div>
-      <div>
-        <Button
-          aria-describedby={id}
-          variant="contained"
-          color="primary"
-          onClick={(e) => handleClick(e, 2)}
-        >
-          2.
-        </Button>
-      </div>
-      <div>
-        <Button
-          aria-describedby={id}
-          variant="contained"
-          color="primary"
-          onClick={(e) => handleClick(e, 3)}
-        >
-          3.
-        </Button>
-      </div>
-      <div>
-        <Button
-          aria-describedby={id}
-          variant="contained"
-          color="primary"
-          onClick={(e) => handleClick(e, 4)}
-        >
-          4.
-        </Button>
-      </div>
-      <div>
-        <Button
-          aria-describedby={id}
-          variant="contained"
-          color="primary"
-          onClick={(e) => handleClick(e, 5)}
-        >
-          5.
-        </Button>
-      </div>
-      <div>
-        <Button
-          aria-describedby={id}
-          variant="contained"
-          color="primary"
-          onClick={(e) => handleClick(e, 6)}
-        >
-          6.
-        </Button>
-      </div>
-      <div>
-        <Button
-          aria-describedby={id}
-          variant="contained"
-          color="primary"
-          onClick={(e) => handleClick(e, 7)}
-        >
-          7.
-        </Button>
-      </div>
-      <div>
-        <Button
-          aria-describedby={id}
-          variant="contained"
-          color="primary"
-          onClick={(e) => handleClick(e, 8)}
-        >
-          8.
-        </Button>
-      </div>
-      <div>
-        <Button
-          aria-describedby={id}
-          variant="contained"
-          color="primary"
-          onClick={(e) => handleClick(e, 9)}
-        >
-          9.
-        </Button>
-      </div>
-      <div>
-        <Button
-          aria-describedby={id}
-          variant="contained"
-          color="primary"
-          onClick={(e) => handleClick(e, 10)}
-        >
-          10.
-        </Button>
-      </div>
-      {/* {renderPopover} */}
       <Popover
         id={id}
         open={open}
@@ -160,8 +383,8 @@ const Info = () => {
         <Typography className={classes.typography}>
           {popNum === 1 && (
             <>
-              <p>Add Grid Button</p>
-              <p>Add a new grid page at the end of the sequence.</p>
+              <p>Edit Title</p>
+              <p>Change Name of sequence</p>
               {console.log(popNum)}
             </>
           )}
@@ -224,8 +447,14 @@ const Info = () => {
               {" "}
               <p>Grid Selector </p>
               <p>
-                Click on the grid element to configure when your instrument
-                plays.
+                <u>Click Once:</u>
+                <br />
+                Instrument will play on the selected grid element.
+                <br />
+                <br />
+                <u>SHIFT + Click:</u>
+                <br />
+                Instrument will play a three-note roll on the selected grid.
               </p>
             </>
           )}
