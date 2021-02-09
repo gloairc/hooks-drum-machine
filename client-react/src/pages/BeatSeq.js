@@ -47,7 +47,7 @@ const BeatSeq = (props) => { //user={userId, username}
         console.log("handleSave in BeatSeq, status is", status)
     }
 
-    if (beatseqId === undefined || beatseqId === "") {//only beatseqcol & empty box
+    if (beatseqId === undefined || beatseqId === "") {// log in //only beatseqcol & empty box
         return (
             <div>
                 <h1>Beat Sequencer</h1>

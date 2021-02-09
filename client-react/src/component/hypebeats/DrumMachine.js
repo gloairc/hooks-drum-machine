@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Tone from "tone";
 import axios from "axios";
@@ -70,6 +71,7 @@ const initialStepState = {
 
 export default function DrumMachine(props) {
   //set in retreivedSeq object useEffect?
+  const history = useHistory();
   const [stepState, setSteps] = useState(initialStepState);
   const [buffers, setBuffers] = useState({});
   const [currentStep, setCurrentStepState] = useState(0);
@@ -95,10 +97,15 @@ export default function DrumMachine(props) {
     setBpm(newBPM);
   };
 
+  let user = "" //case where no token
   // const userId = localStorage.getItem('userId')
   const token = localStorage.getItem("token");
-  const decoded = jwt.verify(token, "sei-26");//cant read secret :/
-  const user = { userId: decoded.user._id, username: decoded.user.username }
+  // console.log("token", token)
+  if (token !== null) {
+    const decoded = jwt.verify(token, "sei-26");//cant read secret :/
+    user = { userId: decoded.user._id, username: decoded.user.username }
+  }
+
 
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
@@ -182,9 +189,15 @@ export default function DrumMachine(props) {
 
   useEffect(() => {
     if (titleChange === true) {
-      handleSaveClick(); //then save it
-      props.handleNameChange(true);
-      console.log("DM, titlechange");
+      //if login then handlesave, if not dont handlesaveclick
+      if (props.oneBeatSeq._id === "" || props.oneBeatSeq._id === undefined) {
+        props.handleNameChange(true);
+        console.log("DM, titlechange");
+      } else {
+        handleSaveClick(); //then save it
+        props.handleNameChange(true);
+        console.log("DM, titlechange");
+      }
     }
     setTitleChange(false); //after save, change to false
   }, [titleChange]);
@@ -195,25 +208,35 @@ export default function DrumMachine(props) {
     props.handleSave(false);
     const beatSetUp = {
       // userId: "user1", //{userId} from session storage
-      username: user.username, //no need once we set up userId
+      userId: user.userId, //no need once we set up userId
       name: beatSeqName,
       tempo: bpm,
       beatGrid: stepState,
     };
     console.log("beatSetUp", beatSetUp);
     console.log(stepState);
-    axios
-      .put(`/api/beatSequence/${props.oneBeatSeq._id}/edit`, beatSetUp)
-      .then((response) => {
-        console.log("put to MongoDB", response.data);
-        props.handleSave(true);
-      })
-      .catch((error) => {
-        console.log("error", error);
-        console.log("error response", error.response.data.error);
-      });
-    console.log("after axios");
-    //also need newplaylist name to appear in the list
+    if (props.oneBeatSeq._id === "" || props.oneBeatSeq._id === undefined) {
+      //set localStorage name, tempo, grid
+      // redirect to login, do not have an account, sign in
+      const tempbeat = beatSetUp
+      localStorage.setItem("tempbeatseq", JSON.stringify(tempbeat));
+      alert("You need to log in to save a beat sequence. Redirecting you to Log In page")
+      return history.push(`/login`);
+      // 
+    } else {
+      axios
+        .put(`/api/beatSequence/${props.oneBeatSeq._id}/edit`, beatSetUp)
+        .then((response) => {
+          console.log("put to MongoDB", response.data);
+          props.handleSave(true);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          console.log("error response", error.response.data.error);
+        });
+      console.log("after axios");
+      //also need newplaylist name to appear in the list
+    }
   };
 
   return (

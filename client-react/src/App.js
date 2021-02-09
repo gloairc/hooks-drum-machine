@@ -35,8 +35,8 @@ function App() {
 
   return (
     <div>
-      <NavBar user={user} />
       <Router>
+        <NavBar user={user} />
         <Switch>
           <Route exact path="/">
             <Home />
@@ -57,7 +57,7 @@ function App() {
             <Login setUser={setUser} />
           </Route>
           <Route exact path="/user/new">
-            <SignUp />
+            <SignUp setUser={setUser} />
           </Route>
           <Route exact path="/user/:id">
             {/* {userId ? <AccountView /> : <Redirect to={"/login"} />} */}
@@ -76,10 +76,12 @@ function App() {
             ) : (
                 <Redirect to={"/login"} />
               )} */}
-            <DeleteAccount />
+
+            <DeleteAccount user={user} setUser={setUser} />
+    
           </Route>
           <Route exact path="/logout">
-            <Logout />
+            <Logout setUser={setUser} />
           </Route>
           <Route exact path="/info">
             <Info />
