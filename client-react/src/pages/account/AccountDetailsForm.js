@@ -4,6 +4,7 @@ import "../../css/accountform.css";
 import { Form, Button, FormLabel, FormControl, FormGroup, FormText, FormCheck, Row, Col, Alert } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { useParams, Link, Redirect } from "react-router-dom";
+const jwt = require("jsonwebtoken");
 
 const AccountDetailsForm = (props) => {//received user={userId, userName} from AccountEdit
     const [formData, setFormData] = useState({
@@ -44,14 +45,40 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
             axios
                 .post("/api/user", formData)
                 .then((response) => {
-                    console.log(response);
+                    console.log("user created, response", response, "time to axios post session");
                     //next time to axios a session and get token
-                    setTimeout(() => {
-                        setSent(true);
-                    }, 2000);
+                    //
+                    axios
+                        .post("/api/session", formData, { withCredentials: true })
+                        .then((response) => {
+                            console.log("response.data from post api session", response.data);
+                            if (response.data.token) {
+                                //set token to localStorage
+                                const token = response.data.token;
+                                localStorage.setItem("token", token);
+                                const decoded = jwt.verify(token, "sei-26"); //cant read secret :/
+                                const user = {
+                                    userId: decoded.user._id,
+                                    username: decoded.user.username,
+                                };
+                                props.setUser(user);
+                                console.log("logging in");
+                                setTimeout(() => {
+                                    setSent(true); //created user & posted session
+                                }, 2000);
+                            }
+                        })
+                        .catch((error) => {
+                            //handling session error not working
+                            // setStatus("");
+                            setErrorMsg(error.error);
+                            // setErrorMsg(error.response.data.error); // custom message from backend
+                            console.log("error from posting session", error);
+                        });
+                    //
                 })
-                .catch((error) => {
-                    console.log("error", error.response.data.errors);
+                .catch((error) => {// catch post error, validation of signup form
+                    console.log("error from posting user", error.response.data.errors);
                     setErrorMsg(error.response.data.errors);
                 });
 
@@ -63,10 +90,10 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
                 .put(`/api/user/${userId}`, updatedInfo)
                 .then((response) => {
                     //need to let navbar know so it can re-render itself
-                    console.log("put response", response)
+                    console.log("put user response", response)
                     //trigger Navbar change
                     // props.changeName(response.data.username)
-                    console.log("response.data after put", response.data)
+                    console.log("response.data after put user", response.data)
                     setTimeout(() => {
                         setSent(true);
                     }, 2000);
@@ -82,8 +109,8 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
         return <Redirect to={`/user/${userId}`} />
     }
     else if (sent && !userId) { //signing up
-        // return <Redirect to={'/beatseq'} />
-        return <Redirect to={'/login'} />
+        // return <Redirect to={'/login'} />
+        return <Redirect to={'/beatseq'} />
     }
 
     const showErrors = () => {

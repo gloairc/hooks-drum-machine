@@ -58,7 +58,7 @@ function App() {
             <Login setUser={setUser} />
           </Route>
           <Route exact path="/user/new">
-            <SignUp />
+            <SignUp setUser={setUser} />
           </Route>
           <Route exact path="/user/:id">
             {/* {userId ? <AccountView /> : <Redirect to={"/login"} />} */}
