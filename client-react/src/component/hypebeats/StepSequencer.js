@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
+//  width: 600px;
 const IndicatorWrapper = styled.div`
   position: absolute;
   width: 600px;
