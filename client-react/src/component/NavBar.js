@@ -16,7 +16,7 @@ const NavBar = ({ user }) => {// {userId, userName}
       fixed="top"
       style={{ position: "sticky", fontWeight: "bold" }}
     >
-      <Navbar.Brand as={Link} to="/">Cool App Name</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">BeatIT!</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
