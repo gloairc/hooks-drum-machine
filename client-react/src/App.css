@@ -46,13 +46,17 @@
   background-image: url("./img/infoHelper.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 50%;
-  width: auto;
-  height: 800px;
+  background-size: 100%;
+  /* size: auto; */
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: auto;
+  max-width: 800px;
+  height: 800px;
+  max-height: 800px;
 }
 
 .infoButtons {
@@ -73,8 +77,20 @@
   width: 100%;
   height: 850px;
 }
+
+.pageTitle {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 45px;
+  width: 100%;
+}
+
 body {
   background-image: url("https://cdn.pixabay.com/photo/2015/11/07/11/56/sound-1031657_960_720.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  overflow: hidden;
 }

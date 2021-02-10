@@ -36,7 +36,10 @@ const Info = () => {
 
   return (
     <>
-      <h1>Info Help Page</h1>
+      <div className="pageTitle">
+        <h1>Info Help Page</h1>
+      </div>
+
       <div className="infoHelper">
         <div align="center">
           <Button
