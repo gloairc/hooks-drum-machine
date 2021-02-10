@@ -58,7 +58,7 @@ const Info = () => {
         Click on the numbered buttons below for more info on using the
         Sequencer.
       </p>
-      <p className="infoHelper">
+      <div className="infoHelper">
         <Grid
           container
           spacing={10}
@@ -116,7 +116,7 @@ const Info = () => {
             </Grid>
           </Grid>
         </Grid>
-      </p>
+      </div>
       <Popover
         id={id}
         open={open}
@@ -139,7 +139,14 @@ const Info = () => {
                   <u>Edit Title</u>
                 </b>
               </p>
-              <p>Change Name of sequence</p>
+              <p>
+                Click on the Edit button to change the name of the currently
+                selected sequence.
+              </p>
+              <p>
+                Changes will be saved automatically after clicking away from the
+                titlebar.
+              </p>
             </>
           )}
 
@@ -209,7 +216,7 @@ const Info = () => {
               {" "}
               <p>
                 <b>
-                  <u>Additional Audio Track Buttons </u>
+                  <u>Audio Track Row </u>
                 </b>
               </p>
               <p>
