@@ -17,37 +17,37 @@ router.get("/seed", (req, res) => {
     [
       {
         name: "Kick",
-        soundFile: process.env.PUBLIC_URL + "/sounds/kick.wav",
+        soundFile: "/sounds/kick.wav",
         picture: "http://somepic.url/kick.jpg",
       },
       {
         name: "Sub1",
-        soundFile: process.env.PUBLIC_URL + "/sounds/bass.wav",
+        soundFile: "/sounds/bass.wav",
         picture: "http://somepic.url/sub1.jpg",
       },
       {
         name: "Sub2",
-        soundFile: process.env.PUBLIC_URL + "/sounds/sub.wav",
+        soundFile: "/sounds/sub.wav",
         picture: "http://somepic.url/sub2.jpg",
       },
       {
         name: "Snare",
-        soundFile: process.env.PUBLIC_URL + "/sounds/snare.wav",
+        soundFile: "/sounds/snare.wav",
         picture: "http://somepic.url/snare.jpg",
       },
       {
         name: "Clap",
-        soundFile: process.env.PUBLIC_URL + "/sounds/clap.wav",
+        soundFile: "/sounds/clap.wav",
         picture: "http://somepic.url/clap.jpg",
       },
       {
         name: "HiHat",
-        soundFile: process.env.PUBLIC_URL + "/sounds/hat2.wav",
+        soundFile: "/sounds/hat2.wav",
         picture: "http://somepic.url/hiHat.jpg",
       },
       {
         name: "OpenHiHat",
-        soundFile: process.env.PUBLIC_URL + "/sounds/openhihat.wav",
+        soundFile: "/sounds/openhihat.wav",
         picture: "http://somepic.url/openHiHat.jpg",
       },
     ],
