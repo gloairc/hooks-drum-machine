@@ -22,14 +22,14 @@ To be deployed soon!
     
 ## More about our project
 ### General Approach
-    While looking for an exciting project to work on, both of us came across apps that play instruments. 
-    Mitch chanced upon an [article] (https://medium.com/open-graphql/building-a-real-time-collaborative-beatbox-with-react-graphql-96246e9fed80) that led us to the [hooks-drum-machine repo] (https://github.com/kenwheeler/hooks-drum-machine). Seeing that it was using the React which we were familiar with and the idea of working on a step sequencer sounds interesting, we decided to take the project further by adding a MongoDB backend such that one can not only play it, but save, replay and edit!
+While looking for an exciting project to work on, both of us came across apps that play instruments. 
+Mitch chanced upon an [article] (https://medium.com/open-graphql/building-a-real-time-collaborative-beatbox-with-react-graphql-96246e9fed80) that led us to the [hooks-drum-machine repo] (https://github.com/kenwheeler/hooks-drum-machine). Seeing that it was using the React which we were familiar with and the idea of working on a step sequencer sounds interesting, we decided to take the project further by adding a MongoDB backend such that one can not only play it, but save, replay and edit!
     
-    Read more in our user stories in the link below!
+Read more in our user stories in the link below!
     
 ### User Stories, Wireframe
-    [Link to User Story] https://docs.google.com/document/d/11PR2Pvzlb_E6eEDnZxj19IQ0kj8GwzNpXalNAsgoKBc/edit?usp=sharing
-    [Link to Wireframe]  https://www.figma.com/file/XGSvtv1WkJQuKWl8GaR6Dp/Project-4-cool-app-name-wireframe?node-id=0%3A1
+- [Link to User Story] https://docs.google.com/document/d/11PR2Pvzlb_E6eEDnZxj19IQ0kj8GwzNpXalNAsgoKBc/edit?usp=sharing
+- [Link to Wireframe]  https://www.figma.com/file/XGSvtv1WkJQuKWl8GaR6Dp/Project-4-cool-app-name-wireframe?node-id=0%3A1
     
 ### Future Addition Features
 - [ ] Add/ Upload/ Remove instruments & soundtracks, even your own!
@@ -40,15 +40,15 @@ To be deployed soon!
 ## Installation Instructions
  - git clone, npm install (root folder as well as client-react folder)
  - Note: replace line 241-250 of the node_module react-cache/cjs/react-cache.development.js 
-    ```javascript
-     // var currentOwner = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner;
-    // function readContext(Context, observedBits) {
-    //   var dispatcher = currentOwner.currentDispatcher;
-    //   if (dispatcher === null) {
-    //     throw new Error('react-cache: read and preload may only be called from within a ' + "component's render. They are not supported in event handlers or " + 'lifecycle methods.');
-    //   }
-    //   return dispatcher.readContext(Context, observedBits);
-    // }
+```javascript
+// var currentOwner = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner;
+// function readContext(Context, observedBits) {
+//   var dispatcher = currentOwner.currentDispatcher;
+//   if (dispatcher === null) {
+//     throw new Error('react-cache: read and preload may only be called from within a ' + "component's render. They are not supported in event handlers or " + 'lifecycle methods.');
+//   }
+//   return dispatcher.readContext(Context, observedBits);
+// }
     const ReactCurrentDispatcher =
       React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
         .ReactCurrentDispatcher;
@@ -63,6 +63,6 @@ To be deployed soon!
       }
       return dispatcher.readContext(Context, observedBits);
     }
-    ```
+```
 - after which, you can npm run start
     
