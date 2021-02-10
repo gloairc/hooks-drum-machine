@@ -86,7 +86,7 @@ const Login = (props) => {
 
 
   return (
-    <div className="signupForm">
+    <div className="form-box">
       <div class="form-h1">
         <h1>Log In</h1>
       </div>

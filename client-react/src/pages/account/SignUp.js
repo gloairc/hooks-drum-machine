@@ -6,7 +6,7 @@ const SignUp = (props) => {
     const setUser = props.setUser
 
     return (
-        <div className="signupForm">
+        <div className="form-box">
             <div class="form-h1">
                 <h1>Create new account</h1>
             </div>

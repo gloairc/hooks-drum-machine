@@ -58,11 +58,13 @@ const BeatSeq = (props) => {
           class="container-fluid d-flex flex-row"
           id="beatseq-col-machine-cont"
         >
-          <div class="container-fluid col-4 p-0" id="beatSeqCol-cont">
+          <div class="container-fluid col-4 p-0" >
             <BeatSeqColumn />
           </div>
           <div class="container-fluid col-8 p-0" id="drumMachine-cont">
-            Choose from playlist or click "new" to load the beat sequencer
+            <div class="p-4">
+              <p style={{ fontSize: "24px" }}>Choose from playlist or add a sequence to load the beat sequencer...</p>
+            </div>
           </div>
         </div>
       </div>
@@ -79,7 +81,8 @@ const BeatSeq = (props) => {
           class="container-fluid d-flex flex-row"
           id="beatseq-col-machine-cont"
         >
-          <div class="container-fluid col-4 p-0" id="beatSeqCol-cont">
+
+          <div class="container-fluid col-4 p-0" id="">
             <BeatSeqColumn nameChange={isNameChange} saved={isSaved} />
           </div>
           <div class="container-fluid col-8 p-0" id="drumMachine-cont">

@@ -221,24 +221,6 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
                             Password must be at least 8 alphanumeric characters long
                             </FormText>
                     </Col>
-                    {userId ? (
-                        <Col sm="2">
-                            <Link to={`/user/${userId}/changepassword`}>
-                                <Button
-                                    variant="outline-warning"
-                                    style={{
-                                        borderRadius: "10px",
-                                        width: "170px",
-                                        border: "3px solid",
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    Change</Button>
-                            </Link>
-                        </Col>
-                    ) : (
-                            ""
-                        )}
                 </FormGroup>
 
                 <FormGroup as={Row} controlId="name">
@@ -276,7 +258,7 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
                     <Col sm={valueWidth}>
                         {showMessage()}
                     </Col>
-                    <Col sm={keyWidth} >
+                    <Col sm={keyWidth - 1} >
                         <Button
                             variant="primary"
                             style={{
@@ -295,12 +277,14 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
                         </Button>
                     </Col>
                     {userId ? (
-                        <>
-                            <Col sm="1"></Col>
-                            <Col>
-                                <Link to={`/user/${userId}`}>Back</Link>
-                            </Col>
-                        </>
+
+                        <Col>
+                            <Link to={`/user/${userId}`}>
+                                <Button class="btn btn-secondary"> Back
+                            </Button>
+                            </Link>
+                        </Col>
+
                     ) : (
                             ""
                         )}
