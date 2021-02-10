@@ -1,32 +1,36 @@
-#beatseqlist {
+/* #beatseqlist {
   border: 1px solid white;
   background: darkgrey;
-}
-
-#beatSeqCol {
-  border: 1px solid rgb(241, 238, 27);
-  background: darkgoldenrod;
-}
-
-#beatseqonecard {
-  border: 1px solid green;
-}
-
-/* #beatSeqComponent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 20%;
 } */
 
-#onecardcard {
-  border: 1px solid maroon;
+#beatSeqCol {
+  /* border: 1px solid rgb(241, 238, 27); */
+  /* background: darkgoldenrod; */
+  height: 100%;
 }
+
+#beatSeqList-overflow {
+  height: 93%;
+  overflow-y: scroll;
+  /* background-color: violet; */
+  padding: 5px;
+}
+
+/* #beatseqonecard {
+  border: 1px solid green;
+} */
+
+/* #onecardcard {
+  border: 1px solid maroon;
+} */
 
 #welcome-name {
   color: darkorange;
 }
+
+/* #onecard-cont {
+  background-color: yellowgreen;
+} */
 
 .demoGif {
   background-image: url("./img/beatSeq.gif");
@@ -124,4 +128,34 @@ body {
   height: 100%;
   overflow: auto;
   /* width: auto; */
+  background-repeat: no-repeat;
+  /* height: 100vh */
+}
+
+#overall-app-cont {
+  /* background-color: lightgoldenrodyellow; */
+  height: 100vh;
+}
+
+#beatSeqCol-cont {
+  /* border: 3px solid red; */
+  border-radius: 5px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#drumMachine-cont {
+  /* border: 3px solid white; */
+  height: 100%;
+}
+
+#beatseq-col-machine-cont {
+  /* background-color: turquoise; */
+  padding: 5px;
+  height: 90%;
+}
+
+#beatseqpage-cont {
+  height: 93%;
+  /* background-color: yellow; */
 }

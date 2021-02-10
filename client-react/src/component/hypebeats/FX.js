@@ -10,7 +10,7 @@ const Button = styled.button`
   display: inline-block;
   font-size: 24px;
   border-radius: 2;
-  padding: 20px;
+  padding: 10px;
   font-family: 'Righteous', cursive;
   margin: 2px;
   &:active {

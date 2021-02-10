@@ -13,7 +13,6 @@ const BeatSeq = (props) => {
 
   const [retrievedSeq, setRetrievedSeq] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     //for drum machine, get seq, trigger whether there is id or not
     console.log("do Axios GET beatseqid for Drum Machine");
@@ -51,15 +50,18 @@ const BeatSeq = (props) => {
   if (beatseqId === undefined || beatseqId === "") {
     // log in //only beatseqcol & empty box
     return (
-      <div>
-        <div className="pageTitle">
-          <h1>Beat Sequencer</h1>
-        </div>
-        <div>
-          <BeatSeqColumn />
-        </div>
-        <div>
-          Choose from playlist or click "new" to load the beat sequencer
+      <div class="container-fluid mx-auto" id="beatseqpage-cont">
+        <h1>Beat Sequencer</h1>
+        <div
+          class="container-fluid d-flex flex-row"
+          id="beatseq-col-machine-cont"
+        >
+          <div class="container-fluid col-4 p-0" id="beatSeqCol-cont">
+            <BeatSeqColumn />
+          </div>
+          <div class="container-fluid col-8 p-0" id="drumMachine-cont">
+            Choose from playlist or click "new" to load the beat sequencer
+          </div>
         </div>
       </div>
     );
@@ -67,20 +69,22 @@ const BeatSeq = (props) => {
     // have id, axios get and drum machine
     console.log("retrievedSeq", retrievedSeq);
     return (
-      <div>
-        <div className="pageTitle">
-          <h1>Beat Sequencer</h1>
-        </div>
-
-        <div>
-          <BeatSeqColumn nameChange={isNameChange} saved={isSaved} />
-        </div>
-        <div>
-          <DrumMachine
-            oneBeatSeq={retrievedSeq}
-            handleNameChange={handleNameChange}
-            handleSave={handleSave}
-          />
+      <div class="container-fluid mx-auto" id="beatseqpage-cont">
+        <h1>Beat Sequencer</h1>
+        <div
+          class="container-fluid d-flex flex-row"
+          id="beatseq-col-machine-cont"
+        >
+          <div class="container-fluid col-4 p-0" id="beatSeqCol-cont">
+            <BeatSeqColumn nameChange={isNameChange} saved={isSaved} />
+          </div>
+          <div class="container-fluid col-8 p-0" id="drumMachine-cont">
+            <DrumMachine
+              oneBeatSeq={retrievedSeq}
+              handleNameChange={handleNameChange}
+              handleSave={handleSave}
+            />
+          </div>
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { AddBox } from "@material-ui/icons";
 import BeatSeqList from "./BeatSeqList";
 const jwt = require("jsonwebtoken");
 
@@ -78,15 +79,23 @@ const BeatSeqColumn = (props) => {
   }, [machineCreated]);
 
   return (
-    <div id="beatSeqComponent">
-      beatSeqColumn
-      <BeatSeqList
-        newMachineCreated={machineCreated}
-        nameChange={props.nameChange}
-        saved={props.saved}
-        user={user}
-      />
-      <button onClick={() => handleAddMachineClick()}>Add</button>
+    <div id="beatSeqCol">
+      <div id="beatSeqList-overflow">
+        {/* beatSeqColumn */}
+        <BeatSeqList
+          newMachineCreated={machineCreated}
+          nameChange={props.nameChange}
+          saved={props.saved}
+          user={user}
+        />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button onClick={() => handleAddMachineClick()}>
+          {" "}
+          Add a sequence <AddBox />
+        </button>
+      </div>
     </div>
   );
 };
