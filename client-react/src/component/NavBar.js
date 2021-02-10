@@ -29,7 +29,7 @@ const NavBar = ({ user }) => {// {userId, userName}
               <Nav.Link as={Link} to="/teaser">Teaser</Nav.Link>
             )}
 
-          <Nav.Link as={Link} to="/help">Help</Nav.Link>
+          <Nav.Link as={Link} to="/info">Info</Nav.Link>
 
           {loggedIn ? (<span id="welcome-name">Welcome {user.username}</span>) : ""}
           {loggedIn ? (

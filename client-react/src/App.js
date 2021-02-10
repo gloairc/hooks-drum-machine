@@ -16,7 +16,7 @@ import AccountEdit from "./pages/account/AccountEdit";
 import PasswordEdit from "./pages/account/PasswordEdit";
 import Logout from "./pages/account/Logout";
 import DeleteAccount from "./pages/account/DeleteAccount";
-import Help from "./pages/Help";
+import Info from "./pages/Info";
 import NavBar from "./component/NavBar";
 const jwt = require("jsonwebtoken");
 
@@ -74,8 +74,8 @@ function App() {
           <Route exact path="/logout">
             {user.userId === undefined ? <Redirect to={"/login"} /> : <Logout user={user} setUser={setUser} />}
           </Route>
-          <Route exact path="/help">
-            <Help />
+          <Route exact path="/info">
+            <Info />
           </Route>
         </Switch>
       </Router>

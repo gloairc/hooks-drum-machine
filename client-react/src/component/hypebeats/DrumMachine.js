@@ -290,9 +290,14 @@ export default function DrumMachine(props) {
             />
           </ButtonContainer>
         </React.Suspense>
-        <div>
-          <button onClick={(e) => handleClearGridClick(e)}>Clear Grid</button>
-          <button onClick={(e) => handleSaveClick(e)}>Save</button>
+        <div class="my-0 py-0 d-flex justify-content-end">
+          <Logo >
+            <button onClick={(e) => handleClearGridClick(e)}>Clear Grid</button>
+          </Logo>
+
+          <Logo >
+            <button onClick={(e) => handleSaveClick(e)}>Save</button>
+          </Logo>
         </div>
       </Container>
     </StepContext.Provider>
