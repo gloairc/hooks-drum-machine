@@ -38,11 +38,14 @@ const Info = () => {
     <>
       <h1>Info Help Page</h1>
       <div className="infoHelper">
-        <div align="cneter">
+        <div align="center">
           <Button
             aria-describedby={id}
             variant="contained"
             color="primary"
+            position="absolute"
+            top={200}
+            right="50%"
             onClick={(e) => handleClick(e, 1)}
           >
             1.
@@ -383,7 +386,11 @@ const Info = () => {
         <Typography className={classes.typography}>
           {popNum === 1 && (
             <>
-              <p>Edit Title</p>
+              <p>
+                <b>
+                  <u>Edit Title</u>
+                </b>
+              </p>
               <p>Change Name of sequence</p>
               {console.log(popNum)}
             </>
@@ -391,7 +398,11 @@ const Info = () => {
 
           {popNum === 2 && (
             <>
-              <p>Remove Instrument</p>
+              <p>
+                <b>
+                  <u>Remove Instrument</u>
+                </b>
+              </p>
               <p>Remove an instrument from the grid.</p>
             </>
           )}
