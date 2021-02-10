@@ -54,7 +54,9 @@ Read more in our user stories in the link below!
 - We faced the issue of page refreshing every time we click on a route in the Navbar. This cause the logged in users to be logged out with every page toggle or refresh.
 We finally found the reason why - using Nav.Link from react-bootstap, which was different from Link to in react-router-dom. 
 
-3. <More to come>
+3. Node Module Bug
+- had to replace some lines in react-cache node module (see below)
+- currently unable to deploy to Heroku (need to replace that node module, but unable to do so for now)
     
 ### Future Addition Features
 - [ ] Add/ Upload/ Remove instruments & soundtracks, even your own!
