@@ -35,13 +35,13 @@ const Info = () => {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <>
+    <div className="pageContent">
       <div className="pageTitle">
         <h1>Info Help Page</h1>
       </div>
 
       <div className="infoHelper">
-        <div align="center">
+        {/* <div align="center">
           <Button
             aria-describedby={id}
             variant="contained"
@@ -143,8 +143,9 @@ const Info = () => {
           >
             10.
           </Button>
-        </div>
-        {/* <Grid
+        </div> */}
+
+        <Grid
           container
           spacing={10}
           className="flexGrow"
@@ -152,7 +153,8 @@ const Info = () => {
           alignItems="center"
           justify="center"
         >
-          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+          <Grid container item xs={16} spacing={3} className="infoButtonsRow">
+            <Grid item xs={4}></Grid>
             <Grid item xs={4}>
               <Button
                 aria-describedby={id}
@@ -163,34 +165,39 @@ const Info = () => {
                 1.
               </Button>
             </Grid>
-            <Grid item xs={4}>
+            {/* <Grid item xs={4}></Grid> */}
+            <Grid item xs={3}>
               <Button
                 aria-describedby={id}
                 variant="contained"
                 color="primary"
+                size="small"
                 onClick={(e) => handleClick(e, 2)}
               >
                 2.
               </Button>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={1}>
               <Button
                 aria-describedby={id}
                 variant="contained"
                 color="primary"
+                size="small"
                 onClick={(e) => handleClick(e, 3)}
               >
                 3.
               </Button>
             </Grid>
+            <Grid item xs={2}></Grid>
           </Grid>
-          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+          <Grid container item xs={16} spacing={3} className="infoButtonsRow">
             <Grid item xs={4}>
               {" "}
               <Button
                 aria-describedby={id}
                 variant="contained"
                 color="primary"
+                size="small"
                 onClick={(e) => handleClick(e, 4)}
               >
                 4.
@@ -201,6 +208,7 @@ const Info = () => {
                 aria-describedby={id}
                 variant="contained"
                 color="primary"
+                size="small"
                 onClick={(e) => handleClick(e, 5)}
               >
                 5.
@@ -211,18 +219,20 @@ const Info = () => {
                 aria-describedby={id}
                 variant="contained"
                 color="primary"
+                size="small"
                 onClick={(e) => handleClick(e, 6)}
               >
                 6.
               </Button>
             </Grid>
           </Grid>
-          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+          <Grid container item xs={16} spacing={3} className="infoButtonsRow">
             <Grid item xs={4}>
               <Button
                 aria-describedby={id}
                 variant="contained"
                 color="primary"
+                size="small"
                 onClick={(e) => handleClick(e, 7)}
               >
                 7.
@@ -233,6 +243,7 @@ const Info = () => {
                 aria-describedby={id}
                 variant="contained"
                 color="primary"
+                size="small"
                 onClick={(e) => handleClick(e, 8)}
               >
                 8.
@@ -243,18 +254,20 @@ const Info = () => {
                 aria-describedby={id}
                 variant="contained"
                 color="primary"
+                size="small"
                 onClick={(e) => handleClick(e, 9)}
               >
                 9.
               </Button>
             </Grid>
           </Grid>
-          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+          <Grid container item xs={16} spacing={3} className="infoButtonsRow">
             <Grid item xs={4}>
               <Button
                 aria-describedby={id}
                 variant="contained"
                 color="primary"
+                size="small"
                 onClick={(e) => handleClick(e, 10)}
               >
                 10.
@@ -262,14 +275,10 @@ const Info = () => {
             </Grid>
             <Grid item xs={4}></Grid>
           </Grid>
-          <Grid
-            container
-            item
-            xs={12}
-            spacing={3}
-            className="infoButtonsRow"
-          ></Grid>
-        </Grid> */}
+          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+            <Grid item xs={12}></Grid>
+          </Grid>
+        </Grid>
 
         {/* <Grid container spacing={1} className="infoButtons">
           <Button
@@ -411,17 +420,17 @@ const Info = () => {
           )}
           {popNum === 3 && (
             <>
-              <p>Preview Instrument</p>
-              <p>
-                Click on the icon to get an audio preview of the instrument.
-              </p>
+              <p>Play </p>
+              <p>Play your grid sequence.</p>
             </>
           )}
           {popNum === 4 && (
             <>
               {" "}
-              <p>Add Instrument </p>
-              <p>Add a new instrument to the grid.</p>
+              <p>Preview Instrument</p>
+              <p>
+                Click on the icon to get an audio preview of the instrument.
+              </p>
             </>
           )}
           {popNum === 5 && (
@@ -474,7 +483,7 @@ const Info = () => {
           )}
         </Typography>
       </Popover>
-    </>
+    </div>
   );
 };
 

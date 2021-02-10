@@ -12,6 +12,14 @@
   border: 1px solid green;
 }
 
+/* #beatSeqComponent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 20%;
+} */
+
 #onecardcard {
   border: 1px solid maroon;
 }
@@ -48,7 +56,6 @@
   background-repeat: no-repeat;
   background-size: 100%;
   /* size: auto; */
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,6 +66,10 @@
   max-height: 800px;
 }
 
+/* .infoHelper Button {
+  size: small;
+} */
+
 .infoButtons {
   width: auto;
   height: 800px;
@@ -67,6 +78,10 @@
   justify-content: center;
   align-items: center;
 }
+
+/* .infoButtons Button {
+  size: small;
+} */
 
 .homeText {
   color: white;
@@ -88,9 +103,17 @@
   width: 100%;
 }
 
+.pageContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 body {
   background-image: url("https://cdn.pixabay.com/photo/2015/11/07/11/56/sound-1031657_960_720.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
+  /* width: auto; */
 }

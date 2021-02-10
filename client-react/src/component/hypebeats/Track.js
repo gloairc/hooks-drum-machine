@@ -37,6 +37,7 @@ export default function Track({ buffer, name, setBuffers }) {
       <Info>
         <Name
           onClick={() => {
+            console.log("click");
             buffer.start();
           }}
         >
