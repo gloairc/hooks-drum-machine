@@ -13,7 +13,7 @@ const Logout = (props) => {// user={userId, username}
 
     axios.post('api/session/logout')
         .then((response) => {
-            localStorage.clear()
+            localStorage.clear(); //trigger loggIn
             console.log(response)
         }).then(() => {
             // props.setLoggedIn(false)
@@ -25,7 +25,7 @@ const Logout = (props) => {// user={userId, username}
 
     return (
         <>
-            {loggedIn ? <Redirect to={'/'} /> : <h1>"Logging out..."</h1>}
+            {loggedIn ? <Redirect to={'/'} /> : <h1>Logging out...</h1>}
         </>
     );
 };

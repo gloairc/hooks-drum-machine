@@ -37,7 +37,7 @@ jwtSession.post("/", async (req, res, next) => {
         .send({ error: "Oops there's a problem with the server database" });
     } else if (!foundUser) {
       // res.status(401).send({ error: "Sorry, no user found" });
-      res.status(401).send({ error: `Sorry, no user found` });
+      res.status(401).send({ error: `sorry, no user found.` });
     } else {
       //no error with server database and found user in database
       // check User status
@@ -60,10 +60,10 @@ jwtSession.post("/", async (req, res, next) => {
           // res.status(200).send(foundUser);
         } else {
           // res.status(401).send({ error: "Password doesn't match" });
-          res.status(401).send({ error: `Password does not match` });
+          res.status(401).send({ error: `incorrect password.` });
         }
       } else {
-        res.status(401).send({ error: `User account has been deleted` });
+        res.status(401).send({ error: `user account has been deleted. Note that you cannot create another account with the same username.` });
       }
     }
   });
