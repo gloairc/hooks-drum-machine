@@ -51,7 +51,9 @@ const BeatSeq = (props) => {
     // log in //only beatseqcol & empty box
     return (
       <div class="container-fluid mx-auto" id="beatseqpage-cont">
-        <h1>Beat Sequencer</h1>
+        <div class="form-h1">
+          <h1>Beat Sequencer</h1>
+        </div>
         <div
           class="container-fluid d-flex flex-row"
           id="beatseq-col-machine-cont"
@@ -70,7 +72,9 @@ const BeatSeq = (props) => {
     console.log("retrievedSeq", retrievedSeq);
     return (
       <div class="container-fluid mx-auto" id="beatseqpage-cont">
-        <h1>Beat Sequencer</h1>
+        <div class="form-h1">
+          <h1>Beat Sequencer</h1>
+        </div>
         <div
           class="container-fluid d-flex flex-row"
           id="beatseq-col-machine-cont"

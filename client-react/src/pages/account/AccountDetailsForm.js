@@ -173,15 +173,15 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
             })
     }
     const keyWidth = 2;
-    const valueWidth = 5;
-    const buffer = 1;
+    const valueWidth = 6;
+    const buffer = 2;
 
     return (
-        <>
+        <div class="detailform-cont">
             <Form onSubmit={handleSubmit}>
                 <FormGroup as={Row} controlId="username">
                     <Col sm={buffer} />
-                    <FormLabel column sm={keyWidth}>Username: </FormLabel>
+                    <FormLabel column sm={keyWidth}><span class="font-weight-bold">Username : </span> </FormLabel>
                     <Col sm={valueWidth}>
                         <FormControl
                             type="text"
@@ -204,7 +204,7 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
 
                 <FormGroup as={Row} controlId="password">
                     <Col sm={buffer} />
-                    <FormLabel column sm={keyWidth}> Password:{" "}</FormLabel>
+                    <FormLabel column sm={keyWidth}> <span class="font-weight-bold">Password : </span>{" "}</FormLabel>
 
                     <Col sm={valueWidth}>
                         <FormControl
@@ -243,7 +243,7 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
 
                 <FormGroup as={Row} controlId="name">
                     <Col sm={buffer} />
-                    <FormLabel column sm={keyWidth}>Name: </FormLabel>
+                    <FormLabel column sm={keyWidth}><span class="font-weight-bold">Name : </span></FormLabel>
                     <Col sm={valueWidth}>
                         <FormControl type="text"
                             value={formData.name}
@@ -258,7 +258,7 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
 
                 <FormGroup as={Row} controlId="email">
                     <Col sm={buffer} />
-                    <FormLabel column sm={keyWidth}>Email: </FormLabel>
+                    <FormLabel column sm={keyWidth}><span class="font-weight-bold">Email : </span> </FormLabel>
                     <Col sm={valueWidth}>
                         <FormControl type="email"
                             value={formData.email}
@@ -273,18 +273,20 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
 
                 <Row>
                     <Col sm={buffer} />
-                    <Col sm={valueWidth + 1}>
+                    <Col sm={valueWidth}>
                         {showMessage()}
                     </Col>
-                    <Col sm={keyWidth}>
+                    <Col sm={keyWidth} >
                         <Button
-                            variant="warning"
+                            variant="primary"
                             style={{
-                                borderRadius: "10px",
+                                borderRadius: "4px",
                                 // width: "150px",
                                 // padding: "0 5px 0 5px",
-                                border: "3px solid",
+                                // border: "3px solid",
                                 fontWeight: "bold",
+                                display: "flex",
+                                justifyContent: "right"
                             }}
                             type="submit"
                             disabled={isLoading}
@@ -304,7 +306,7 @@ const AccountDetailsForm = (props) => {//received user={userId, userName} from A
                         )}
                 </Row>
             </Form>
-        </>
+        </div>
     );
 };
 

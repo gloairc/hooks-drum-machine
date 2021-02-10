@@ -10,9 +10,19 @@ const BeatSeqOneCard = (props) => {
 
     const history = useHistory();
 
-    const handleSelectBeatSeqClick = (e, bsId) => {
+    const newDate = new Date(bsUpdatedAt)
+    const corrMonth = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const year = newDate.getFullYear()
+    const month = corrMonth[newDate.getMonth()]
+    const date = newDate.getDate()
+    const hour = newDate.getHours()
+    const min = newDate.getMinutes()
+    const formattedTime = date + "-" + month + "-" + year + ", " + hour + ":" + min
+    console.log("formattedTiem", formattedTime)
+
+    const handleSelectBeatSeqClick = (e, bsId, bsUpdatedAt) => {
         e.stopPropagation();
-        console.log("selected a beatSeq", bsId)
+        console.log("selected a beatSeq", bsId);
     }
 
     const handleDeleteBeatSeqClick = (e) => {
@@ -42,10 +52,10 @@ const BeatSeqOneCard = (props) => {
                     <div class="" id="cardtext-wrap">
                         <Link to={`/beatseq/${bsId}`}
                             id="" class="btn btn-light p-1"
-                            onClick={(e) => handleSelectBeatSeqClick(e, bsId)}>
+                            onClick={(e) => handleSelectBeatSeqClick(e, bsId, bsUpdatedAt)}>
                             <h6 class="card-title">{bsName}</h6>
                             <p class="card-text">
-                                Last saved: {bsUpdatedAt}
+                                Last saved: {formattedTime}
                             </p>
                         </ Link>
                     </div>
