@@ -1,5 +1,6 @@
 import React from "react";
 // import DrumMachine from "../component/hypebeats/DrumMachine";
+import { VolumeUp, Backspace } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
@@ -21,6 +22,20 @@ const Info = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [popNum, setPopNum] = React.useState(-1);
 
+  const renderButton = (num) => {
+    return (
+      <Button
+        aria-describedby={id}
+        variant="contained"
+        color="primary"
+        size="small"
+        onClick={(e) => handleClick(e, num)}
+      >
+        {num}.
+      </Button>
+    );
+  };
+
   const handleClick = (event, itemNum) => {
     setAnchorEl(event.currentTarget);
     setPopNum(itemNum);
@@ -37,114 +52,13 @@ const Info = () => {
   return (
     <div className="pageContent">
       <div className="pageTitle">
-        <h1>Info Help Page</h1>
+        <h1>Info & Help Page</h1>
       </div>
-
-      <div className="infoHelper">
-        {/* <div align="center">
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            position="absolute"
-            top={200}
-            right="50%"
-            onClick={(e) => handleClick(e, 1)}
-          >
-            1.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 1)}
-          >
-            1.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 2)}
-          >
-            2.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 3)}
-          >
-            3.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 4)}
-          >
-            4.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 5)}
-          >
-            5.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 6)}
-          >
-            6.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 7)}
-          >
-            7.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 8)}
-          >
-            8.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 9)}
-          >
-            9.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 10)}
-          >
-            10.
-          </Button>
-        </div> */}
-
+      <p>
+        Click on the numbered buttons below for more info on using the
+        Sequencer.
+      </p>
+      <p className="infoHelper">
         <Grid
           container
           spacing={10}
@@ -156,231 +70,53 @@ const Info = () => {
           <Grid container item xs={16} spacing={3} className="infoButtonsRow">
             <Grid item xs={4}></Grid>
             <Grid item xs={4}>
-              <Button
-                aria-describedby={id}
-                variant="contained"
-                color="primary"
-                onClick={(e) => handleClick(e, 1)}
-              >
-                1.
-              </Button>
+              {renderButton(1)}
             </Grid>
             {/* <Grid item xs={4}></Grid> */}
             <Grid item xs={3}>
-              <Button
-                aria-describedby={id}
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={(e) => handleClick(e, 2)}
-              >
-                2.
-              </Button>
+              {renderButton(2)}
             </Grid>
             <Grid item xs={1}>
-              <Button
-                aria-describedby={id}
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={(e) => handleClick(e, 3)}
-              >
-                3.
-              </Button>
+              {renderButton(3)}
             </Grid>
             <Grid item xs={2}></Grid>
           </Grid>
           <Grid container item xs={16} spacing={3} className="infoButtonsRow">
-            <Grid item xs={4}>
-              {" "}
-              <Button
-                aria-describedby={id}
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={(e) => handleClick(e, 4)}
-              >
-                4.
-              </Button>
+            <Grid item xs={5}>
+              {renderButton(4)}
             </Grid>
-            <Grid item xs={4}>
-              <Button
-                aria-describedby={id}
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={(e) => handleClick(e, 5)}
-              >
-                5.
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                aria-describedby={id}
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={(e) => handleClick(e, 6)}
-              >
-                6.
-              </Button>
-            </Grid>
+            <Grid item xs={7}></Grid>
           </Grid>
           <Grid container item xs={16} spacing={3} className="infoButtonsRow">
+            <Grid item xs={4}></Grid>
             <Grid item xs={4}>
-              <Button
-                aria-describedby={id}
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={(e) => handleClick(e, 7)}
-              >
-                7.
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                aria-describedby={id}
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={(e) => handleClick(e, 8)}
-              >
-                8.
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                aria-describedby={id}
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={(e) => handleClick(e, 9)}
-              >
-                9.
-              </Button>
-            </Grid>
-          </Grid>
-          <Grid container item xs={16} spacing={3} className="infoButtonsRow">
-            <Grid item xs={4}>
-              <Button
-                aria-describedby={id}
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={(e) => handleClick(e, 10)}
-              >
-                10.
-              </Button>
+              {renderButton(5)}
             </Grid>
             <Grid item xs={4}></Grid>
+          </Grid>
+          <Grid container item xs={16} spacing={3} className="infoButtonsRow">
+            <Grid item xs={12}></Grid>
           </Grid>
           <Grid container item xs={12} spacing={3} className="infoButtonsRow">
             <Grid item xs={12}></Grid>
           </Grid>
+          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+            <Grid item xs={1}>
+              {renderButton(6)}
+            </Grid>
+            <Grid item xs={11}></Grid>
+          </Grid>
+          <Grid container item xs={12} spacing={3} className="infoButtonsRow">
+            <Grid item xs={8}></Grid>
+            <Grid item xs={2}>
+              {renderButton(7)}
+            </Grid>
+            <Grid item xs={2}>
+              {renderButton(8)}
+            </Grid>
+          </Grid>
         </Grid>
-
-        {/* <Grid container spacing={1} className="infoButtons">
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 1)}
-          >
-            1.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 1)}
-          >
-            1.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 2)}
-          >
-            2.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 3)}
-          >
-            3.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 4)}
-          >
-            4.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 5)}
-          >
-            5.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 6)}
-          >
-            6.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 7)}
-          >
-            7.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 8)}
-          >
-            8.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 9)}
-          >
-            9.
-          </Button>
-
-          <Button
-            aria-describedby={id}
-            variant="contained"
-            color="primary"
-            onClick={(e) => handleClick(e, 10)}
-          >
-            10.
-          </Button>
-        </Grid> */}
-      </div>
+      </p>
       <Popover
         id={id}
         open={open}
@@ -404,7 +140,6 @@ const Info = () => {
                 </b>
               </p>
               <p>Change Name of sequence</p>
-              {console.log(popNum)}
             </>
           )}
 
@@ -412,63 +147,51 @@ const Info = () => {
             <>
               <p>
                 <b>
-                  <u>Remove Instrument</u>
+                  <u>Tempo Adjust</u>
                 </b>
               </p>
-              <p>Remove an instrument from the grid.</p>
+              <p>Change the tempo of your sequence.</p>
             </>
           )}
           {popNum === 3 && (
             <>
-              <p>Play </p>
+              <p>
+                <b>
+                  <u>Play</u>
+                </b>{" "}
+              </p>
               <p>Play your grid sequence.</p>
             </>
           )}
           {popNum === 4 && (
             <>
               {" "}
-              <p>Preview Instrument</p>
+              <VolumeUp />
+              <p>
+                <b>
+                  <u>Preview Instrument</u>
+                </b>
+              </p>
               <p>
                 Click on the icon to get an audio preview of the instrument.
               </p>
+              <br />
+              <Backspace />
+              <p>
+                <b>
+                  <u>Clear Row </u>
+                </b>
+              </p>
+              <p>Reset the selected instrument's grid row.</p>
             </>
           )}
           {popNum === 5 && (
             <>
-              <p>Clear Grid </p>
-              <p>Reset all the instruments on the current grid page.</p>
-            </>
-          )}
-          {popNum === 6 && (
-            <>
-              {" "}
-              <p>Save </p>
-              <p>Save your grid sequence to your account.</p>
-            </>
-          )}
-          {popNum === 7 && (
-            <>
-              {" "}
-              <p>Page Select </p>
-              <p>View the different grid pages in your sequence.</p>
-            </>
-          )}
-          {popNum === 8 && (
-            <>
-              <p>Play </p>
-              <p>Play your grid sequence.</p>
-            </>
-          )}
-          {popNum === 9 && (
-            <>
-              <p>Tempo Adjust </p>
-              <p>Change the tempo of your sequence.</p>
-            </>
-          )}
-          {popNum === 10 && (
-            <>
-              {" "}
-              <p>Grid Selector </p>
+              <p>
+                <b>
+                  <u>Grid Selector </u>
+                </b>{" "}
+              </p>
               <p>
                 <u>Click Once:</u>
                 <br />
@@ -481,6 +204,49 @@ const Info = () => {
               </p>
             </>
           )}
+          {popNum === 6 && (
+            <>
+              {" "}
+              <p>
+                <b>
+                  <u>Additional Audio Track Buttons </u>
+                </b>
+              </p>
+              <p>
+                <u>Click and hold:</u>
+                <br />
+                Plays a continuous audio track until button is released.
+              </p>
+            </>
+          )}
+          {popNum === 7 && (
+            <>
+              {" "}
+              <p>
+                <b>
+                  <u>Clear Grid </u>
+                </b>{" "}
+              </p>
+              <p>Reset all the instruments on the current grid page.</p>
+            </>
+          )}
+          {popNum === 8 && (
+            <>
+              <p>
+                <b>
+                  <u>Save </u>
+                </b>{" "}
+              </p>
+              <p>Save your grid sequence to your account.</p>
+            </>
+          )}
+          {popNum === 9 && (
+            <>
+              <p>Tempo Adjust </p>
+              <p>Change the tempo of your sequence.</p>
+            </>
+          )}
+          {popNum === 10 && <> </>}
         </Typography>
       </Popover>
     </div>

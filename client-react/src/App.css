@@ -113,7 +113,7 @@
 body {
   background-image: url("https://cdn.pixabay.com/photo/2015/11/07/11/56/sound-1031657_960_720.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
-  overflow: hidden;
+  background-repeat: repeat;
+  overflow: auto;
   /* width: auto; */
 }
