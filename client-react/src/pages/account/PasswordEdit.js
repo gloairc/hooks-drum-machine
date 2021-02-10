@@ -3,21 +3,28 @@ import axios from "axios";
 import { Form, Button, FormLabel, FormControl, FormText, FormGroup, Row, Col, Alert, } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { useParams, Link, Redirect } from "react-router-dom";
+const jwt = require("jsonwebtoken")
 
-const PasswordEdit = (props) => {
+const PasswordEdit = () => {
     const [formData, setFormData] = useState({})
     const [changeStatus, setChangeStatus] = useState()
     const [errorMsg, setErrorMsg] = useState()
     const [redirect, setRedirect] = useState(false)
-    const userId = sessionStorage.getItem('userId')
+    // const userId = props.user.userId
+    // console.log("userId from props.userId at password edit", userId)
     const userIdParam = useParams().id
+
+    const token = localStorage.getItem("token");
+    const decoded = jwt.verify(token, "sei-26");//cant read secret :/
+    const user = { userId: decoded.user._id, username: decoded.user.username }
+    // console.log("user", user)
 
     const handleSubmit = (event) => {
         event.preventDefault();
         setChangeStatus("Hang on, changing your password...");
         setErrorMsg()
         if (formData.password === formData.password2) {
-            axios.put(`/user/${userId}`, { password: formData.password })
+            axios.put(`/api/user/${user.userId}`, { password: formData.password })
                 .then((response) => {
                     console.log(response)
                     setChangeStatus("Password updated! Redirecting...")
@@ -55,94 +62,94 @@ const PasswordEdit = (props) => {
 
     return (
         <>
-            {/* {userId === userIdParam ? */}
-            <>
-                <div>
-                    <h1>Change Password</h1>
-                    <Row>
-                        <Col sm={buffer} />
-                        {changeStatus === "Password updated! Redirecting..." ? <Alert variant="success">{changeStatus}</Alert> : ""}
-                        {changeStatus === "Hang on, changing your password..." ? <Alert variant="info">{changeStatus}</Alert> : ""}
-                        {errorMsg ? <Alert variant="danger">{showErrors()}</Alert> : ""}
-                    </Row>
-                    <Form onSubmit={handleSubmit}>
-                        <FormGroup as={Row} controlId="newpassword1">
-                            <Col sm={buffer} />
-                            <FormLabel column sm={keyWidth}>
-                                Enter New Password:
-                                        </FormLabel>
-                            <Col sm={valueWidth}>
-                                <FormControl
-                                    type="password"
-                                    value={formData.password}
-                                    onChange={(event) => {
-                                        setFormData((state) => {
-                                            return { ...state, password: event.target.value }
-                                        })
-                                    }} />
-                                <FormText className="text">
-                                    {/* text-muted */}
-                            Password must be at least 8 characters long
-            </FormText>
-                            </Col>
-                        </FormGroup>
-
-                        <FormGroup as={Row} controlId="password2">
-                            <Col sm={buffer} />
-                            <FormLabel column sm={keyWidth}>
-                                Re-Enter New Password:{" "}
-                            </FormLabel>
-                            <Col sm={valueWidth}>
-                                <FormControl
-                                    type="Password"
-                                    value={formData.password2}
-                                    onChange={(event) => {
-                                        setFormData((state) => {
-                                            return { ...state, password2: event.target.value };
-                                        });
-                                    }}
-                                />
-                            </Col>
-                        </FormGroup>
-
+            {user.userId === userIdParam ?
+                <>
+                    <div>
+                        <h1>Change Password</h1>
                         <Row>
                             <Col sm={buffer} />
-                            <Button
-                                variant="warning"
-                                style={{
-                                    borderRadius: "10px",
-                                    border: "3px solid",
-                                    fontWeight: "bold",
-                                    // width: "150px",
-                                }}
-                                type="submit"
-                            >
-                                Save Password
-                                </Button>
-                            <Col sm="1" />
-
-                            <Col>
-                                <Link to={`/user/${userId}`}>
-                                    <Button
-                                        variant="outline-warning"
-                                        style={{
-                                            borderRadius: "10px",
-                                            border: "3px solid",
-                                            fontWeight: "bold",
-                                            // width: "150px",
-                                        }}
-                                    >
-                                        Back to Account Details
-                                        </Button>
-                                </Link>
-                            </Col>
+                            {changeStatus === "Password updated! Redirecting..." ? <Alert variant="success">{changeStatus}</Alert> : ""}
+                            {changeStatus === "Hang on, changing your password..." ? <Alert variant="info">{changeStatus}</Alert> : ""}
+                            {errorMsg ? <Alert variant="danger">{showErrors()}</Alert> : ""}
                         </Row>
-                    </Form>
-                </div>
-            </>
-            {/* :
+                        <Form onSubmit={handleSubmit}>
+                            <FormGroup as={Row} controlId="newpassword1">
+                                <Col sm={buffer} />
+                                <FormLabel column sm={keyWidth}>
+                                    Enter New Password:
+                                        </FormLabel>
+                                <Col sm={valueWidth}>
+                                    <FormControl
+                                        type="password"
+                                        value={formData.password}
+                                        onChange={(event) => {
+                                            setFormData((state) => {
+                                                return { ...state, password: event.target.value }
+                                            })
+                                        }} />
+                                    <FormText className="text">
+                                        {/* text-muted */}
+                            Password must be at least 8 characters long
+            </FormText>
+                                </Col>
+                            </FormGroup>
+
+                            <FormGroup as={Row} controlId="password2">
+                                <Col sm={buffer} />
+                                <FormLabel column sm={keyWidth}>
+                                    Re-Enter New Password:{" "}
+                                </FormLabel>
+                                <Col sm={valueWidth}>
+                                    <FormControl
+                                        type="Password"
+                                        value={formData.password2}
+                                        onChange={(event) => {
+                                            setFormData((state) => {
+                                                return { ...state, password2: event.target.value };
+                                            });
+                                        }}
+                                    />
+                                </Col>
+                            </FormGroup>
+
+                            <Row>
+                                <Col sm={buffer} />
+                                <Button
+                                    variant="warning"
+                                    style={{
+                                        borderRadius: "10px",
+                                        border: "3px solid",
+                                        fontWeight: "bold",
+                                        // width: "150px",
+                                    }}
+                                    type="submit"
+                                >
+                                    Save Password
+                                </Button>
+                                <Col sm="1" />
+
+                                <Col>
+                                    <Link to={`/user/${user.userId}`}>
+                                        <Button
+                                            variant="outline-warning"
+                                            style={{
+                                                borderRadius: "10px",
+                                                border: "3px solid",
+                                                fontWeight: "bold",
+                                                // width: "150px",
+                                            }}
+                                        >
+                                            Back to Account Details
+                                        </Button>
+                                    </Link>
+                                </Col>
+                            </Row>
+                        </Form>
+                    </div>
+                </>
+                :
                 <Redirect to={"/restricted"} />
-            } */}
+            }
         </>
     );
 };

@@ -36,19 +36,8 @@ app.use("/api/instrument", InstrumentController);
 const UserController = require("./controllers/UserController");
 app.use("/api/user", UserController);
 
-// const sessionController = require("./controllers/SessionController");
-// app.use("/api/session", sessionController);
-
 const jwtController = require("./controllers/JwtController");
 app.use("/api/session", jwtController);
-
-// app.get("/", (req, res) => {
-//   res.send("test");
-// });
-
-// app.get("/api", (req, res) => {
-//   res.send("this is for api");
-// });
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("./client-react/build"));

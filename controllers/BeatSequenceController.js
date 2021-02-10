@@ -29,7 +29,8 @@ router.get("/", (req, res) => {
   console.log("get all sequences");
 });
 
-router.get("/:id", (req, res) => {//getting one sequence
+router.get("/:id", (req, res) => {
+  //getting one sequence
   //show one instrument
   BeatSequence.find(
     { _id: req.params.id, status: "Active" },
@@ -41,20 +42,10 @@ router.get("/:id", (req, res) => {//getting one sequence
   console.log("get one sequences");
 });
 
-// router.get("/:userId", (req, res) => {
-//   // when userController is ready, use this instead of username
-//   //show one instrument
-//   BeatSequence.findById(req.params.userId, (error, sequence) => {
-//     res.send(sequence);
-//     return sequence;
-//   });
-//   console.log("get user's sequences");
-// });
-
-router.get("/user/:username", (req, res) => {//to search using UserController instead
+router.get("/user/:userId", (req, res) => {
+  // get all sequences by user's id
   BeatSequence.find(
-    { username: req.params.username, status: "Active" },
-    // { username: req.params.username, status: "Active" }, //check if user is active? but not needed because non-active user wont be able to log in
+    { userId: req.params.userId, status: "Active" },
     (error, sequence) => {
       res.send(sequence);
       return sequence;
@@ -62,37 +53,6 @@ router.get("/user/:username", (req, res) => {//to search using UserController in
   );
   console.log("get user's sequences");
 });
-
-// router.post("/", (req, res) => {
-//   //create new beatSequence
-//   // let newId;
-//   BeatSequence.create(req.body, (error, sequence) => {
-//     if (error) {
-//       res.send(error);
-//     } else {
-//       res.send("submitted! " + sequence);
-//       console.log("submitted");
-//       console.log(sequence);
-//       return sequence;
-//     }
-//   });
-
-//   // let instrArr = [];
-//   Instrument.find({}, (err, instrAll) => {
-//     const instrArr = instrAll.map((instr) => {
-//       console.log("one here");
-//       console.log(instr);
-//       return instr._id;
-//       // instrArr.push[instr._id];
-//     });
-//     console.log("all here");
-//     console.log(instrArr);
-
-//   });
-//   // console.log("all here2");
-//   // console.log(instrArr);
-//   // BeatSequence.find
-// });
 
 router.post("/", (req, res) => {
   //create new beatSequence
@@ -150,7 +110,7 @@ router.put("/:id/edit", (req, res) => {
     } else {
       sequence.beatGrid = newSeq.beatGrid;
       sequence.name = newSeq.name;
-      sequence.tempo = newSeq.tempo
+      sequence.tempo = newSeq.tempo;
       sequence.save((er) => {
         if (er) {
           res.send(er);
@@ -164,3 +124,47 @@ router.put("/:id/edit", (req, res) => {
 });
 
 module.exports = router;
+
+// router.get("/user/:username", (req, res) => {
+//   //to search using UserController instead
+//   BeatSequence.find(
+//     { username: req.params.username, status: "Active" },
+//     // { username: req.params.username, status: "Active" }, //check if user is active? but not needed because non-active user wont be able to log in
+//     (error, sequence) => {
+//       res.send(sequence);
+//       return sequence;
+//     }
+//   );
+//   console.log("get user's sequences");
+// });
+
+// router.post("/", (req, res) => {
+//   //create new beatSequence
+//   // let newId;
+//   BeatSequence.create(req.body, (error, sequence) => {
+//     if (error) {
+//       res.send(error);
+//     } else {
+//       res.send("submitted! " + sequence);
+//       console.log("submitted");
+//       console.log(sequence);
+//       return sequence;
+//     }
+//   });
+
+//   // let instrArr = [];
+//   Instrument.find({}, (err, instrAll) => {
+//     const instrArr = instrAll.map((instr) => {
+//       console.log("one here");
+//       console.log(instr);
+//       return instr._id;
+//       // instrArr.push[instr._id];
+//     });
+//     console.log("all here");
+//     console.log(instrArr);
+
+//   });
+//   // console.log("all here2");
+//   // console.log(instrArr);
+//   // BeatSequence.find
+// });

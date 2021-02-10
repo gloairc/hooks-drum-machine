@@ -21,15 +21,31 @@ router.get("/seed", (req, res) => {
   });
 });
 
-// INDEX (show all users - admin access only)
+// INDEX (show all users - admin access only) & also to check for existing username
 router.get("/", (req, res) => {
-  User.find({}, (error, users) => {
-    if (error) {
-      res.send(error);
-    } else {
-      res.send(users);
-    }
-  });
+  if (req.query.username) { //if there is a query, check if it exist
+    console.log("req.query.username", req.query.username);
+    User.find({ username: req.query.username }, (error, oneUser) => {
+      if (error) {
+        res.status(StatusCodes.BAD_REQUEST).send(error);
+      } else { //user exist
+        // console.log(oneUser) //[{username:...,}]
+        const userObj = oneUser[0]
+        // console.log(userObj)
+        const userNoPw = { ...userObj, password: "" }; //do not return password
+        res.status(StatusCodes.OK).send(userNoPw);
+        // console.log(userNoPw)
+      }
+    }).lean()
+  } else {
+    User.find({}, (error, users) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(users);
+      }
+    });
+  }
 });
 
 // router.get("/:id", (req, res) => {
@@ -51,28 +67,21 @@ router.get("/:id", (req, res) => {
       res.send(error);
     } else {
       //user exist
-      res.send(oneUser);
+      const userNoPw = { ...oneUser, password: "" }; //do not return password
+      res.status(StatusCodes.OK).send(userNoPw);
     }
-  });
+  }).lean();
 });
 
 router.post(
   "/",
-  body("name", "Please enter your name").trim().notEmpty(),
-  body("email", "Please enter a valid email address").isEmail(),
-  body(
-    "username",
-    "Username has to be at least 8 alphanumeric characters long."
-  )
+  body("username", "Username has to be at least 6 characters long.")
     .trim()
-    .isLength({ min: 8 }),
-  body(
-    "password",
-    "Password has to be at least 8 alphanumeric characters long."
-  )
-    .trim()
-    .isLength({ min: 8 })
-    .isAlphanumeric(),
+    .isLength({ min: 6 }),
+  body("password", "Password has to be at least 8 alphanumeric characters long.")
+    .trim().isLength({ min: 8 }).bail().isAlphanumeric().bail(),
+  body("name", "Please enter your name.").trim().notEmpty(),
+  body("email", "Please enter a valid email address.").isEmail(),
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -80,6 +89,7 @@ router.post(
       const locals = { UserInput: req.body, errors: errors.array() };
       res.status(StatusCodes.BAD_REQUEST).send(locals);
     } else {
+      //!! check if username already exist, if so, return error message
       //Data is valid
       console.log(req.body);
       //overwrite the user password with the hashed password, then pass that in to our database
@@ -93,7 +103,7 @@ router.post(
         if (error) {
           res.send(error);
         } else {
-          res.send("submitted!");
+          res.send(user);
           console.log("submitted");
           return user;
         }
@@ -116,23 +126,17 @@ router.post(
 //edit account
 router.put(
   "/:id",
-  body("name", "Please enter your name").optional().trim().notEmpty(),
-  body("email", "Please enter a valid email address").optional().isEmail(),
-  body(
-    "username",
-    "Username has to be at least 8 alphanumeric characters long."
-  )
+  body("username", "Username has to be at least 6 characters long.")
     .optional()
     .trim()
-    .isLength({ min: 8 }),
-  body(
-    "password",
-    "Password has to be at least 8 alphanumeric characters long."
-  )
+    .isLength({ min: 6 }),
+  body("password", "Password has to be at least 8 alphanumeric characters long.")
     .optional()
     .trim()
     .isLength({ min: 8 })
     .isAlphanumeric(),
+  body("name", "Please enter your name").optional().trim().notEmpty(),
+  body("email", "Please enter a valid email address").optional().isEmail(),
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

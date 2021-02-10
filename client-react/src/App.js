@@ -5,6 +5,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import "./App.css";
 import Home from "./pages/Home";
 import BeatSeq from "./pages/BeatSeq";
 import BeatSeqTeaser from "./pages/BeatSeqTeaser";
@@ -17,72 +18,68 @@ import Logout from "./pages/account/Logout";
 import DeleteAccount from "./pages/account/DeleteAccount";
 import Info from "./pages/Info";
 import NavBar from "./component/NavBar";
+const jwt = require("jsonwebtoken");
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState();
-  const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
-  const [username, setUsername] = useState(sessionStorage.getItem("username"));
+  const [user, setUser] = useState({});
+  // const [token, setToken] = useState("")
+  console.log("user at App", user);
 
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    console.log("App useEffect");
-    setUserId(sessionStorage.getItem("userId"));
-    setUsername(sessionStorage.getItem("username"));
-  }, [loggedIn]);
+    if (token !== null) {
+      const decoded = jwt.verify(token, "sei-26"); //cant read secret :/
+      setUser({ userId: decoded.user._id, username: decoded.user.username })
+    }
+  }, [user.userId])
 
   return (
-    <div>
-      {/* <NavBar loggedIn={loggedIn} /> */}
-      <NavBar loggedIn={loggedIn} />
+    <div class="container-fluid px-0" id="overall-app-cont">
       <Router>
+        <NavBar user={user} />
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
-          {/* <Route exact path="/restricted">
-                        <h1>You are not authorised to visit this page.</h1>
-                    </Route> */}
+          <Route exact path="/restricted">
+            <h1>You are not authorised to visit this page.</h1>
+          </Route>
           <Route exact path="/beatseq">
-            <BeatSeq />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <BeatSeq />}
           </Route>
           <Route path="/beatseq/:id">
-            <BeatSeq />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <BeatSeq />}
           </Route>
           <Route exact path="/teaser">
-            <BeatSeqTeaser />
+            {user.userId === undefined ? <BeatSeqTeaser /> : <Redirect to={"/beatseq"} />}
           </Route>
           <Route exact path="/login">
-            <Login setLoggedIn={setLoggedIn} />
+            {user.userId === undefined ? <Login setUser={setUser} /> : <Redirect to={"/beatseq"} />}
           </Route>
           <Route exact path="/user/new">
-            <SignUp setLoggedIn={setLoggedIn} />
+            {user.userId === undefined ? <SignUp setUser={setUser} /> : <Redirect to={`/user/${user.userId}`} />}
           </Route>
           <Route exact path="/user/:id">
-            {/* {userId ? <AccountView /> : <Redirect to={"/login"} />} */}
-            <AccountView />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <AccountView />}
           </Route>
           <Route exact path="/user/:id/edit">
-            <AccountEdit />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <AccountEdit />}
           </Route>
           <Route exact path="/user/:id/changepassword">
-            {/* {userId ? <PasswordEdit /> : <Redirect to={"/login"} />} */}
-            <PasswordEdit />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <PasswordEdit />}
           </Route>
           <Route exact path="/user/:id/delete">
-            {userId ? (
-              <DeleteAccount setLoggedIn={setLoggedIn} />
-            ) : (
-              <Redirect to={"/login"} />
-            )}
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <DeleteAccount user={user} setUser={setUser} />}
           </Route>
           <Route exact path="/logout">
-            <Logout setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
+            {user.userId === undefined ? <Redirect to={"/login"} /> : <Logout user={user} setUser={setUser} />}
           </Route>
           <Route exact path="/info">
             <Info />
           </Route>
         </Switch>
       </Router>
-    </div>
+    </div >
   );
 }
 export default App;

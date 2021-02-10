@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-
-import Steps from './Steps';
-
+import React, { useEffect, useContext } from "react";
+import styled from "styled-components";
+import { VolumeUp, Backspace } from "@material-ui/icons";
+import Steps from "./Steps";
+import StepContext from "./StepContext";
 const Wrapper = styled.div`
   display: flex;
   flex: 1;
@@ -26,19 +26,42 @@ const Name = styled.h2`
 `;
 
 export default function Track({ buffer, name, setBuffers }) {
-  useEffect(
-    () => {
-      setBuffers(buffers => ({
-        ...buffers,
-        [name]: buffer,
-      }));
-    },
-    [buffer]
-  );
+  const context = useContext(StepContext);
+  const clearRow = () => {
+    console.log("clearing row for", name);
+    // console.log("context.state", context.state)
+    const currentState = context.state;
+    const cleanRow = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const newState = {
+      ...currentState,
+      [name]: cleanRow,
+    };
+    console.log("newState", newState);
+    context.setSteps(newState);
+  };
+
+  useEffect(() => {
+    setBuffers((buffers) => ({
+      ...buffers,
+      [name]: buffer,
+    }));
+  }, [buffer]);
   return (
     <Wrapper>
       <Info>
-        <Name>{name}</Name>
+        <Name>
+          {name}
+          <VolumeUp
+            onClick={() => {
+              buffer.start();
+            }}
+          />
+          <Backspace
+            onClick={() => {
+              clearRow();
+            }}
+          />
+        </Name>
       </Info>
       <Steps name={name} />
     </Wrapper>

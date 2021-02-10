@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Button, Col, NavDropdown } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from 'react-router-dom';
+import "../App.css"
+// import "bootstrap/dist/css/bootstrap.min.css";
 // import { StatusProvider, useUser, useDispatch } from "./context/Context";
 
-const NavBar = ({ loggedIn }) => {
-  //   const [userType, setUserType] = useState(sessionStorage.getItem("userType"));
-  //   const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
-  // const loggedIn = false;
-  console.log(loggedIn);
-  const handleClick = (event) => {
-    // setUserType(sessionStorage.getItem("userType"));
-    // setUserId(sessionStorage.getItem("userId"));
-    console.log("handle click event");
-  };
+const NavBar = ({ user }) => {// {userId, userName}
 
-  //   useEffect(() => {
-  //     setUserType(sessionStorage.getItem("userType"));
-  //     setUserId(sessionStorage.getItem("userId"));
-  //   }, [props]);
+  const loggedIn = user.userId === undefined ? false : true
 
   return (
     <Navbar
@@ -26,34 +16,44 @@ const NavBar = ({ loggedIn }) => {
       fixed="top"
       style={{ position: "sticky", fontWeight: "bold" }}
     >
-      <Navbar.Brand href="/">Cool App Name</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">Cool App Name</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
 
-          <Nav.Link href="/info">Help</Nav.Link>
-
+          {/* <Nav.Link as={Link} to="/">Home</Nav.Link> */}
           {loggedIn ? (
-            <Nav.Link href="/beatseq">Beat Sequencer</Nav.Link>
+            <Nav.Link as={Link} to="/beatseq">Beat Sequencer</Nav.Link>
           ) : (
-            <Nav.Link href="/teaser">Teaser</Nav.Link>
-          )}
+              // <Nav.Link onTouchCancel="/teaser">Teaser</Nav.Link>
+              <Nav.Link as={Link} to="/teaser">Teaser</Nav.Link>
+            )}
 
+          <Nav.Link as={Link} to="/info">Info</Nav.Link>
+
+          {loggedIn ? (<span id="welcome-name">Welcome {user.username}</span>) : ""}
           {loggedIn ? (
             <NavDropdown title="Account" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/user/:id">View Account</NavDropdown.Item>
-              <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={`/user/${user.userId}`}>View Account</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={`/user/${user.userId}/changepassword`}>Change Password</NavDropdown.Item>
+
+              <NavDropdown.Item as={Link} to="/logout">Logout</NavDropdown.Item>
             </NavDropdown>
           ) : (
-            <>
-              <Nav.Link href="/user/new">Sign Up!</Nav.Link>
-              <Nav.Link href="/login">Login</Nav.Link>
-            </>
-          )}
+              <>
+                <Nav.Link as={Link} to="/user/new">Sign Up!</Nav.Link>
+                <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              </>
+            )}
         </Nav>
       </Navbar.Collapse>
-      {/* <Col md={3} xs={2} xl={2} lg={2}>
+    </Navbar>
+  );
+};
+
+export default NavBar;
+
+{/* <Col md={3} xs={2} xl={2} lg={2}>
         {userType ? (
           <Button
             href="/logout"
@@ -87,8 +87,3 @@ const NavBar = ({ loggedIn }) => {
           </>
         )}
       </Col> */}
-    </Navbar>
-  );
-};
-
-export default NavBar;

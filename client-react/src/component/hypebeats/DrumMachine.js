@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Tone from "tone";
 import axios from "axios";
 
 // import useBPM from './useBPM';
-import BPMF from "./BPMF";
-import useStart from "./useStart";
-import StepContext from "./StepContext";
-import Transport from "./Transport";
-import StepSequencer from "./StepSequencer";
-import Fx from "./FX";
-import TitleField from "./TitleField";
+import BPMF from './BPMF';
+import useStart from './useStart';
+import StepContext from './StepContext';
+import Transport from './Transport';
+import StepSequencer from './StepSequencer';
+import Fx from './FX';
+import TitleField from './TitleField';
+const jwt = require("jsonwebtoken");
 
 const Container = styled.div`
   max-width: 800px;
@@ -18,7 +20,6 @@ const Container = styled.div`
   background: linear-gradient(to bottom right, #222, #0a0a0a);
   border: 2px solid black;
   border-radius: 4px;
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
 `;
@@ -69,6 +70,7 @@ const initialStepState = {
 
 export default function DrumMachine(props) {
   //set in retreivedSeq object useEffect?
+  const history = useHistory();
   const [stepState, setSteps] = useState(initialStepState);
   const [buffers, setBuffers] = useState({});
   const [currentStep, setCurrentStepState] = useState(0);
@@ -94,7 +96,14 @@ export default function DrumMachine(props) {
     setBpm(newBPM);
   };
 
-  // const userId = sessionStorage.getItem('userId')
+  let user = "" //case where no token
+  // const userId = localStorage.getItem('userId')
+  const token = localStorage.getItem("token");
+  // console.log("token", token)
+  if (token !== null) {
+    const decoded = jwt.verify(token, "sei-26");//cant read secret :/
+    user = { userId: decoded.user._id, username: decoded.user.username }
+  }
 
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
@@ -178,9 +187,15 @@ export default function DrumMachine(props) {
 
   useEffect(() => {
     if (titleChange === true) {
-      handleSaveClick(); //then save it
-      props.handleNameChange(true);
-      console.log("DM, titlechange");
+      //if login then handlesave, if not dont handlesaveclick
+      if (props.oneBeatSeq._id === "" || props.oneBeatSeq._id === undefined) {
+        props.handleNameChange(true);
+        console.log("DM, titlechange");
+      } else {
+        handleSaveClick(); //then save it
+        props.handleNameChange(true);
+        console.log("DM, titlechange");
+      }
     }
     setTitleChange(false); //after save, change to false
   }, [titleChange]);
@@ -191,32 +206,46 @@ export default function DrumMachine(props) {
     props.handleSave(false);
     const beatSetUp = {
       // userId: "user1", //{userId} from session storage
-      username: "user1", //no need once we set up userId
+      userId: user.userId, //no need once we set up userId
       name: beatSeqName,
       tempo: bpm,
       beatGrid: stepState,
     };
     console.log("beatSetUp", beatSetUp);
     console.log(stepState);
-    axios
-      .put(`/api/beatSequence/${props.oneBeatSeq._id}/edit`, beatSetUp)
-      .then((response) => {
-        console.log("put to MongoDB", response.data);
-        props.handleSave(true);
-      })
-      .catch((error) => {
-        console.log("error", error);
-        console.log("error response", error.response.data.error);
-      });
-    console.log("after axios");
-    //also need newplaylist name to appear in the list
+    if (props.oneBeatSeq._id === "" || props.oneBeatSeq._id === undefined) {
+      //set localStorage name, tempo, grid
+      // redirect to login, do not have an account, sign in
+      const tempbeat = beatSetUp
+      localStorage.setItem("tempbeatseq", JSON.stringify(tempbeat));
+      alert("You need to log in to save a beat sequence. Redirecting you to Log In page")
+      return history.push(`/login`);
+      // 
+    } else {
+      axios
+        .put(`/api/beatSequence/${props.oneBeatSeq._id}/edit`, beatSetUp)
+        .then((response) => {
+          console.log("put to MongoDB", response.data);
+          props.handleSave(true);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          console.log("error response", error.response.data.error);
+        });
+      console.log("after axios");
+      //also need newplaylist name to appear in the list
+    }
   };
+
+  const handleClearGridClick = (e) => {
+    console.log("clearing grid");
+    setSteps(initialStepState)
+  }
 
   return (
     <StepContext.Provider value={{ state: stepState, setSteps }}>
       <Container>
         <Transport>
-          {/* <Logo>{beatSeqName}</Logo> */}
           <Logo>
             {" "}
             <TitleField
@@ -224,13 +253,15 @@ export default function DrumMachine(props) {
               handleTitleChange={handleTitleChange}
             />
           </Logo>
-          <Logo>BPM</Logo>
-          <BPMF
-            initalBPM={initialBpm}
-            handleBPMchange={handleBPMchange}
-            propsLoaded={bpmPropsLoaded}
-            handlePropsLoadedStatus={handlePropsLoadedStatus}
-          />
+          <div id="bpm-cont">
+            <Logo>BPM</Logo>
+            <BPMF
+              initalBPM={initialBpm}
+              handleBPMchange={handleBPMchange}
+              propsLoaded={bpmPropsLoaded}
+              handlePropsLoadedStatus={handlePropsLoadedStatus}
+            />
+          </div>
           {startButton}
         </Transport>
         <React.Suspense fallback={<p>loading</p>}>
@@ -259,8 +290,15 @@ export default function DrumMachine(props) {
             />
           </ButtonContainer>
         </React.Suspense>
-        <div>
-          <button onClick={(e) => handleSaveClick(e)}>Save</button>
+        <div class="my-0 py-0 d-flex justify-content-end">
+          {/* Last saved: {props.oneBeatSeq.updatedAt} */}
+          <Logo>
+            <button onClick={(e) => handleClearGridClick(e)}>Clear Grid</button>
+          </Logo>
+
+          <Logo >
+            <button onClick={(e) => handleSaveClick(e)}>Save</button>
+          </Logo>
         </div>
       </Container>
     </StepContext.Provider>
