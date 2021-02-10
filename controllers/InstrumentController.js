@@ -12,50 +12,50 @@ router.use(methodOverride("_method"));
 // HiHat: process.env.PUBLIC_URL + '/sounds/hat2.wav',
 // OpenHiHat: process.env.PUBLIC_URL + '/sounds/openhihat.wav',
 
-// router.get("/seed", (req, res) => {
-//         Instrument.create(
-//                 [
-//                         {
-//                                 name: "Kick",
-//                                 soundFile: process.env.PUBLIC_URL + "/sounds/kick.wav",
-//                                 picture: "http://somepic.url/kick.jpg",
-//                         },
-//                         {
-//                                 name: "Sub1",
-//                                 soundFile: process.env.PUBLIC_URL + "/sounds/bass.wav",
-//                                 picture: "http://somepic.url/sub1.jpg",
-//                         },
-//                         {
-//                                 name: "Sub2",
-//                                 soundFile: process.env.PUBLIC_URL + "/sounds/sub.wav",
-//                                 picture: "http://somepic.url/sub2.jpg",
-//                         },
-//                         {
-//                                 name: "Snare",
-//                                 soundFile: process.env.PUBLIC_URL + "/sounds/snare.wav",
-//                                 picture: "http://somepic.url/snare.jpg",
-//                         },
-//                         {
-//                                 name: "Clap",
-//                                 soundFile: process.env.PUBLIC_URL + "/sounds/clap.wav",
-//                                 picture: "http://somepic.url/clap.jpg",
-//                         },
-//                         {
-//                                 name: "HiHat",
-//                                 soundFile: process.env.PUBLIC_URL + "/sounds/hat2.wav",
-//                                 picture: "http://somepic.url/hiHat.jpg",
-//                         },
-//                         {
-//                                 name: "OpenHiHat",
-//                                 soundFile: process.env.PUBLIC_URL + "/sounds/openhihat.wav",
-//                                 picture: "http://somepic.url/openHiHat.jpg",
-//                         },
-//                 ],
-//                 (error, instrument) => {
-//                         res.redirect("/api/instrument");
-//                 }
-//         );
-// });
+router.get("/seed", (req, res) => {
+  Instrument.create(
+    [
+      {
+        name: "Kick",
+        soundFile: process.env.PUBLIC_URL + "/sounds/kick.wav",
+        picture: "http://somepic.url/kick.jpg",
+      },
+      {
+        name: "Sub1",
+        soundFile: process.env.PUBLIC_URL + "/sounds/bass.wav",
+        picture: "http://somepic.url/sub1.jpg",
+      },
+      {
+        name: "Sub2",
+        soundFile: process.env.PUBLIC_URL + "/sounds/sub.wav",
+        picture: "http://somepic.url/sub2.jpg",
+      },
+      {
+        name: "Snare",
+        soundFile: process.env.PUBLIC_URL + "/sounds/snare.wav",
+        picture: "http://somepic.url/snare.jpg",
+      },
+      {
+        name: "Clap",
+        soundFile: process.env.PUBLIC_URL + "/sounds/clap.wav",
+        picture: "http://somepic.url/clap.jpg",
+      },
+      {
+        name: "HiHat",
+        soundFile: process.env.PUBLIC_URL + "/sounds/hat2.wav",
+        picture: "http://somepic.url/hiHat.jpg",
+      },
+      {
+        name: "OpenHiHat",
+        soundFile: process.env.PUBLIC_URL + "/sounds/openhihat.wav",
+        picture: "http://somepic.url/openHiHat.jpg",
+      },
+    ],
+    (error, instrument) => {
+      res.redirect("/api/instrument");
+    }
+  );
+});
 
 router.get("/", (req, res) => {
   //index, get all
