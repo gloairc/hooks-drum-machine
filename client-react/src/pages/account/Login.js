@@ -86,7 +86,7 @@ const Login = (props) => {
 
 
   return (
-    <div className="login">
+    <div className="login" class="container-fluid">
       <div className="title">
         <h1>Log In</h1>
       </div>
