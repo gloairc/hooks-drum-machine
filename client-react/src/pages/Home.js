@@ -2,9 +2,9 @@
 const Home = () => {
   return (
     <div className="homeText">
-      <p style={{ fontSize: "65px", fontWeight: "bold" }}>BeatIT!</p>
-      <p style={{ fontSize: "30px" }}>Drop the beat anytime, anywhere.</p>
-      <p style={{ fontSize: "30px" }}>Lay down some sick grooves on the go.</p>
+      <p style={{ fontSize: "45px", fontWeight: "bold" }}>Cool App Name</p>
+      <p style={{ fontSize: "20px" }}>Drop the beat anytime, anywhere.</p>
+      <p style={{ fontSize: "20px" }}>Lay down some sick grooves on the go.</p>
       <div className="demoGif" />
       {/* <img
         src="/img/beatSeq.gif"
