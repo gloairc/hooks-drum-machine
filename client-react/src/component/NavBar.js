@@ -29,7 +29,7 @@ const NavBar = ({ user }) => {// {userId, userName}
               <Nav.Link as={Link} to="/teaser">Teaser</Nav.Link>
             )}
 
-          <Nav.Link as={Link} to="/help">Help</Nav.Link>
+          <Nav.Link as={Link} to="/info">Info</Nav.Link>
 
           {loggedIn ? (<span id="welcome-name">Welcome {user.username}</span>) : ""}
           {loggedIn ? (
@@ -47,7 +47,13 @@ const NavBar = ({ user }) => {// {userId, userName}
             )}
         </Nav>
       </Navbar.Collapse>
-      {/* <Col md={3} xs={2} xl={2} lg={2}>
+    </Navbar>
+  );
+};
+
+export default NavBar;
+
+{/* <Col md={3} xs={2} xl={2} lg={2}>
         {userType ? (
           <Button
             href="/logout"
@@ -81,8 +87,3 @@ const NavBar = ({ user }) => {// {userId, userName}
           </>
         )}
       </Col> */}
-    </Navbar>
-  );
-};
-
-export default NavBar;

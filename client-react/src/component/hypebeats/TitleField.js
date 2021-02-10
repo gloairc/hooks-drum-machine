@@ -46,7 +46,7 @@ const TitleField = (props) => {
         } else {
             return (
                 <>
-                    Title: <span>{textValue}</span>
+                    Title: <span>{textValue}   </span>
                 </>
             )
         }

@@ -110,23 +110,7 @@ const AccountView = () => {//user={userId, username}
                 </Button>
                             </Link>
                         </div>
-                        {/* <div className="rightLink">
-                        <Link to={`/user/${userId}/changepassword`}>
-                            <Button
-                                variant="outline-warning"
-                                style={{
-                                    borderRadius: "10px",
-                                    padding: "6px",
-                                    width: "150px",
-                                    marginTop: "10px",
-                                    border: "3px solid",
-                                    fontWeight: "bold",
-                                }}
-                            >
-                                Change Password
-                </Button>
-                        </Link>
-                    </div> */}
+
                         <div className="rightLink">
                             <Link to={`/user/${user.userId}/delete`}>
                                 <Button

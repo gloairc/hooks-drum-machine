@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
-import { VolumeUp } from "@material-ui/icons";
+import { VolumeUp, Backspace } from "@material-ui/icons";
 import Steps from "./Steps";
-
+import StepContext from "./StepContext";
 const Wrapper = styled.div`
   display: flex;
   flex: 1;
@@ -26,6 +26,36 @@ const Name = styled.h2`
 `;
 
 export default function Track({ buffer, name, setBuffers }) {
+  const context = useContext(StepContext);
+  const clearRow = () => {
+    console.log("clearing row for", name);
+    const specificRow = name;
+    console.log("context.state", context.state);
+    const currentState = context.state;
+    const cleanRow = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    // const newRow ={ {name}: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
+    const newState = {
+      ...currentState,
+      name: cleanRow,
+    };
+
+    console.log("newState", newState);
+    // context.setSteps(state => {
+    //   const cleanRow =  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    //   const newState = {...state, name: cleanRow}
+    //   let specificRow = [...state[name]];//specific row
+    //   console.log("specificRow", specificRow)
+    // Kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+    // steps[index] = 0;
+    // return {
+    //   ...state,
+    //   [name]: steps,
+    // };
+    // });
+    // })
+  };
+
   useEffect(() => {
     setBuffers((buffers) => ({
       ...buffers,
@@ -35,14 +65,18 @@ export default function Track({ buffer, name, setBuffers }) {
   return (
     <Wrapper>
       <Info>
-        <Name
-          onClick={() => {
-            console.log("click");
-            buffer.start();
-          }}
-        >
+        <Name>
           {name}
-          <VolumeUp />
+          <VolumeUp
+            onClick={() => {
+              buffer.start();
+            }}
+          />
+          <Backspace
+            onClick={() => {
+              clearRow();
+            }}
+          />
         </Name>
       </Info>
       <Steps name={name} />

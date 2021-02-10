@@ -25,12 +25,11 @@ const Login = (props) => {
   const [loginStatus, setLoginStatus] = useState(false); //to redirect to /beatseq
   const [status, setStatus] = useState(""); //inform user that logging in
 
-  const secret = process.env.JWT_SECRET_KEY;
+  // const secret = process.env.JWT_SECRET_KEY;
 
   const handleLogin = (event) => {
     event.preventDefault();
-    setStatus("logging in"); //re-render
-
+    setErrorMsg("")
     axios
       .post("/api/session", formData, { withCredentials: true }) //get token
       .then((response) => {
@@ -44,17 +43,24 @@ const Login = (props) => {
             userId: decoded.user._id,
             username: decoded.user.username,
           }; //useState or if statement?
+          setStatus("logging in"); //re-render
           props.setUser(user);
           console.log("logging in");
-          setLoginStatus(true);
+          setTimeout(() => {
+            setLoginStatus(true);
+          }, 800);
         }
       })
       .catch((error) => {
         //handling error not working
         setStatus("");
-        setErrorMsg(error.error);
-        // setErrorMsg(error.response.data.error); // custom message from backend
-        console.log("error from posting session", error);
+        // setErrorMsg(error.error);
+        if (error.response.data.error === undefined) {
+          setErrorMsg(error.response.statusText)
+        } else {
+          setErrorMsg(error.response.statusText + ", " + error.response.data.error);
+        } // custom message from backend
+        console.log("error from posting session error.response", error.response);
       });
   };
 
@@ -67,16 +73,25 @@ const Login = (props) => {
   const valueWidth = 5;
   const buffer = 1;
 
+  const message = () => {
+    if (errorMsg) {
+      console.log(errorMsg)
+      return < Alert variant="danger" > <span class="font-weight-bold">Oh no! </span>{errorMsg}</Alert >
+    } else if (status === "logging in") {
+      return <Alert variant="success"><span class="font-weight-bold">Success : </span>Get ready to dope!</Alert>
+    } else {
+      return <span />
+    }
+  }
+
+
   return (
     <div className="login">
       <div className="title">
         <h1>Log In</h1>
       </div>
       <div className="loginForm">
-        <Row>
-          <Col sm={buffer} />
-          {errorMsg ? <Alert variant="danger">Error! {errorMsg}</Alert> : ""}
-        </Row>
+
         <Form onSubmit={handleLogin}>
           <FormGroup as={Row} controlId="username">
             <Col sm={buffer} />
@@ -115,15 +130,13 @@ const Login = (props) => {
             </Col>
           </FormGroup>
           <Row>
+
             <Col sm={buffer} />
-            <Col sm={keyWidth}>
+            <Col sm={valueWidth + 1}>{message()}</Col>
+            <Col sm={keyWidth - 1}>
               <Button variant="primary" type="submit">
                 Log In
               </Button>
-            </Col>
-
-            <Col sm="3">
-              {status === "logging in" ? "Logging in, please wait.." : ""}
             </Col>
           </Row>
         </Form>
