@@ -239,11 +239,15 @@ export default function DrumMachine(props) {
     }
   };
 
+  const handleClearGridClick = (e) => {
+    console.log("clearing grid");
+    setSteps(initialStepState)
+  }
+
   return (
     <StepContext.Provider value={{ state: stepState, setSteps }}>
       <Container>
         <Transport>
-          {/* <Logo>{beatSeqName}</Logo> */}
           <Logo>
             {" "}
             <TitleField
@@ -287,6 +291,7 @@ export default function DrumMachine(props) {
           </ButtonContainer>
         </React.Suspense>
         <div>
+          <button onClick={(e) => handleClearGridClick(e)}>Clear Grid</button>
           <button onClick={(e) => handleSaveClick(e)}>Save</button>
         </div>
       </Container>

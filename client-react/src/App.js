@@ -31,7 +31,7 @@ function App() {
       const decoded = jwt.verify(token, "sei-26"); //cant read secret :/
       setUser({ userId: decoded.user._id, username: decoded.user.username })
     }
-  })
+  }, [user.userId])
 
   return (
     <div>
