@@ -44,7 +44,7 @@ const BeatSeqList = (props) => {
 
     const noList = ( //inform no list, start by clicking add button
         <div>
-            <p class="pt-2">
+            <p class="p-2">
                 You don't have a playlist, start one by clicking the add button below
       </p>
         </div>
@@ -69,7 +69,7 @@ const BeatSeqList = (props) => {
         activeList.length === 0 ? noList : renderListCards();
     return (
         <div id="beatseqlist">
-            beatseqlist
+            {/* beatseqlist */}
             {renderBeatSeqList}
         </div>
     );

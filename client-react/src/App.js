@@ -34,7 +34,7 @@ function App() {
   }, [user.userId])
 
   return (
-    <div>
+    <div class="container-fluid px-0" id="overall-app-cont">
       <Router>
         <NavBar user={user} />
         <Switch>

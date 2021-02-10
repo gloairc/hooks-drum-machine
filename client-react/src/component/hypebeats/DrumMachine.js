@@ -20,7 +20,6 @@ const Container = styled.div`
   background: linear-gradient(to bottom right, #222, #0a0a0a);
   border: 2px solid black;
   border-radius: 4px;
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
 `;
@@ -105,7 +104,6 @@ export default function DrumMachine(props) {
     const decoded = jwt.verify(token, "sei-26");//cant read secret :/
     user = { userId: decoded.user._id, username: decoded.user.username }
   }
-
 
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
@@ -255,13 +253,15 @@ export default function DrumMachine(props) {
               handleTitleChange={handleTitleChange}
             />
           </Logo>
-          <Logo>BPM</Logo>
-          <BPMF
-            initalBPM={initialBpm}
-            handleBPMchange={handleBPMchange}
-            propsLoaded={bpmPropsLoaded}
-            handlePropsLoadedStatus={handlePropsLoadedStatus}
-          />
+          <div id="bpm-cont">
+            <Logo>BPM</Logo>
+            <BPMF
+              initalBPM={initialBpm}
+              handleBPMchange={handleBPMchange}
+              propsLoaded={bpmPropsLoaded}
+              handlePropsLoadedStatus={handlePropsLoadedStatus}
+            />
+          </div>
           {startButton}
         </Transport>
         <React.Suspense fallback={<p>loading</p>}>
@@ -291,7 +291,8 @@ export default function DrumMachine(props) {
           </ButtonContainer>
         </React.Suspense>
         <div class="my-0 py-0 d-flex justify-content-end">
-          <Logo >
+          {/* Last saved: {props.oneBeatSeq.updatedAt} */}
+          <Logo>
             <button onClick={(e) => handleClearGridClick(e)}>Clear Grid</button>
           </Logo>
 
