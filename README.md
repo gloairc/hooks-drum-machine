@@ -23,18 +23,44 @@ To be deployed soon!
 ## More about our project
 ### General Approach
 While looking for an exciting project to work on, both of us came across apps that play instruments. 
-Mitch chanced upon an [article] (https://medium.com/open-graphql/building-a-real-time-collaborative-beatbox-with-react-graphql-96246e9fed80) that led us to the [hooks-drum-machine repo] (https://github.com/kenwheeler/hooks-drum-machine). Seeing that it was using the React which we were familiar with and the idea of working on a step sequencer sounds interesting, we decided to take the project further by adding a MongoDB backend such that one can not only play it, but save, replay and edit!
+Mitch chanced upon an [article] (https://medium.com/open-graphql/building-a-real-time-collaborative-beatbox-with-react-graphql-96246e9fed80) that led us to the [hooks-drum-machine repo] (https://github.com/kenwheeler/hooks-drum-machine). Seeing that it was using the React which we were familiar with and the idea of working on a step sequencer sounds interesting, we decided to take the project further by adding a MongoDB + Express.js + Node.js backend so that one can not only play it, but save, replay and edit!
+
+We started with deciding the scope of our project, filtering what was MVP and what were additional feature -> User Journey -> Wireframe -> Delegation & Timeline.
+
+The feature which we will be adding in this version of BeatIT! (ver 1) are:
+**User-Related**
+  - Add Account
+  - Edit Account
+  - Change Password
+  - Beat Sequence created are private (only creator can see it)
+  
+**Beat Sequencer-Related**
+  - Save
+  - Clear Row, clear Grid
+  - Hear the sound of instrument on click
+  - Change the name of the beat sequence
     
 Read more in our user stories in the link below!
     
 ### User Stories, Wireframe
 - [Link to User Story] https://docs.google.com/document/d/11PR2Pvzlb_E6eEDnZxj19IQ0kj8GwzNpXalNAsgoKBc/edit?usp=sharing
 - [Link to Wireframe]  https://www.figma.com/file/XGSvtv1WkJQuKWl8GaR6Dp/Project-4-cool-app-name-wireframe?node-id=0%3A1
+
+### Major Hurdles
+1.  Having to go back to the bare minimum MongoDB Schema
+- We initially planned our schema to emcompass the future additional features that we wanted to have (user can add, upload, remove instruments & soundtrack). However, 2 days into our 5-day project timeline, we found it hard to fit our planned schema into the way the original hook-drum-machine was coded (foresee numerous data manipulation). Considering the time limitation, we decided to drop our planned schema and adapt the schema to how the original repo was coded.
+
+2. User Authorisation and Authentication 
+- We faced the issue of page refreshing every time we click on a route in the Navbar. This cause the logged in users to be logged out with every page toggle or refresh.
+We finally found the reason why - using Nav.Link from react-bootstap, which was different from Link to in react-router-dom. 
+
+3. <More to come>
     
 ### Future Addition Features
 - [ ] Add/ Upload/ Remove instruments & soundtracks, even your own!
 - [ ] Re-order the the instrument rows
 - [ ] Add grid to make it a 2-, 3-grid sequence
+= [ ] Share beat sequence created to everyone (a public listing page)
 - [ ] Drum Kit (user-friendly buttons to play the drums, without a sequencer)
 
 ## Installation Instructions
