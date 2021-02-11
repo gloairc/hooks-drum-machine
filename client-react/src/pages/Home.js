@@ -3,9 +3,11 @@ const Home = () => {
   return (
     <div className="homeText">
       <div id="home-onlyText">
-        <p style={{ fontSize: "45px", fontWeight: "bold" }}>Cool App Name</p>
+        <p style={{ fontSize: "45px", fontWeight: "bold" }}>BeatIT!</p>
         <p style={{ fontSize: "20px" }}>Drop the beat anytime, anywhere.</p>
-        <p style={{ fontSize: "20px" }}>Lay down some sick grooves on the go.</p>
+        <p style={{ fontSize: "20px" }}>
+          Lay down some sick grooves on the go.
+        </p>
       </div>
       <div className="demoGif" />
       {/* <img
