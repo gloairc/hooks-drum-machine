@@ -25,11 +25,11 @@ const Login = (props) => {
   const [loginStatus, setLoginStatus] = useState(false); //to redirect to /beatseq
   const [status, setStatus] = useState(""); //inform user that logging in
 
-  // const secret = process.env.JWT_SECRET_KEY;
+  const secret = process.env.JWT_SECRET_KEY;
 
   const handleLogin = (event) => {
     event.preventDefault();
-    setErrorMsg("")
+    setErrorMsg("");
     axios
       .post("/api/session", formData, { withCredentials: true }) //get token
       .then((response) => {
@@ -38,7 +38,7 @@ const Login = (props) => {
           //set token to localStorage
           const token = response.data.token;
           localStorage.setItem("token", token);
-          const decoded = jwt.verify(token, "sei-26"); //cant read secret :/
+          const decoded = jwt.verify(token, secret); //cant read secret :/
           const user = {
             userId: decoded.user._id,
             username: decoded.user.username,
@@ -56,11 +56,16 @@ const Login = (props) => {
         setStatus("");
         // setErrorMsg(error.error);
         if (error.response.data.error === undefined) {
-          setErrorMsg(error.response.statusText)
+          setErrorMsg(error.response.statusText);
         } else {
-          setErrorMsg(error.response.statusText + ", " + error.response.data.error);
+          setErrorMsg(
+            error.response.statusText + ", " + error.response.data.error
+          );
         } // custom message from backend
-        console.log("error from posting session error.response", error.response);
+        console.log(
+          "error from posting session error.response",
+          error.response
+        );
       });
   };
 
@@ -75,15 +80,24 @@ const Login = (props) => {
 
   const message = () => {
     if (errorMsg) {
-      console.log(errorMsg)
-      return < Alert variant="danger" > <span class="font-weight-bold">Oh no! </span>{errorMsg}</Alert >
+      console.log(errorMsg);
+      return (
+        <Alert variant="danger">
+          {" "}
+          <span class="font-weight-bold">Oh no! </span>
+          {errorMsg}
+        </Alert>
+      );
     } else if (status === "logging in") {
-      return <Alert variant="success"><span class="font-weight-bold">Success : </span>Get ready to dope!</Alert>
+      return (
+        <Alert variant="success">
+          <span class="font-weight-bold">Success : </span>Get ready to dope!
+        </Alert>
+      );
     } else {
-      return <span />
+      return <span />;
     }
-  }
-
+  };
 
   return (
     <div className="form-box">
@@ -92,7 +106,6 @@ const Login = (props) => {
       </div>
 
       <div class="detailform-cont">
-
         <Form onSubmit={handleLogin}>
           <FormGroup as={Row} controlId="username">
             <Col sm={buffer} />
@@ -131,7 +144,6 @@ const Login = (props) => {
             </Col>
           </FormGroup>
           <Row>
-
             <Col sm={buffer} />
             <Col sm={valueWidth + 1}>{message()}</Col>
             <Col sm={keyWidth - 1}>
