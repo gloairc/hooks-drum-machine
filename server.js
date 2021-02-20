@@ -5,7 +5,7 @@ const methodOverride = require("method-override");
 const app = express();
 
 var MONGODB_URI =
-  "mongodb+srv://g00nd0:Slowlywerot-(1989)!@sei26-project4.dxhyr.mongodb.net/beatit?retryWrites=true&w=majority";
+  "mongodb+srv://<username>:<password>!@sei26-project4.dxhyr.mongodb.net/beatit?retryWrites=true&w=majority";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
