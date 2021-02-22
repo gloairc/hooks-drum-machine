@@ -43,8 +43,8 @@ The feature which we will be adding in this version of BeatIT! (ver 1) are:
 Read more in our user stories in the link below!
     
 ### User Stories, Wireframe
-- [Link to User Story] (https://docs.google.com/document/d/11PR2Pvzlb_E6eEDnZxj19IQ0kj8GwzNpXalNAsgoKBc/edit?usp=sharing)
-- [Link to Wireframe]  (https://www.figma.com/file/XGSvtv1WkJQuKWl8GaR6Dp/Project-4-cool-app-name-wireframe?node-id=0%3A1)
+- [Link to User Story](https://docs.google.com/document/d/11PR2Pvzlb_E6eEDnZxj19IQ0kj8GwzNpXalNAsgoKBc/edit?usp=sharing)
+- [Link to Wireframe](https://www.figma.com/file/XGSvtv1WkJQuKWl8GaR6Dp/Project-4-cool-app-name-wireframe?node-id=0%3A1)
 
 ### Major Hurdles
 1.  Having to go back to the bare minimum MongoDB Schema
@@ -59,7 +59,7 @@ We finally found the reason why - using Nav.Link from react-bootstap, which was 
 - ~~currently unable to deploy to Heroku (need to replace that node module, but unable to do so for now)~~
 - Installing the `react-cache`package via `npm install` command has issues and prevents the app from running correctly locally. Resolved this by copying the files from the repo stated below (also see instructions).
 - Previously unable to deploy on Heroku due to an issue with the node module, `react-cache`.
-- This has been fixed as of 22/02/21. The following files were used from (this repo)[https://github.com/jaredpalmer/the-platform/tree/c1d20b31a49ab5df01f21448e2e6129ffd51a57e/example/vendor/react-cache]:
+- This has been fixed as of 22/02/21. The following files were used from [this repo](https://github.com/jaredpalmer/the-platform/tree/c1d20b31a49ab5df01f21448e2e6129ffd51a57e/example/vendor/react-cache):
   i. react-cache.development.js
   ii. react-cache.production.min.js
     
