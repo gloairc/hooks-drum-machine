@@ -6,7 +6,7 @@ Simple step sequencer built with React Hooks, adapted from [hooks-drum-machine] 
 Mitch, Gloria
 
 ## Working App
-To be deployed soon!
+https://project-beatit.herokuapp.com/
   
 ## Technologies used:
 - MERN Stack (MongoDB, Express.js, React, Node.js)
