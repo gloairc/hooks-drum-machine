@@ -23,7 +23,7 @@ Mitch, Gloria
 ## More about our project
 ### General Approach
 While looking for an exciting project to work on, both of us came across apps that play instruments. 
-Mitch chanced upon an [article] (https://medium.com/open-graphql/building-a-real-time-collaborative-beatbox-with-react-graphql-96246e9fed80) that led us to the [hooks-drum-machine repo] (https://github.com/kenwheeler/hooks-drum-machine). Seeing that it was using the React which we were familiar with and the idea of working on a step sequencer sounds interesting, we decided to take the project further by adding a MongoDB + Express.js + Node.js backend so that one can not only play it, but save, replay and edit!
+Mitch chanced upon an [article](https://medium.com/open-graphql/building-a-real-time-collaborative-beatbox-with-react-graphql-96246e9fed80) that led us to the [hooks-drum-machine repo](https://github.com/kenwheeler/hooks-drum-machine). Seeing that it was using the React which we were familiar with and the idea of working on a step sequencer sounds interesting, we decided to take the project further by adding a MongoDB + Express.js + Node.js backend so that one can not only play it, but save, replay and edit!
 
 We started with deciding the scope of our project, filtering what was MVP and what were additional feature -> User Journey -> Wireframe -> Delegation & Timeline.
 
@@ -43,8 +43,8 @@ The feature which we will be adding in this version of BeatIT! (ver 1) are:
 Read more in our user stories in the link below!
     
 ### User Stories, Wireframe
-- [Link to User Story] https://docs.google.com/document/d/11PR2Pvzlb_E6eEDnZxj19IQ0kj8GwzNpXalNAsgoKBc/edit?usp=sharing
-- [Link to Wireframe]  https://www.figma.com/file/XGSvtv1WkJQuKWl8GaR6Dp/Project-4-cool-app-name-wireframe?node-id=0%3A1
+- [Link to User Story] (https://docs.google.com/document/d/11PR2Pvzlb_E6eEDnZxj19IQ0kj8GwzNpXalNAsgoKBc/edit?usp=sharing)
+- [Link to Wireframe]  (https://www.figma.com/file/XGSvtv1WkJQuKWl8GaR6Dp/Project-4-cool-app-name-wireframe?node-id=0%3A1)
 
 ### Major Hurdles
 1.  Having to go back to the bare minimum MongoDB Schema
