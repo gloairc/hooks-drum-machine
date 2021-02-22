@@ -1,12 +1,12 @@
 # Project 4 - BeatIT!
 Get to Play, Save, Replay & Edit you very own beat sequence.
-Simple step sequencer built with React Hooks, adapted from [hooks-drum-machine] (https://github.com/kenwheeler/hooks-drum-machine)
+Simple step sequencer built with React Hooks, adapted from [hooks-drum-machine](https://github.com/kenwheeler/hooks-drum-machine)
 
 ### Members
 Mitch, Gloria
 
 ## Working App
-To be deployed soon!
+[Click here!](https://sei26-project4.herokuapp.com/)
   
 ## Technologies used:
 - MERN Stack (MongoDB, Express.js, React, Node.js)
@@ -55,8 +55,13 @@ Read more in our user stories in the link below!
 We finally found the reason why - using Nav.Link from react-bootstap, which was different from Link to in react-router-dom. 
 
 3. Node Module Bug
-- had to replace some lines in react-cache node module (see below)
-- currently unable to deploy to Heroku (need to replace that node module, but unable to do so for now)
+- ~~had to replace some lines in react-cache node module (see below)~~
+- ~~currently unable to deploy to Heroku (need to replace that node module, but unable to do so for now)~~
+- Installing the `react-cache`package via `npm install` command has issues and prevents the app from running correctly locally. Resolved this by copying the files from the repo stated below (also see instructions).
+- Previously unable to deploy on Heroku due to an issue with the node module, `react-cache`.
+- This has been fixed as of 22/02/21. The following files were used from (this repo)[https://github.com/jaredpalmer/the-platform/tree/c1d20b31a49ab5df01f21448e2e6129ffd51a57e/example/vendor/react-cache]:
+  i. react-cache.development.js
+  ii. react-cache.production.min.js
     
 ### Future Addition Features
 - [ ] Add/ Upload/ Remove instruments & soundtracks, even your own!
@@ -67,30 +72,5 @@ We finally found the reason why - using Nav.Link from react-bootstap, which was 
 
 ## Installation Instructions
  - git clone, npm install (root folder as well as client-react folder)
- - Note: replace line 241-250 of the node_module react-cache/cjs/react-cache.development.js 
-```javascript
-// var currentOwner = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner;
-// function readContext(Context, observedBits) {
-//   var dispatcher = currentOwner.currentDispatcher;
-//   if (dispatcher === null) {
-//     throw new Error('react-cache: read and preload may only be called from within a ' + "component's render. They are not supported in event handlers or " + 'lifecycle methods.');
-//   }
-//   return dispatcher.readContext(Context, observedBits);
-// }
-    const ReactCurrentDispatcher =
-      React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
-        .ReactCurrentDispatcher;
-    function readContext(Context, observedBits) {
-      const dispatcher = ReactCurrentDispatcher.current;
-      if (dispatcher === null) {
-        throw new Error(
-          'react-cache: read and preload may only be called from within a ' +
-          "component's render. They are not supported in event handlers or " +
-          'lifecycle methods.',
-        );
-      }
-      return dispatcher.readContext(Context, observedBits);
-    }
-```
-- after which, you can npm run start
-    
+ - Copy the contents in the `fix/` folder into `client-react/node_module/` folder, if running locally
+ - after which, you can `npm run start-local` for both server and client (run `npm start` in `client-react` folder) for running app locally
